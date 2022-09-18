@@ -1,0 +1,30 @@
+Cognito Notes:
+
+Video : https://www.youtube.com/watch?v=QEGo6ZoN-ao&t=440s
+Integration vid: https://www.youtube.com/watch?v=U4hEflgix9c
+
+- AWS service that offers Authn and authz
+- keep active user directory, secure api's, provide temp access
+
+User Pools
+	- Pool of users
+	- App -> authenticate + get tokens -> user pool -> sign in
+	- Can integrate other social sign ons with Cognito in our user pool
+Identity Pools
+	- Provide short term access to AWS services
+	- app -> login provider -> cognito -> SWS
+
+*Can tag attributes in user pools with roles
+	-Ex in identity pool if user is tagged w admin role we can sign in with admin privileges
+
+- Can keep track if email or phone # has been verified
+
+Flow
+User auth -> Cognito sends back tokens -> We have to send those tokens to our backend
+and examine them to validate they are correct
+
+Can have cognito triggers too using Lambda funcs
+
+Integrate w next.js
+
+-use next-auth js. Authentication library within next.js
