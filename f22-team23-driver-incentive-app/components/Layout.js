@@ -1,10 +1,18 @@
 import Head from 'next/head';
 import React from 'react';
 import Link from 'next/link';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 // Anything inside {} is a dynamic property.
 
 export default function Layout({ title, children }) {
+  const { data: session, status } = useSession();
+  const loading = status === 'loading';
+
+  if (loading) {
+    return null;
+  }
+
   return (
     <>
       <Head>
@@ -18,14 +26,32 @@ export default function Layout({ title, children }) {
             <Link href="/">
               <a className="text-lg font-bold">LotWizard</a>
             </Link>
-            <div>
-              <Link href="/cart">
-                <a className="p-2">Account</a>
-              </Link>
-              <Link href="/login">
-                <a className="p-2">Log in</a>
-              </Link>
-            </div>
+
+            {session ? (
+              <div>
+                <Link href="/account">
+                  <a className="p-2 hover:text-blue-600">Account</a>
+                </Link>
+                <button
+                  className="p-2 hover:text-blue-600"
+                  onClick={() => signOut()}
+                >
+                  Sign out
+                </button>
+              </div>
+            ) : (
+              <div>
+                <Link href="/register">
+                  <a className="p-2 hover:text-blue-600">Register</a>
+                </Link>
+                <button
+                  className="p-2 hover:text-blue-600"
+                  onClick={() => signIn()}
+                >
+                  Sign in
+                </button>
+              </div>
+            )}
           </nav>
         </header>
 
