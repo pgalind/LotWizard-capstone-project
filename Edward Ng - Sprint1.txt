@@ -1,0 +1,14 @@
+Our team is building a website. We will be using the React library, coupled with the next.js framework running on top of the node.js runtime environment to conveniently represent our front-end. React is known for being able to elegantly construct large portions of a web document while only relying on reusable, simplified code.
+
+I studied the theory of node.js, in it's role in the industry as well as its runtime system capabilities:
+https://en.wikipedia.org/wiki/Node.js
+https://www.geeksforgeeks.org/explain-the-working-of-node-js/#:~:text=It%20is%20a%20used%20as,fast%2C%20and%20data%2Dintensive.
+
+I installed it by following installation documentation, additionally taking note of how it interacts with other frameworks such as Express.js for reference:
+https://nodejs.org/en/download/package-manager/
+https://www.computerhope.com/issues/ch002070.htm
+https://expressjs.com/
+https://nextjs.org/
+
+I followed a youtube tutorial showing an example of how one would build a website using node.js alongside Next.js, Tailwind and MongoDB
+https://www.youtube.com/watch?v=_IBlyR5mRzA
