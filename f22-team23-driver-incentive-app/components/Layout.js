@@ -14,9 +14,8 @@ export default function Layout({ title, children }) {
 
   // ADDED BY KALEB
   const log_SignInClicked = event =>{
-    console.log(value)
-    let data={content : value}
-      axios.post('/api/sendpost', data)
+    let data={content : 'sign in attempted'}
+      axios.post('/api/log_signinclicked', data)
       .then((response) => {
         console.log(response)
       })
@@ -66,7 +65,7 @@ export default function Layout({ title, children }) {
                 </Link>
                 <button
                   className="p-2 hover:text-blue-600"
-                  onClick={() => signInButtonClicked()} // CHANGED BY KALEB
+                  onClick={signInButtonClicked} // CHANGED BY KALEB
                 >
                   Sign in
                 </button>
