@@ -6,12 +6,7 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 // Anything inside {} is a dynamic property.
 
 export default function Layout({ title, children }) {
-  const { data: session, status } = useSession();
-  const loading = status === 'loading';
-
-  if (loading) {
-    return null;
-  }
+  const { data: session } = useSession();
 
   return (
     <>
