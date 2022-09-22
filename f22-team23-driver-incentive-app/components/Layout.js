@@ -6,7 +6,31 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 // Anything inside {} is a dynamic property.
 
 export default function Layout({ title, children }) {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const loading = status === 'loading';
+
+
+  // ADDED BY KALEB
+  const log_SignInClicked = event =>{
+    let data={content : 'sign in attempted'}
+      axios.post('/api/log_signinclicked', data)
+      .then((response) => {
+        console.log(response)
+      })
+  }
+
+  
+
+
+  const signInButtonClicked = event => {
+    log_SignInClicked(event)
+    signIn()
+  };
+  // END ADDED
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <>
@@ -41,7 +65,7 @@ export default function Layout({ title, children }) {
                 </Link>
                 <button
                   className="p-2 hover:text-blue-600"
-                  onClick={() => signIn()}
+                  onClick={signInButtonClicked} // CHANGED BY KALEB
                 >
                   Sign in
                 </button>
