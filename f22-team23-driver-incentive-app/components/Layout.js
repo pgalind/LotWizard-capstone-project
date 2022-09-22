@@ -6,11 +6,10 @@ import axios from 'axios'; // ADDED BY KALEB
 
 // Anything inside {} is a dynamic property.
 
-
-
 export default function Layout({ title, children }) {
   const { data: session, status } = useSession();
   const loading = status === 'loading';
+
 
   // ADDED BY KALEB
   const log_SignInClicked = event =>{
@@ -20,6 +19,8 @@ export default function Layout({ title, children }) {
         console.log(response)
       })
   }
+
+  
 
 
   const signInButtonClicked = event => {
