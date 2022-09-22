@@ -2,7 +2,6 @@ import Head from 'next/head';
 import React from 'react';
 import Link from 'next/link';
 import { useSession, signIn, signOut } from 'next-auth/react';
-import axios from 'axios'; // ADDED BY KALEB
 
 // Anything inside {} is a dynamic property.
 
