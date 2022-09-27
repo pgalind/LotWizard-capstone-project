@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import ItemsGrid from '../components/ItemsGrid';
-import Layout from '../components/Layout';
+import Layout from '../components/layout/Layout';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import ItemsLink from '../components/ItemsLink';
 
@@ -13,8 +13,8 @@ export default function Home() {
       <Layout title="Home Page">
         <ItemsGrid>
           <ItemsLink dest="catalog" title="Sponsor Catalog"></ItemsLink>
-          <ItemsLink dest="" title="Sponsor Catalog"></ItemsLink>
-          <ItemsLink dest="" title="Sponsor Catalog"></ItemsLink>
+          <ItemsLink dest="" title=""></ItemsLink>
+          <ItemsLink dest="" title=""></ItemsLink>
         </ItemsGrid>
       </Layout>
     );

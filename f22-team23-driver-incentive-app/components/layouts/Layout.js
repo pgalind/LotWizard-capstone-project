@@ -1,31 +1,28 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { useReducer } from 'react';
 import Link from 'next/link';
-import axios from 'axios'
+import axios from 'axios';
 import { useSession, signIn, signOut } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 // Anything inside {} is a dynamic property.
 
 export default function Layout({ title, children }) {
+  const router = useRouter();
   const { data: session, status } = useSession();
   const loading = status === 'loading';
 
-
   // ADDED BY KALEB
-  const log_SignInClicked = event =>{
-    let data={content : 'sign in attempted'}
-      axios.post('/api/log_signinclicked', data)
-      .then((response) => {
-        console.log(response)
-      })
-  }
+  const log_SignInClicked = (event) => {
+    let data = { content: 'sign in attempted' };
+    axios.post('/api/log_signinclicked', data).then((response) => {
+      console.log(response);
+    });
+  };
 
-  
-
-
-  const signInButtonClicked = event => {
-    log_SignInClicked(event)
-    signIn()
+  const signInButtonClicked = (event) => {
+    log_SignInClicked(event);
+    router.push('../../login');
   };
   // END ADDED
 
@@ -49,7 +46,7 @@ export default function Layout({ title, children }) {
 
             {session ? (
               <div>
-                <Link href="/account">
+                <Link href="../../account">
                   <a className="p-2 hover:text-blue-600">Account</a>
                 </Link>
                 <button
@@ -61,7 +58,7 @@ export default function Layout({ title, children }) {
               </div>
             ) : (
               <div>
-                <Link href="/register">
+                <Link href="../../register">
                   <a className="p-2 hover:text-blue-600">Register</a>
                 </Link>
                 <button
