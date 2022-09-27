@@ -20,14 +20,20 @@ export default function Layout({ title, children }) {
       })
   }
 
-  
-
 
   const signInButtonClicked = event => {
     log_SignInClicked(event)
     signIn()
   };
   // END ADDED
+
+  const UsersClicked = event => {
+    let data={content: 'test'}
+      axios.post('/api/fetchDB', data)
+      .then((response) => {
+        console.log(response)
+      })
+  }
 
   if (loading) {
     return null;
@@ -76,6 +82,14 @@ export default function Layout({ title, children }) {
         </header>
 
         <main className="container m-auto mt-8 px-8">{children}</main>
+        <div>
+                <button
+                  className="p-2 hover:text-blue-600"
+                  onClick={UsersClicked}
+                >
+                  Users
+                </button>
+              </div>
 
         <footer className="flex h-10 justify-center items-center shadow-inner">
           <p>&copy; 2022 LotWizard | All Rights Reserved</p>
