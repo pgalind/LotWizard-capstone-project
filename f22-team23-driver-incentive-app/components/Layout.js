@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import axios from 'axios'
 import { useSession, signIn, signOut } from 'next-auth/react';
+import {logNavigation} from '../lib/helpers';
 
 // Anything inside {} is a dynamic property.
 
@@ -23,6 +24,7 @@ export default function Layout({ title, children }) {
 
   const signInButtonClicked = event => {
     log_SignInClicked(event)
+    logNavigation(event)
     signIn()
   };
   // END ADDED
