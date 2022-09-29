@@ -2,26 +2,19 @@
 // Needs to have Formik installed --  npm install formik --save
 
 import { Formik } from 'formik';
-import InputLayout from '../components/layouts/InputLayout';
-import Label from '../components/Label';
-import InputField from '../components/InputField';
-import InputHelperText from '../components/InputHelperText';
-import AuthLinkText from '../components/AuthLinkText';
+import FormSection from '../components/FormSection';
+import FormInput from '../components/FormInput';
+import FormLink from '../components/FormLink';
 import SubmitButton from '../components/SubmitButton';
-import useValidationSchema from '../hooks/useValidationSchema';
 import useRegister from '../hooks/useRegister';
-import Link from 'next/link';
+import useValidationSchema from '../hooks/useValidationSchema';
 
 export default function Register() {
   const { registerSchema } = useValidationSchema();
   const { register } = useRegister(); // onSubmit will call the register method in hooks/useRegister.js
 
   return (
-    <div
-      style={{
-        padding: '10px',
-      }}
-    >
+    <div className="p-10">
       <Formik
         initialValues={{
           username: '',
@@ -44,61 +37,66 @@ export default function Register() {
           handleBlur,
         }) => (
           <form onSubmit={handleSubmit}>
-            <InputLayout>
-              <Label>Username</Label>
-              <InputField
+            <FormSection>
+              <FormInput
+                label="Username"
                 type="text"
                 name="username"
                 placeholder="Username"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.username}
+                isError="true"
+                error={errors?.username}
               />
-              <InputHelperText isError>{errors?.username}</InputHelperText>
-            </InputLayout>
-            <InputLayout>
-              <Label>Email</Label>
-              <InputField
+            </FormSection>
+
+            <FormSection>
+              <FormInput
+                label="Email"
                 type="email"
                 name="email"
                 placeholder="Email"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.email}
+                isError="true"
+                error={errors?.email}
               />
-              <InputHelperText isError>{errors?.email}</InputHelperText>
-            </InputLayout>
-            <InputLayout>
-              <Label>Password</Label>
-              <InputField
+            </FormSection>
+
+            <FormSection>
+              <FormInput
+                label="Password"
                 type="password"
                 name="password"
                 placeholder="Password"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.password}
+                isError="true"
+                error={errors?.password}
               />
-              <InputHelperText isError>{errors?.password}</InputHelperText>
-            </InputLayout>
-            <InputLayout>
-              <Label>Confirm password</Label>
-              <InputField
+            </FormSection>
+
+            <FormSection>
+              <FormInput
+                label="Confirm password"
                 type="password"
                 name="confirm_password"
                 placeholder="Confirm password"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.confirm_password}
+                isError="true"
+                error={errors?.confirm_password}
               />
-              <InputHelperText isError>
-                {errors?.confirm_password}
-              </InputHelperText>
-            </InputLayout>
-            <InputLayout>
-              <AuthLinkText href="/login">
-                Already have an account? Log in
-              </AuthLinkText>
-            </InputLayout>
+            </FormSection>
+
+            <FormSection>
+              <FormLink href="/login">Already have an account? Log in</FormLink>
+            </FormSection>
+
             <SubmitButton isSubmitting={isSubmitting} />
           </form>
         )}

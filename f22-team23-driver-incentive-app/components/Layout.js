@@ -22,7 +22,7 @@ export default function Layout({ title, children }) {
 
   const signInButtonClicked = (event) => {
     log_SignInClicked(event);
-    router.push('../../login');
+    router.push('../login');
   };
   // END ADDED
 
@@ -46,7 +46,7 @@ export default function Layout({ title, children }) {
 
             {session ? (
               <div>
-                <Link href="../../account">
+                <Link href="../account">
                   <a className="p-2 hover:text-blue-600">Account</a>
                 </Link>
                 <button
@@ -58,7 +58,7 @@ export default function Layout({ title, children }) {
               </div>
             ) : (
               <div>
-                <Link href="../../register">
+                <Link href="../register">
                   <a className="p-2 hover:text-blue-600">Register</a>
                 </Link>
                 <button

@@ -1,11 +1,9 @@
 // This is the actual log in form, using Formik
 
 import { Formik } from 'formik';
-import InputLayout from '../components/layouts/InputLayout';
-import Label from '../components/Label';
-import InputField from '../components/InputField';
-import InputHelperText from '../components/InputHelperText';
-import AuthLinkText from '../components/AuthLinkText';
+import FormSection from '../components/FormSection';
+import FormInput from '../components/FormInput';
+import FormLink from '../components/FormLink';
 import SubmitButton from '../components/SubmitButton';
 import useAuth from '../hooks/useAuth';
 import useValidationSchema from '../hooks/useValidationSchema';
@@ -19,21 +17,9 @@ export default function Login() {
   const { login } = useAuth(); // onSubmit will call the login method in hooks/useAuth.js
 
   return (
-    <div
-      style={{
-        padding: '10px',
-      }}
-    >
+    <div className="p-10">
       {success === 'true' && (
-        <div
-          style={{
-            paddingTop: '10px',
-            paddingBottom: '10px',
-            color: 'green',
-          }}
-        >
-          You're signed up!
-        </div>
+        <div className="pt-10 pb-10 color-green-300">You're signed up!</div>
       )}
       <Formik
         initialValues={{
@@ -55,40 +41,40 @@ export default function Login() {
           handleSubmit,
         }) => (
           <form onSubmit={handleSubmit}>
-            <InputLayout>
-              <Label>Username</Label>
-              <InputField
+            <FormSection>
+              <FormInput
+                label="Username"
                 type="text"
                 name="username"
                 placeholder="Username or email"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.username}
+                isError="true"
+                error={errors?.username}
               />
-              <InputHelperText isError>{errors?.username}</InputHelperText>
-            </InputLayout>
-            <InputLayout>
-              <Label>Password</Label>
-              <InputField
+            </FormSection>
+
+            <FormSection>
+              <FormInput
+                label="Password"
                 type="password"
                 name="password"
                 placeholder="Password"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.password}
+                isError="true"
+                error={errors?.password}
               />
-              <InputHelperText isError>{errors?.password}</InputHelperText>
-            </InputLayout>
-            <InputLayout>
-              <AuthLinkText href="/password/reset_code">
-                Forgot password?
-              </AuthLinkText>
-            </InputLayout>
-            <InputLayout>
-              <AuthLinkText href="/register">
+            </FormSection>
+
+            <FormSection>
+              <FormLink href="/register">
                 "Don't have an account? Register.
-              </AuthLinkText>
-            </InputLayout>
+              </FormLink>
+            </FormSection>
+
             <SubmitButton isSubmitting={isSubmitting} />
           </form>
         )}
