@@ -1,12 +1,10 @@
 import React from 'react';
 import ItemsGrid from '../components/ItemsGrid';
 import Layout from '../components/Layout';
-import { useSession } from 'next-auth/react';
 import ItemsLink from '../components/ItemsLink';
 
 export default function Home() {
-  const { data: session } = useSession();
-
+  /*
   if (session) {
     return (
       <Layout title="Home Page">
@@ -18,7 +16,7 @@ export default function Home() {
       </Layout>
     );
   }
-
+*/
   return (
     <Layout title="Home Page">
       <h1 className="text-lg">Need help choosing a Sponsor company?</h1>

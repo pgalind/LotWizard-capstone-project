@@ -42,7 +42,10 @@ export default function Confirm() {
           handleChange,
           handleBlur,
         }) => (
-          <form onSubmit={handleSubmit}>
+          <form
+            className="flex flex-col items-center w-[300px] min-w-full"
+            onSubmit={handleSubmit}
+          >
             <InputLayout>
               <Label>Confirmation Code</Label>
               <InputField

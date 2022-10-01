@@ -40,13 +40,16 @@ export default function Login() {
           handleBlur,
           handleSubmit,
         }) => (
-          <form onSubmit={handleSubmit}>
+          <form
+            className="flex flex-col items-center w-[300px] min-w-full"
+            onSubmit={handleSubmit}
+          >
+            <h1 className="font-bold text-2xl mb-6 text-center">Sign in</h1>
             <FormSection>
               <FormInput
                 label="Username"
                 type="text"
                 name="username"
-                placeholder="Username or email"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.username}
@@ -60,7 +63,6 @@ export default function Login() {
                 label="Password"
                 type="password"
                 name="password"
-                placeholder="Password"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.password}

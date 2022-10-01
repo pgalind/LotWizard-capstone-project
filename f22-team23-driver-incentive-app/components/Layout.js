@@ -2,15 +2,12 @@ import Head from 'next/head';
 import React, { useReducer } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
-import { useSession, signIn, signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
 // Anything inside {} is a dynamic property.
 
 export default function Layout({ title, children }) {
   const router = useRouter();
-  const { data: session, status } = useSession();
-  const loading = status === 'loading';
 
   // ADDED BY KALEB
   const log_SignInClicked = (event) => {
@@ -26,10 +23,6 @@ export default function Layout({ title, children }) {
   };
   // END ADDED
 
-  if (loading) {
-    return null;
-  }
-
   return (
     <>
       <Head>
@@ -44,6 +37,7 @@ export default function Layout({ title, children }) {
               <a className="text-lg font-bold">LotWizard</a>
             </Link>
 
+            {/* I am disabling anything that uses session variable from next-auth
             {session ? (
               <div>
                 <Link href="../account">
@@ -56,19 +50,22 @@ export default function Layout({ title, children }) {
                   Sign out
                 </button>
               </div>
-            ) : (
-              <div>
-                <Link href="../register">
-                  <a className="p-2 hover:text-blue-600">Register</a>
-                </Link>
-                <button
-                  className="p-2 hover:text-blue-600"
-                  onClick={signInButtonClicked} // CHANGED BY KALEB
-                >
-                  Sign in
-                </button>
-              </div>
+            ) : ( */}
+
+            <div>
+              <Link href="../register">
+                <a className="p-2 hover:text-blue-600">Register</a>
+              </Link>
+              <button
+                className="p-2 hover:text-blue-600"
+                onClick={signInButtonClicked} // CHANGED BY KALEB
+              >
+                Sign in
+              </button>
+            </div>
+            {/*
             )}
+            */}
           </nav>
         </header>
 

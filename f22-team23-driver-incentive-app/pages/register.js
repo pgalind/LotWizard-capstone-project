@@ -1,6 +1,6 @@
 // This is the actual registration form
 // Needs to have Formik installed --  npm install formik --save
-
+import React from 'react';
 import { Formik } from 'formik';
 import FormSection from '../components/FormSection';
 import FormInput from '../components/FormInput';
@@ -17,8 +17,9 @@ export default function Register() {
     <div className="p-10">
       <Formik
         initialValues={{
+          firstName: '',
+          lastName: '',
           username: '',
-          email: '',
           password: '',
           confirm_password: '',
         }}
@@ -36,13 +37,42 @@ export default function Register() {
           handleChange,
           handleBlur,
         }) => (
-          <form onSubmit={handleSubmit}>
+          <form
+            className="flex flex-col items-center w-[300px] min-w-full"
+            onSubmit={handleSubmit}
+          >
+            <h1 className="font-bold text-2xl mb-6">Welcome to LotWizard!</h1>
+            <FormSection>
+              <FormInput
+                label="First name"
+                type="text"
+                name="firstName"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values?.firstName}
+                isError="true"
+                error={errors?.firstName}
+              />
+            </FormSection>
+
+            <FormSection>
+              <FormInput
+                label="Last name"
+                type="text"
+                name="lastName"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values?.lastName}
+                isError="true"
+                error={errors?.lastName}
+              />
+            </FormSection>
+
             <FormSection>
               <FormInput
                 label="Username"
                 type="text"
                 name="username"
-                placeholder="Username"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.username}
@@ -56,7 +86,6 @@ export default function Register() {
                 label="Email"
                 type="email"
                 name="email"
-                placeholder="Email"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.email}
@@ -70,7 +99,6 @@ export default function Register() {
                 label="Password"
                 type="password"
                 name="password"
-                placeholder="Password"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.password}
@@ -84,7 +112,6 @@ export default function Register() {
                 label="Confirm password"
                 type="password"
                 name="confirm_password"
-                placeholder="Confirm password"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.confirm_password}

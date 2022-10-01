@@ -4,6 +4,8 @@ import * as yup from 'yup';
 export default function useValidationSchema() {
   return {
     registerSchema: yup.object().shape({
+      firstName: yup.string().required('Please enter your first name.'),
+      lastName: yup.string().required('Please enter your last name.'),
       username: yup.string().required('Please enter a username.'),
       email: yup.string().email().required('Please enter an email address.'),
       password: yup
@@ -27,3 +29,5 @@ export default function useValidationSchema() {
     }),
   };
 }
+
+// Regex expression for password validation /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/

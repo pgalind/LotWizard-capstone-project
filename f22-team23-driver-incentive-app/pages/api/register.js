@@ -2,6 +2,7 @@
 
 import {
   CognitoIdentityProviderClient,
+  ConfirmSignUpResponseFilterSensitiveLog,
   SignUpCommand,
 } from '@aws-sdk/client-cognito-identity-provider';
 
@@ -11,23 +12,26 @@ export default async function handler(req, res) {
   // Only POST requests should be allowed; return 405 error Method Not Allowed
   if (req.method !== 'POST') return res.status(405).send();
   // parameters for SignUpCommand
+
+  console.log(req);
+
   const params = {
     ClientId: COGNITO_CLIENT_ID,
     Password: req.body.password,
     Username: req.body.username,
+
     UserAttributes: [
+      {
+        Name: 'firstName',
+        Value: req.body.firstName,
+      },
+      {
+        Name: 'lastName',
+        Value: req.body.lastName,
+      },
       {
         Name: 'email',
         Value: req.body.email,
-      },
-      {
-        Name: 'address',
-        Value: req.body.address,
-      },
-      // You can add custom parameters such as:
-      {
-        Name: 'custom:truckModel',
-        Value: 'Mack',
       },
     ],
   };

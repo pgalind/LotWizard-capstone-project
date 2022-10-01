@@ -2,28 +2,27 @@ export default function FormInput({
   label,
   type,
   name,
-  placeholder,
   onChange,
   onBlur,
   isError = false,
   error,
 }) {
   return (
-    <div className="pb-10">
-      <span className="block mb-5">{label};</span>
+    <div className="pb-2">
+      <span className="block m-2">
+        <label htmlFor={name}>{label}</label>
+      </span>
 
       <input
+        className="py-1 px-2 bg-slate-100 rounded-md"
         type={type}
         name={name}
-        placeholder={placeholder}
         onChange={onChange}
         onBlur={onBlur}
       />
 
       <span
-        className={`block mt-5 text-sm ${
-          isError ? 'text-red-600' : 'text-black'
-        }`}
+        className={`block text-sm ${isError ? 'text-red-600' : 'text-black'}`}
       >
         {error}
       </span>
