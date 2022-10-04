@@ -1,14 +1,6 @@
-export default function FormInput({
-  label,
-  type,
-  name,
-  onChange,
-  onBlur,
-  isError = false,
-  error,
-}) {
+export default function FormInput({ label, type, name, onChange, onBlur }) {
   return (
-    <div className="mr-4 pb-2">
+    <div className="flex mr-4 pb-2">
       <span className="block m-2">
         <label htmlFor={name}>{label}</label>
       </span>
@@ -20,11 +12,6 @@ export default function FormInput({
         onChange={onChange}
         onBlur={onBlur}
       />
-      <span
-        className={`block text-sm ${isError ? 'text-red-600' : 'text-black'}`}
-      >
-        {error}
-      </span>
     </div>
   );
 }

@@ -9,12 +9,12 @@ import SubmitButton from '../components/SubmitButton';
 import useRegister from '../hooks/useRegister';
 import useValidationSchema from '../hooks/useValidationSchema';
 
-export default function Register() {
+const Register = () => {
   const { registerSchema } = useValidationSchema();
   const { register } = useRegister(); // onSubmit will call the register method in hooks/useRegister.js
 
   return (
-    <div className="p-10">
+    <div className="flex items-center justify-center">
       <Formik
         initialValues={{
           firstName: '',
@@ -25,6 +25,12 @@ export default function Register() {
         }}
         validationSchema={registerSchema}
         onSubmit={register}
+        /* this is for testing purposes --> form values are displayed in a popup alert
+        onSubmit={async (values) => {
+          await new Promise((r) => setTimeout(r, 500));
+          alert(JSON.stringify(values, null, 2));
+        }}
+        */
         validateOnMount={false}
         validateOnChange={false}
         validateOnBlur={false}
@@ -33,15 +39,14 @@ export default function Register() {
           isSubmitting,
           errors,
           values,
+          handleBlur,
           handleSubmit,
           handleChange,
-          handleBlur,
         }) => (
-          <form
-            className="flex flex-col items-center w-[300px] min-w-full"
-            onSubmit={handleSubmit}
-          >
-            <h1 className="font-bold text-2xl mb-6">Welcome to LotWizard!</h1>
+          <form className="max-w-full p-10" onSubmit={handleSubmit}>
+            <h1 className="text-center font-bold text-2xl mb-6">
+              Welcome to LotWizard!
+            </h1>
             <FormSection>
               <FormInput
                 label="First name"
@@ -49,35 +54,19 @@ export default function Register() {
                 name="firstName"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values?.firstName}
                 isError="true"
                 error={errors?.firstName}
+                value={values?.firstName}
               />
-            </FormSection>
-
-            <FormSection>
               <FormInput
                 label="Last name"
                 type="text"
                 name="lastName"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values?.lastName}
                 isError="true"
                 error={errors?.lastName}
-              />
-            </FormSection>
-
-            <FormSection>
-              <FormInput
-                label="Username"
-                type="text"
-                name="username"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values?.username}
-                isError="true"
-                error={errors?.username}
+                value={values?.lastName}
               />
             </FormSection>
 
@@ -88,9 +77,22 @@ export default function Register() {
                 name="email"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values?.email}
                 isError="true"
                 error={errors?.email}
+                value={values?.email}
+              />
+            </FormSection>
+
+            <FormSection>
+              <FormInput
+                label="Username"
+                type="text"
+                name="username"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                isError="true"
+                error={errors?.username}
+                value={values?.username}
               />
             </FormSection>
 
@@ -101,7 +103,6 @@ export default function Register() {
                 name="password"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values?.password}
                 isError="true"
                 error={errors?.password}
               />
@@ -114,7 +115,6 @@ export default function Register() {
                 name="confirm_password"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values?.confirm_password}
                 isError="true"
                 error={errors?.confirm_password}
               />
@@ -130,4 +130,6 @@ export default function Register() {
       </Formik>
     </div>
   );
-}
+};
+
+export default Register;

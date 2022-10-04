@@ -12,9 +12,6 @@ export default async function handler(req, res) {
   // Only POST requests should be allowed; return 405 error Method Not Allowed
   if (req.method !== 'POST') return res.status(405).send();
   // parameters for SignUpCommand
-
-  console.log(req);
-
   const params = {
     ClientId: COGNITO_CLIENT_ID,
     Password: req.body.password,
@@ -22,11 +19,11 @@ export default async function handler(req, res) {
 
     UserAttributes: [
       {
-        Name: 'firstName',
+        Name: 'given_name',
         Value: req.body.firstName,
       },
       {
-        Name: 'lastName',
+        Name: 'family_name',
         Value: req.body.lastName,
       },
       {
@@ -44,6 +41,7 @@ export default async function handler(req, res) {
 
   // return the response to the useRegister hook after sending the SignUpCommand
   try {
+    console.log(signUpCommand);
     const response = await cognitoClient.send(signUpCommand);
     return res.status(response['$metadata'].httpStatusCode).send();
   } catch (err) {

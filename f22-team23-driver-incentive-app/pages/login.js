@@ -17,7 +17,7 @@ export default function Login() {
   const { login } = useAuth(); // onSubmit will call the login method in hooks/useAuth.js
 
   return (
-    <div className="p-10">
+    <div className="flex items-center justify-center">
       {success === 'true' && (
         <div className="pt-10 pb-10 color-green-300">You're signed up!</div>
       )}
@@ -40,10 +40,7 @@ export default function Login() {
           handleBlur,
           handleSubmit,
         }) => (
-          <form
-            className="flex flex-col items-center w-[300px] min-w-full"
-            onSubmit={handleSubmit}
-          >
+          <form className="max-w-full p-10" onSubmit={handleSubmit}>
             <h1 className="font-bold text-2xl mb-6 text-center">Sign in</h1>
             <FormSection>
               <FormInput
