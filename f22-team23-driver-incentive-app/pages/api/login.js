@@ -33,7 +33,7 @@ export default async function handler(req, res) {
     const response = await cognitoClient.send(adminInitiateAuthCommand);
     console.log(response);
     return res.status(response['$metadata'].httpStatusCode).json({
-      ...response.AuthenticationResult,
+      ...response.AuthenticationResult
     });
   } catch (err) {
     console.log(err);

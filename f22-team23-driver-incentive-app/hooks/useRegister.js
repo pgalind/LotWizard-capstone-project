@@ -12,6 +12,7 @@ export default function useRegister() {
   */
   }
   const register = (values, { setSubmitting }) => {
+    console.log(JSON.stringify(values))
     fetch('/api/register', {
       method: 'POST',
       headers: {

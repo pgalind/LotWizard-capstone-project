@@ -8,6 +8,8 @@ import SubmitButton from '../components/SubmitButton';
 import useAuth from '../hooks/useAuth';
 import useValidationSchema from '../hooks/useValidationSchema';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
+import signIn from '../hooks/signIn';
 
 export default function Login() {
   const router = useRouter();
@@ -18,6 +20,7 @@ export default function Login() {
 
   return (
     <div className="p-10">
+       <Link href='../'>Exit Registration</Link>
       {success === 'true' && (
         <div className="pt-10 pb-10 color-green-300">You're signed up!</div>
       )}
@@ -27,7 +30,7 @@ export default function Login() {
           password: '',
         }}
         validationSchema={loginSchema}
-        onSubmit={login}
+        onSubmit={signIn}
         validateOnMount={false}
         validateOnChange={false}
         validateOnBlur={false}
@@ -73,7 +76,7 @@ export default function Login() {
 
             <FormSection>
               <FormLink href="/register">
-                "Don't have an account? Register.
+                Don't have an account? Register.
               </FormLink>
             </FormSection>
 

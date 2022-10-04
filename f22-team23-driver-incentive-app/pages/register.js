@@ -8,6 +8,8 @@ import FormLink from '../components/FormLink';
 import SubmitButton from '../components/SubmitButton';
 import useRegister from '../hooks/useRegister';
 import useValidationSchema from '../hooks/useValidationSchema';
+import registerAuth from '../hooks/registerAuth';
+import Link from 'next/link';
 
 export default function Register() {
   const { registerSchema } = useValidationSchema();
@@ -15,6 +17,7 @@ export default function Register() {
 
   return (
     <div className="p-10">
+      <Link href='../'>Exit Registration</Link>
       <Formik
         initialValues={{
           firstName: '',
@@ -24,7 +27,7 @@ export default function Register() {
           confirm_password: '',
         }}
         validationSchema={registerSchema}
-        onSubmit={register}
+        onSubmit={registerAuth}
         validateOnMount={false}
         validateOnChange={false}
         validateOnBlur={false}
