@@ -2,7 +2,6 @@ import React from 'react';
 import ItemsGrid from '../components/ItemsGrid';
 import Layout from '../components/Layout';
 import ItemsLink from '../components/ItemsLink';
-import { userService } from 'services';
 
 export default function Home() {
   /*
