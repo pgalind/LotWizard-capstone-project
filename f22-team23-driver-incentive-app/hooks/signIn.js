@@ -1,6 +1,8 @@
 import axios from "axios"
+import { useRouter } from 'next/router';
 
 export default function signIn(values){
+    const router = useRouter(); // to redirect
 
     axios.post('/api/authenticateUser',{
         userName : values.username
@@ -13,7 +15,8 @@ export default function signIn(values){
             alert('Username or Password is incorrect')
         } else {
             if(values.password == passwordResponse){
-                alert("Successful log in")
+                //alert("Successful log in")
+                router.push('../');
             } else {
                 alert ('Username or Password is incorrect')
             }
