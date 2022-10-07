@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik } from 'formik';
 import FormSection from '../components/FormSection';
 import ProfileField from '../components/ProfileField';
-import SaveButton from '../components/SavetButton';
+import SaveButton from '../components/SaveButton';
 
 const Profile = () => {
   return (
