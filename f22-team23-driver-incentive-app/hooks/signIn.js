@@ -1,4 +1,5 @@
 import axios from "axios"
+import user from "../services/user"
 
 export default function signIn(values){
 
@@ -14,6 +15,7 @@ export default function signIn(values){
         } else {
             if(values.password == passwordResponse){
                 alert("Successful log in")
+                user.name = values.userName
             } else {
                 alert ('Username or Password is incorrect')
             }

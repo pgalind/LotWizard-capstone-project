@@ -3,6 +3,7 @@ import React, { useReducer } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import user from '../services/user';
 
 // Anything inside {} is a dynamic property.
 
@@ -53,6 +54,9 @@ export default function Layout({ title, children }) {
             ) : ( */}
 
             <div>
+              <Link href="../userProfile">
+                <a className="p-2 hover:text-blue-600">{user.name}</a>
+              </Link>
               <Link href="../register">
                 <a className="p-2 hover:text-blue-600">Register</a>
               </Link>
