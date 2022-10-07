@@ -19,6 +19,8 @@ export default function userProfile() {
             <p>
                 Points Available: {getPoints()}
             </p>
+
+            <Link href='profile'>Change User Info</Link>
         </div>
     );
 }
