@@ -1,0 +1,14 @@
+Amazon CodeDeploy
+
+For this sprint I researched services that could be used to deploy our project on aws, primarily codeDeploy.
+
+Deploying on aws using CodeDeploy requires several steps:
+-EC2 server must have CodeDeploy agent installed
+-Inbound rules to allow HTTP traffic access to the EC2 server must be configured
+-Security IAM role permissions are required to accces the CodeDeploy console
+-A S3 bucket should be created to store project code that will eventually be used for deployment
+-Bucket will be linked to EC2, keys will be used by amazon to access EC2 from the bucket to run the project code
+-Permissions need to be set on the bucket using an IAM policy, and an amazon account ID is required in the security file (12-digit)
+-Deployment group needs to be configured to ensure that the project can successfully update over time
+-App source files need to be arranged in a particular order
+-Application files need to be bundled into an archive file and then pushed

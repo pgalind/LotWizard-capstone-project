@@ -4,6 +4,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import user from '../services/user';
+import axios from 'axios'
 
 // Anything inside {} is a dynamic property.
 
@@ -23,6 +24,18 @@ export default function Layout({ title, children }) {
     router.push('../login');
   };
   // END ADDED
+
+  const UsersClicked = event => {
+    let data={content: 'test'}
+      axios.post('/api/fetchDB', data)
+      .then((response) => {
+        console.log(response)
+      })
+  }
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <>
@@ -74,6 +87,14 @@ export default function Layout({ title, children }) {
         </header>
 
         <main className="container m-auto mt-8 px-8">{children}</main>
+        <div>
+                <button
+                  className="p-2 hover:text-blue-600"
+                  onClick={UsersClicked}
+                >
+                  Users
+                </button>
+              </div>
 
         <footer className="flex h-10 justify-center items-center shadow-inner">
           <p>&copy; 2022 LotWizard | All Rights Reserved</p>
