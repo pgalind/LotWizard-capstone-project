@@ -22,7 +22,7 @@ export default function Home() {
       <h1 className="text-lg">Need help choosing a Sponsor company?</h1>
       <h2>Learn more about them and view their catalogs!</h2>
       <ItemsGrid>
-        <ItemsLink href="">Sponsor A</ItemsLink>
+        <ItemsLink href="/catalog">Sponsor A</ItemsLink>
         <ItemsLink href="">Sponsor B</ItemsLink>
         <ItemsLink href="">Sponsor C</ItemsLink>
         <ItemsLink href="">Sponsor D</ItemsLink>
