@@ -64,6 +64,8 @@ export default function Layout({ title, children }) {
                 </button>
               </div>
             ) : ( */}
+            {console.log(`user name is ${user.name}`)}
+
 
             <div>
               <Link href="../userProfile">

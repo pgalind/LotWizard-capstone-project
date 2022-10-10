@@ -37,6 +37,8 @@ export default function userProfile() {
             <p>
                 Points Available: {points}
             </p>
+
+            <Link href='profile'>Change User Info</Link>
         </div>
     ) : (
         <div>Loading . . .</div>
