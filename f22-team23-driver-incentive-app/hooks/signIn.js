@@ -1,9 +1,9 @@
 import axios from "axios"
 import user from '../services/user'
-//import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 
 export default function signIn(values){
-    //const router = useRouter(); // to redirect
+    const router = useRouter(); // to redirect
 
     axios.post('/api/authenticateUser',{
         userName : values.username
@@ -21,7 +21,7 @@ export default function signIn(values){
                 user.name = values.username
                 console.log(user.name)
                 //console.log("HELLO ${userName}!")
-                //router.push('../');
+                //router.push('/');
             } else {
                 alert ('Username or Password is incorrect')
             }

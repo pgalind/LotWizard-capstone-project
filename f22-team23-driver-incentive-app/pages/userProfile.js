@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import user from '../services/user'
 import getPoints from '../hooks/getUserPoints';
@@ -6,9 +6,27 @@ import getPoints from '../hooks/getUserPoints';
 
 
 export default function userProfile() {
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const [post, setPost] = useState({});
     const points = 0;
 
-    return (
+    useEffect(() => {
+        getPoints().then((response) => {
+            setLoading(false);
+            setPost(response.data);
+            setError('');
+            console.log(response);
+            console.log("POINTS: " + points);
+        })
+        .catch((error) => {
+            setLoading(false);
+            setPost({});
+            setError("Could not retrieve points for user");
+            console.log(error);
+        });
+    }, []);
+    return Object.keys(post).length ? (
         <div className="p-10">
             <Link href='../'>Exit Profile</Link>
 
@@ -17,8 +35,11 @@ export default function userProfile() {
             </p>
 
             <p>
-                Points Available: {getPoints()}
+                Points Available: {points}
             </p>
         </div>
+    ) : (
+        <div>Loading . . .</div>
     );
+    
 }

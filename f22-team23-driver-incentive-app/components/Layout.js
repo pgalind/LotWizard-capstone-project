@@ -4,7 +4,6 @@ import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import user from '../services/user';
-import axios from 'axios'
 
 // Anything inside {} is a dynamic property.
 
@@ -33,9 +32,9 @@ export default function Layout({ title, children }) {
       })
   }
 
-  if (loading) {
+  /*if (loading) {
     return null;
-  }
+  }*/
 
   return (
     <>
