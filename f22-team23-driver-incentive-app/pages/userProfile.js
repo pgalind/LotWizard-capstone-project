@@ -1,32 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import user from '../services/user'
-import getPoints from '../hooks/getUserPoints';
+import axios from "axios"
+//import getPoints from '../hooks/getUserPoints';
 
 
 
 export default function userProfile() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    const [post, setPost] = useState({});
-    const points = 0;
+    const [points, setPoints] = useState();
+    //let points = -1;
 
     useEffect(() => {
-        getPoints().then((response) => {
+        axios.post('/api/queryUserPoints', {
+            userName : user.name
+        }).then((response) => {
             setLoading(false);
-            setPost(response.data);
+            setPoints(response.data);
             setError('');
+            user.points = points
             console.log(response);
-            console.log("POINTS: " + points);
+            console.log("POINTS: " + user.points);
         })
         .catch((error) => {
             setLoading(false);
-            setPost({});
+            setPoints();
             setError("Could not retrieve points for user");
             console.log(error);
         });
     }, []);
-    return Object.keys(post).length ? (
+
+    if (loading) {
+        return <div>Loading . . .</div>
+    }
+    return (
         <div className="p-10">
             <Link href='../'>Exit Profile</Link>
 
@@ -40,8 +48,6 @@ export default function userProfile() {
 
             <Link href='profile'>Change User Info</Link>
         </div>
-    ) : (
-        <div>Loading . . .</div>
     );
     
 }
