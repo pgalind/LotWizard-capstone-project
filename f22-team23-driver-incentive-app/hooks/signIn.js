@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 
 export default function signIn(values){
     const router = useRouter(); // to redirect
+    console.log("HELLO");
 
   axios
     .post('/api/authenticateUser', {
