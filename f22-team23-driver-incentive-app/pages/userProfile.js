@@ -10,7 +10,6 @@ export default function userProfile() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [points, setPoints] = useState();
-    //let points = -1;
 
     useEffect(() => {
         axios.post('/api/queryUserPoints', {
