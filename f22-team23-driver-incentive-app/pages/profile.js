@@ -2,24 +2,17 @@ import React from 'react';
 import { Formik } from 'formik';
 import FormSection from '../components/FormSection';
 import ProfileField from '../components/ProfileField';
-//import SaveButton from '../components/SaveButton';
-import SubmitButton from '../components/SubmitButton'
-import user from '../services/user';
-import Link from 'next/link';
-import getUserFirstName from '../hooks/getUserFirstName'
-
+import SaveButton from '../components/SaveButton';
 
 const Profile = () => {
-  let f =  getUserFirstName()
-  console.log("f is : " + f)
   return (
     <div className="flex items-center justify-center">
       <Formik
         initialValues={{
-          firstName: f,
-          lastName: '',
-          email: '',
-          username: '',
+          firstName: 'getfromdb',
+          lastName: 'getfromdb',
+          email: 'getfromdb',
+          username: 'getfromdb',
           dob: '',
           gender: '',
           country: '',
@@ -44,7 +37,7 @@ const Profile = () => {
         {({ isSaving, values, handleBlur, handleSubmit, handleChange }) => (
           <form className="max-w-full p-10" onSubmit={handleSubmit}>
             <h1 className="text-center font-bold text-2xl mb-6">
-              {user.name}'s Profile Info
+              User Profile
             </h1>
             <FormSection>
               <ProfileField
@@ -200,11 +193,10 @@ const Profile = () => {
               />
             </FormSection>
 
-            <SubmitButton isSaving={isSaving} />
+            <SaveButton isSaving={isSaving} />
           </form>
         )}
       </Formik>
-      <Link href='../'>Exit Profile</Link>
     </div>
   );
 };

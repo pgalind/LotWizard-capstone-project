@@ -8,7 +8,7 @@ export default function FormInput({
   error,
 }) {
   return (
-    <div className="pb-2">
+    <div className="mr-4 pb-2">
       <span className="block m-2">
         <label htmlFor={name}>{label}</label>
       </span>
@@ -20,7 +20,6 @@ export default function FormInput({
         onChange={onChange}
         onBlur={onBlur}
       />
-
       <span
         className={`block text-sm ${isError ? 'text-red-600' : 'text-black'}`}
       >

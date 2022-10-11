@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, { useReducer } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import axios from 'axios'
 import { useSession, signIn, signOut } from 'next-auth/react';
