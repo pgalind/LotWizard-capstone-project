@@ -1,33 +1,30 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { useReducer } from 'react';
 import Link from 'next/link';
 import axios from 'axios'
 import { useSession, signIn, signOut } from 'next-auth/react';
 import {logNavigation} from '../lib/helpers';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 // Anything inside {} is a dynamic property.
 
 export default function Layout({ title, children }) {
-  const { data: session, status } = useSession();
-  const loading = status === 'loading';
-
+  const router = useRouter();
 
   // ADDED BY KALEB
-  const log_SignInClicked = event =>{
-    let data={content : 'sign in attempted'}
-      axios.post('/api/log_signinclicked', data)
-      .then((response) => {
-        console.log(response)
-      })
-  }
-
+  const log_SignInClicked = (event) => {
+    let data = { content: 'sign in attempted' };
+    axios.post('/api/log_signinclicked', data).then((response) => {
+      console.log(response);
+    });
+  };
 
   const signInButtonClicked = event => {
     log_SignInClicked(event)
     logNavigation(event)
-    signIn()
+    router.push('../login')
   };
-  // END ADDED
 
   const UsersClicked = event => {
     let data={content: 'test'}
@@ -55,9 +52,10 @@ export default function Layout({ title, children }) {
               <a className="text-lg font-bold">LotWizard</a>
             </Link>
 
+            {/* I am disabling anything that uses session variable from next-auth
             {session ? (
               <div>
-                <Link href="/account">
+                <Link href="../account">
                   <a className="p-2 hover:text-blue-600">Account</a>
                 </Link>
                 <button
@@ -67,19 +65,22 @@ export default function Layout({ title, children }) {
                   Sign out
                 </button>
               </div>
-            ) : (
-              <div>
-                <Link href="/register">
-                  <a className="p-2 hover:text-blue-600">Register</a>
-                </Link>
-                <button
-                  className="p-2 hover:text-blue-600"
-                  onClick={signInButtonClicked} // CHANGED BY KALEB
-                >
-                  Sign in
-                </button>
-              </div>
+            ) : ( */}
+
+            <div>
+              <Link href="../register">
+                <a className="p-2 hover:text-blue-600">Register</a>
+              </Link>
+              <button
+                className="p-2 hover:text-blue-600"
+                onClick={signInButtonClicked} // CHANGED BY KALEB
+              >
+                Sign in
+              </button>
+            </div>
+            {/*
             )}
+            */}
           </nav>
         </header>
 
