@@ -1,5 +1,6 @@
 // db.js
 import mysql from 'serverless-mysql';
+
 const db = mysql({
   config: {
     // This is TERRIBLE ... fix later
@@ -7,14 +8,14 @@ const db = mysql({
     port: '3306',
     database: 'sys',
     user: 'admin',
-    password: 'L3tsAceThis5h1t'
-  }
+    password: 'L3tsAceThis5h1t',
+  },
 });
 export default async function excuteQuery({ query, values }) {
   try {
     const results = await db.query(query, values);
     await db.end();
-    console.log("db port: " + db.port); // added
+    console.log('db port: ' + db.port); // added
     return results;
   } catch (error) {
     return { error };
