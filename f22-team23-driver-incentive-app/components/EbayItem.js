@@ -1,22 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import token from '../lib/token';
 
+// This variable inconsistently increments when it's declared inside EbayItem() for some reason
+var imageIndex = 0;
+
+// NOTE: Ebay's auth token changes often; If the page is stuck on loading
+// Please generate a new auth token by going to https://developer.ebay.com/my/api_test_tool?index=0
+// and set it to auth value in axios call
 export default function EbayItem() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [post, setPost] = useState({});
+  const [image, setImage] = useState('');
+
+  function changePicture(dir) {
+    // 👇️ refers to the div element
+    //console.log(event.currentTarget);
+    const imageUrl = [post.image];
+    const pictures = imageUrl.concat(post.additionalImages);
+
+    if (dir == 'right' && imageIndex < pictures.length - 1) {
+      imageIndex++;
+      console.log('right');
+    } else if (dir == 'left' && imageIndex > 0) {
+      console.log('left');
+      imageIndex--;
+    }
+
+    setImage(pictures[imageIndex].imageUrl);
+
+    console.log(pictures[imageIndex].imageUrl);
+    console.log(pictures);
+    console.log(imageIndex);
+    console.log('Next picture');
+  }
+
   //https://api.ebay.com/buy/browse/v1/item/v1|374289166032|0
   //'https://jsonplaceholder.typicode.com/posts/1',
   //{loading ? 'Loading' : post.title}
   //{error ? error : null}
+  var auth =
+    'Bearer v^1.1#i^1#r^0#p^1#I^3#f^0#t^H4sIAAAAAAAAAOVYD2wTVRhf908bGAtM0UwM9QD/wd296/Wu7UErhTJXZWtHxxgzMK5378qx9q7ce926iGzMxAgoCQIhRLPMhEQTFPwDBhIjGhKNMRiCEhI1MZAQp4JCSPw3pt61ZXSTALImLrG5pHnf+973fr/f+7733h3orbQ/+lz9c79W2e4oHegFvaU2GzMJ2Csr5k4pK62tKAEFDraB3tm95X1lgwuQmEykhGUQpXQNQUcmmdCQkDX6iLShCbqIVCRoYhIiAUtCNNCwVHBSQEgZOtYlPUE4QkEf4QSyIrs5SQKcG/CcZFq1qzGbdR+hxFxe4GQVr6i4ZRnyZj9CaRjSEBY1bI13OkkGkAzTDBiB4QXAUryXbyMcLdBAqq6ZLhQg/Fm4QnasUYD1xlBFhKCBzSCEPxSoi4YDoeCSxuYFdEEsf16HKBZxGo1uLdZl6GgRE2l442lQ1luIpiUJIkTQ/twMo4MKgatgbgN+TuqYOyZ6PbwHOt0cxypFkbJON5IivjEOy6LKpJJ1FaCGVdx9M0VNNWLroITzrUYzRCjosP6a0mJCVVRo+IgliwIrA5EI4V8id4mG3BgnkahA2VA7yciyIMl5YqKZV4xMSm7ODVmJy0+Ui5aXecxMi3VNVi3RkKNRx4ugiRqO1QYUaGM6hbWwEVCwhajQj72qoQe0WYuaW8U0XqtZ6wqTphCObPPmKzAyGmNDjaUxHIkwtiMrkY8QUylVJsZ2ZnMxnz4Z5CPWYpwSaLqrq4vqYindiNNOABi6tWFpVFoLkyJh+lq1nvNXbz6AVLNUJGiORKqAu1MmloyZqyYALU74XTznZD153UfD8o+1/sNQwJkeXRHFqhA5xvIul5dj3Rwri25nMSrEn09S2sIBY2I3mRSNDohTCVGCpGTmWToJDVUWWE4xtVEgKfNehXR5FYWMcTJPMgqEAMJYTPJ6/k+FcqupHoWSAXFRcr1oed5Wl1FBOObpbJIbl4aXRxu8QX6l1sg6E+sioQ73+kWdwfWtT7gCT9bFfbdaDdclvzihmso0m/MXQwCr1osnQr2OMJTHRS8q6SkY0ROq1D2xFpg15Iho4O4oTCRMw7hIBlKpUHH26qLR+5fbxO3xLt4Z9R+dT9dlhayUnVisrPHIDCCmVMo6gShJT9JWreuief2wzO1Z1OPirZo31wnF2iSZY6vKuSsnlaVLoU6JMiDS04Z526bC1g2sWe+AmnmeYUNPJKDRwoy7npPJNBZjCTjRCrsICa6KE+ywZXiec3HAy7Pj4iVlj9L2ibYlFWMrLn/8Nq/V9OiXfH9J9sf02Q6BPtvbpTYboMEcZhZ4oLJseXnZ5FqkYkipokIhNa6Z764GpDpgd0pUjdJK28YGoelUwWeFgVXg3pEPC/YyZlLBVwYw41pPBVN9T5XTyQDGenjAtoFZ13rLmenld/V8d+a3O3+Eg/bV29+4sqnp4Nm7m34HVSNONltFSXmfraRy0w9HVnfJv/Sc3jB/5uCWaP179LBj/wcrOi+EdjieP1I9r2fq11sztX0nX3u2ehW/077smde3ZE5lTnxZ79v/8v2Tg+KL0oUFJw8fOyOFp8+dPrkHz9t+5fBjC//8qyb+9DenQw/te2H75taqmds2RGoGptkvf1622/nmukd+pl85f+nogTXnPur/cOjg9wMtvXvenzPcP7Sr+vhX9RXvnO3vGTy2d0amwt5KoqG3AlPO12h2+tXl7e0dJ7/d/e7CE4d2bLuvaejTl1av6K/dsHHwj33DsxvoqXumfnL8yFM/MVOO4q3xEwRYUf3gtEmhj9XKhr3Va84euHhl52eXdzWfu/hFT8qxeXfN8KWj8x/OLd/fkT15tfARAAA=';
   useEffect(() => {
     axios({
       method: 'get',
       url: 'https://api.ebay.com/buy/browse/v1/item/v1|374289166032|0',
       headers: {
-        Authorization:
-          'Bearer v^1.1#i^1#r^0#p^1#I^3#f^0#t^H4sIAAAAAAAAAOVYf2wTVRxft24wYEMTBAP+qDcWE8xd3931+uNcG9p1Y8VtXWm3wBIh9+Ndd9v1rty9bqsK1KkYEyWBPyBKlBmFGBIxxkAkBONixB+JxhiRmKAmCEriH6L82KJAvGvL6CYBZE1cYv9p3vd93/d9Pp/3/b737oFcTe2KrW1bx+tscypHcyBXabOR80FtTfUj9VWVS6srQImDbTS3PGcfqTrbZHApJc2ugUZaUw3oGE4pqsHmjX4so6usxhmywapcChosEth4sKOdpQjApnUNaYKmYI5I2I9JlMADwQNoXnQxAuMxreq1mAnNj4k0B31AIjmB9ki8hzL7DSMDI6qBOBX5MQpQFE4CHHgSFM0CkmVogvK4ejFHD9QNWVNNFwJggTxcNj9WL8F6c6icYUAdmUGwQCTYGo8GI+GWzkSTsyRWoKhDHHEoY0xtNWsidPRwSgbefBoj783GM4IADQNzBgozTA3KBq+BuQP4Bal5mhG9jE/yiAJgxPJI2arpKQ7dHIdlkUVcyruyUEUyyt5KUVMNvh8KqNjqNENEwg7rL5bhFFmSoe7HWkLBdcGuLizQIg5xutiZxA1OgqIuD+Jda8I44+U5kykp4oKH8UBaYIoTFaIVZZ42U7OmirIlmuHo1FAImqjhVG0olinRxnSKqlE9KCEL0aSfN2EKWNTQTfZai1pYxQzqU611hSlTCEe+eesVmByNkC7zGQQnI0zvyEvkx7h0Whax6Z35XCymz7Dhx/oQSrNO59DQEDFEE5qedFIAkM61He1xoQ+mOMz0tWq94C/fegAu56kI0BxpyCzKpk0sw2aumgDUJBZwuRmK9hZ1nworMN36D0MJZ+fUiihXhVA+F08KtJf30rTb5xLLUSGBYpI6LRyQ57J4itMHIEornABxwcyzTArqssjSjGRqI0FcdPsk3OWTJJxnRDdOShACCHle8Hn/T4Vyu6keh4IOUVlyvWx53ts6LIMo7x2MiZ3t0e54hy/sXqd20pTS3xUZ8GwMDYY3rl3tCj7WmvTfbjXckHyzIpvKJMz5yyGAVevlE6FNMxAUZ0QvLmhp2KUpspCdXQtM62IXp6NsHCqKaZgRyWA6HSnPXl02ev9ym7gz3uU7o/6j8+mGrAwrZWcXK2u8YQbg0jJhnUCEoKWcVq1rnHn9sMwb8qhnxFs2b66zirVJssBWFgtXTiJPlzAGBUKHhpbRzds2EbVuYAltAKrmeYZ0TVGg3kPOuJ5TqQzieAXOtsIuQ4LL3Cw7bEm3myG9tIekZ8RLyB+lG2bbllSOrdi+6g6v1c6pH/mBivyPHLEdBCO2dyttNuAEjWQDeKimqttetWCpISNIyJxEGHJSNb9ddUgMwGyak/XKGtvmDjZ2vORZYfRxcO/kw0JtFTm/5JUB3He9p5pcuKSOokgAPBQNSIbuBQ3Xe+3kYvui7mevXF4Ui+98+8PQe0867v7p57Ef3aBu0slmq66wj9gq6l54qy26OdizI/Znbt6p02v2rHzi0pJXl61P6ce+m/ikY1n72nHC/WUjs7ch0tL4fdQdTx4f++zRb2nu4tVN23xgfNv+M31Hj/R614eunKnfM1z5/u+huw4ufLHx84m+7Lk/du89cX7eudDFT+3vHOvfiK3cv3STY2772LmrF56qVTYdfiODlsdePjB0+Kvzh+bYd1RRH+sTH9QkToLkKn3nxcbdL4VjW/jn28VvumMPLtt75PKW+l27frj02i9/9X/xZnRf7jnl9PmmC4t3rNj39dztg5kjbQfuP/XAPds3iHvQSfj604fqMq/UN3x0tOm3Z1bP/fV0M352vOKhA02LtAVjo419Ew/75BNbRgrL9zd5Xz0q8BEAAA==',
+        Authorization: auth,
         'Content-Type': 'application/json',
         'X-EBAY-C-MARKETPLACE-ID': 'EBAY_US',
         'X-EBAY-C-ENDUSERCTX':
@@ -30,6 +62,7 @@ export default function EbayItem() {
         console.log(response);
         console.log(response.data.title);
         console.log(response.data.price.value);
+        setImage(response.data.image.imageUrl);
       })
       .catch((error) => {
         setLoading(false);
@@ -42,12 +75,7 @@ export default function EbayItem() {
     <div className="card">
       <Link href={'/catalog/5'}>
         <a>
-          <img
-            src={post.image.imageUrl}
-            alt={post.image.imageUrl}
-            className="rounded shadow"
-            class="w-96 h-96"
-          />
+          <img src={image} alt={image} className="w-96 h-96" />
         </a>
       </Link>
       <div className="flex flex-col items-center justify-center p-5">
@@ -57,6 +85,8 @@ export default function EbayItem() {
           </a>
         </Link>
         <p className="mb-2">{'Placeholder text'}</p>
+        <div onClick={() => changePicture('right')}>Next picture</div>
+        <div onClick={() => changePicture('left')}>Prev picture</div>
         <p>${post.price.value}</p>
         <button className="primary-button" type="button">
           Add to cart
