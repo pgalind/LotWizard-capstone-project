@@ -4,13 +4,13 @@ import Link from 'next/link';
 import axios from 'axios'
 import { useSession, signIn, signOut } from 'next-auth/react';
 import {logNavigation} from '../lib/helpers';
+import { useRouter } from 'next/router';
+import user from '../services/user';
 
 // Anything inside {} is a dynamic property.
 
 export default function Layout({ title, children }) {
-  const { data: session, status } = useSession();
-  const loading = status === 'loading';
-
+  const router = useRouter();
 
   // ADDED BY KALEB
   const log_SignInClicked = event =>{
@@ -25,9 +25,8 @@ export default function Layout({ title, children }) {
   const signInButtonClicked = event => {
     log_SignInClicked(event)
     logNavigation(event)
-    signIn()
+    router.push('../login')
   };
-  // END ADDED
 
   const UsersClicked = event => {
     let data={content: 'test'}
@@ -37,9 +36,9 @@ export default function Layout({ title, children }) {
       })
   }
 
-  if (loading) {
+  /*if (loading) {
     return null;
-  }
+  }*/
 
   return (
     <>
@@ -55,9 +54,10 @@ export default function Layout({ title, children }) {
               <a className="text-lg font-bold">LotWizard</a>
             </Link>
 
+            {/* I am disabling anything that uses session variable from next-auth
             {session ? (
               <div>
-                <Link href="/account">
+                <Link href="../account">
                   <a className="p-2 hover:text-blue-600">Account</a>
                 </Link>
                 <button
@@ -67,19 +67,27 @@ export default function Layout({ title, children }) {
                   Sign out
                 </button>
               </div>
-            ) : (
-              <div>
-                <Link href="/register">
-                  <a className="p-2 hover:text-blue-600">Register</a>
-                </Link>
-                <button
-                  className="p-2 hover:text-blue-600"
-                  onClick={signInButtonClicked} // CHANGED BY KALEB
-                >
-                  Sign in
-                </button>
-              </div>
+            ) : ( */}
+            {console.log(`user name is ${user.name}`)}
+
+
+            <div>
+              <Link href="../userProfile">
+                <a className="p-2 hover:text-blue-600">{user.name}</a>
+              </Link>
+              <Link href="../register">
+                <a className="p-2 hover:text-blue-600">Register</a>
+              </Link>
+              <button
+                className="p-2 hover:text-blue-600"
+                onClick={signInButtonClicked} // CHANGED BY KALEB
+              >
+                Sign in
+              </button>
+            </div>
+            {/*
             )}
+            */}
           </nav>
         </header>
 
