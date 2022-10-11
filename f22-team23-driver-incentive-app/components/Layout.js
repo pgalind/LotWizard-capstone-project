@@ -15,7 +15,7 @@ export default function Layout({ title, children }) {
   // ADDED BY KALEB
   const log_SignInClicked = event =>{
     let data={content : 'sign in attempted'}
-      axios.post('/api/log_signinclicked', data)
+      axios.post('/api/axios/logsignin', data)
       .then((response) => {
         console.log(response)
       })
@@ -31,7 +31,7 @@ export default function Layout({ title, children }) {
 
   const UsersClicked = event => {
     let data={content: 'test'}
-      axios.post('/api/fetchDB', data)
+      axios.post('/api/axios/fetchusers', data)
       .then((response) => {
         console.log(response)
       })
