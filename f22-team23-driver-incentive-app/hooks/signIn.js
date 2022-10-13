@@ -37,8 +37,5 @@ export default function signIn(values){
     })
     .catch((error) => {
       console.log('Does exist error : ' + error);
-    })
-    .finally(() => {
-      setSubmitting(false);
     });
 }
