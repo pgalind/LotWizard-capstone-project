@@ -5,7 +5,7 @@ const user = {
     userID : 0,
     name : '',
     role : 'Driver',
-    //points : getPoints
+    points : 0
 }
 export default user
 
