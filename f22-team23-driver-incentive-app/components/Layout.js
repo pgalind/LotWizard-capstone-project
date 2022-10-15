@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import axios from 'axios'
 import { useSession, signIn, signOut } from 'next-auth/react';
@@ -13,7 +13,30 @@ import { Button } from "@mui/material";
 
 export default function Layout({ title, children }) {
   const router = useRouter();
-  //const notificationColor = 'red';
+  const [error, setError] = useState('');
+  const [notificationCount, setNotificationCount] = useState();
+
+  useEffect(() => {
+    axios.post('/api/getDriverTotalPointChanges', {
+        userName : user.name
+    }).then((response) => {
+        console.log(response.data[0]['COUNT(*)']);
+        setNotificationCount(response.data);
+        if (user.totalPointChanges != response.data) {
+          //notificationColor = 'red';
+          setNotificationCount(response.data[0]['COUNT(*)']);
+        } else {
+          //notificationColor = 'blue';
+          setNotificationCount('');
+        }
+        setError('');
+        
+    })
+    .catch((error) => {
+        setError("Could not retrieve point history for user");
+        console.log(error);
+    });
+  }, []);
 
   // ADDED BY KALEB
   const log_SignInClicked = event =>{
@@ -39,16 +62,6 @@ export default function Layout({ title, children }) {
       })
   }
 
-  // Alert bell icon
-  function AlertIcon() {
-    return (
-      <div>
-        <Notifications>Hello!</Notifications>
-        //<Typography style={styles.typography}>2</Typography>
-        //<ModeComment color="primary" />
-      </div>
-    );
-  }
 
   /*if (loading) {
     return null;
@@ -87,7 +100,7 @@ export default function Layout({ title, children }) {
 
             <div>
               <Link href="../pointHistory">
-                <Button startIcon={<Notifications style={{ color: 'red' }} />}>Test</Button>
+                <Button startIcon={<Notifications style={{ color: 'red'}} />}>{notificationCount}</Button>
               </Link>
               <Link href="../userProfile">
                 <a className="p-2 hover:text-blue-600">{user.name}</a>

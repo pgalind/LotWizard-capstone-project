@@ -5,7 +5,6 @@ import axios from "axios"
 //import getPoints from '../hooks/getUserPoints';
 
 
-
 export default function userProfile() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
