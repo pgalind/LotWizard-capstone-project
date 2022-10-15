@@ -9,23 +9,25 @@ import axios from "axios"
 export default function userProfile() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    const [points, setPoints] = useState();
+    const [pointHistory, setPointHistory] = useState();
 
     useEffect(() => {
         axios.post('/api/getDriverPointHistory', {
             userName : user.name
         }).then((response) => {
             setLoading(false);
-            setPoints(response.data);
+            setPointHistory(response.data);
             setError('');
             //console.log("Response: " + response.headers);
             console.log(response.data);
+            console.log(response.data[0]);
+            console.log("LENGTH: " + Object.keys(response.data).length);
             //console.log(response.data[0]);
             //console.log(response.data[1]);
         })
         .catch((error) => {
             setLoading(false);
-            setPoints();
+            setPointHistory();
             setError("Could not retrieve point history for user");
             console.log(error);
         });
@@ -41,6 +43,21 @@ export default function userProfile() {
             <p>
                 {user.name}'s Point History
             </p>
+
+            <table>
+                <tr>
+                    <th>Point Change</th>
+                    <th>Reason</th>
+                </tr>
+                {pointHistory.map((val, key) => {
+                    return (
+                        <tr key={key}>
+                        <td>{val['PointChange']}</td>
+                        <td>{val['Reason']}</td>
+                        </tr>
+                    )
+                })}
+        </table>
 
         </div>
     );
