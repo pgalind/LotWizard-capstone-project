@@ -7,9 +7,8 @@ export default async (req, res) => {
         console.log(req.body)
 
         //interpolate the variables into the query
-        //let queryString = `SELECT * FROM sys.log_pointchange P INNER JOIN sys.Users U ON P.DriverID = U.UserID WHERE Username = \"${req.body.userName}\"`
-        let queryString = `SELECT * FROM log_pointchange`
-        //let queryString = "bleh"
+        let queryString = `SELECT * FROM sys.log_pointchange P INNER JOIN sys.Users U ON P.DriverID = U.UserID WHERE Username = \"${req.body.userName}\"`
+        //let queryString = `SELECT * FROM log_pointchange`
         console.log("Full query string : " + queryString)
         console.log("req.body: " + req.body)
          
