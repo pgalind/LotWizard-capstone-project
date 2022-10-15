@@ -6,6 +6,7 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import {logNavigation} from '../lib/helpers';
 import { useRouter } from 'next/router';
 import user from '../services/user';
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 
 // Anything inside {} is a dynamic property.
 
