@@ -10,25 +10,23 @@ export default function userProfile() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [points, setPoints] = useState();
-    const [role, setRole] = useState();
 
     useEffect(() => {
-        axios.post('/api/queryUserPoints', {
+        axios.post('/api/getDriverPointHistory', {
             userName : user.name
         }).then((response) => {
             setLoading(false);
-            setPoints(response.data[0]['Points']);
-            setRole(response.data[0]['Role'])
+            setPoints(response.data);
             setError('');
-            user.points = response.data[0]['Points'];
-            user.role = response.data[0]['Role'];
+            //console.log("Response: " + response.headers);
             console.log(response.data);
-            console.log("POINTS: " + user.points);
+            //console.log(response.data[0]);
+            //console.log(response.data[1]);
         })
         .catch((error) => {
             setLoading(false);
             setPoints();
-            setError("Could not retrieve points for user");
+            setError("Could not retrieve point history for user");
             console.log(error);
         });
     }, []);
@@ -38,21 +36,12 @@ export default function userProfile() {
     }
     return (
         <div className="p-10">
-            <Link href='../'>Exit Profile</Link>
+            <Link href='../'>Exit Point History</Link>
 
             <p>
-                {user.name}'s {role} Profile
+                {user.name}'s Point History
             </p>
 
-            <p>
-                Points Available: {points}
-            </p>
-
-            <Link href='pointHistory'>View Point History</Link>
-
-            <p></p>
-
-            <Link href='profile'>Change User Info</Link>
         </div>
     );
     
