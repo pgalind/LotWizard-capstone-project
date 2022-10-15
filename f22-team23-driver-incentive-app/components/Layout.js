@@ -6,12 +6,14 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import {logNavigation} from '../lib/helpers';
 import { useRouter } from 'next/router';
 import user from '../services/user';
-import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+import Notifications from '@mui/icons-material/Notifications';
+import { Button } from "@mui/material";
 
 // Anything inside {} is a dynamic property.
 
 export default function Layout({ title, children }) {
   const router = useRouter();
+  //const notificationColor = 'red';
 
   // ADDED BY KALEB
   const log_SignInClicked = event =>{
@@ -35,6 +37,17 @@ export default function Layout({ title, children }) {
       .then((response) => {
         console.log(response)
       })
+  }
+
+  // Alert bell icon
+  function AlertIcon() {
+    return (
+      <div>
+        <Notifications>Hello!</Notifications>
+        //<Typography style={styles.typography}>2</Typography>
+        //<ModeComment color="primary" />
+      </div>
+    );
   }
 
   /*if (loading) {
@@ -73,6 +86,9 @@ export default function Layout({ title, children }) {
 
 
             <div>
+              <Link href="../pointHistory">
+                <Button startIcon={<Notifications style={{ color: 'red' }} />}>Test</Button>
+              </Link>
               <Link href="../userProfile">
                 <a className="p-2 hover:text-blue-600">{user.name}</a>
               </Link>
