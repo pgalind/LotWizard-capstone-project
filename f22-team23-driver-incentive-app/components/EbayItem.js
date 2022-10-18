@@ -20,27 +20,13 @@ export default function EbayItem() {
   // TESTING
   const [items, setItems] = useState('');
   useEffect(() => {
-      axios.post('../pages/api/querySponsorItems', {
+      axios.post('/api/querySponsorItems', {
 
       }).then((response) => {
-          /*setLoading(false);
-          setPoints(response.data[0]['Points']);
-          setRole(response.data[0]['Role'])
-          setError('');
-          user.points = response.data[0]['Points'];
-          user.role = response.data[0]['Role'];
-          console.log(response.data);
-          console.log("POINTS: " + user.points);*/
-          setItems(response.data);
-          console.log(response.data);
+          setItems(response.data[0]['ItemId']);
       })
-      .catch((error) => {
-          /*setLoading(false);
-          setPoints();
-          setError("Could not retrieve points for user");
-          console.log(error);*/
-      });
   }, []);
+  console.log("ITEM ID: " + items);
   // END TESTING 
 
   function changePicture(dir) {
