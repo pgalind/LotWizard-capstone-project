@@ -15,6 +15,34 @@ export default function EbayItem() {
   const [post, setPost] = useState({});
   const [image, setImage] = useState('');
 
+
+  // ADDED BY KALEB 
+  // TESTING
+  const [items, setItems] = useState('');
+  useEffect(() => {
+      axios.post('../pages/api/querySponsorItems', {
+
+      }).then((response) => {
+          /*setLoading(false);
+          setPoints(response.data[0]['Points']);
+          setRole(response.data[0]['Role'])
+          setError('');
+          user.points = response.data[0]['Points'];
+          user.role = response.data[0]['Role'];
+          console.log(response.data);
+          console.log("POINTS: " + user.points);*/
+          setItems(response.data);
+          console.log(response.data);
+      })
+      .catch((error) => {
+          /*setLoading(false);
+          setPoints();
+          setError("Could not retrieve points for user");
+          console.log(error);*/
+      });
+  }, []);
+  // END TESTING 
+
   function changePicture(dir) {
     // 👇️ refers to the div element
     //console.log(event.currentTarget);
