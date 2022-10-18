@@ -3,11 +3,12 @@ import excuteQuery from '../../lib/db'
 export default async (req, res) => {
 
     try {
-        console.log("about to run the queryUserPoints query")
+        console.log("about to run the getDriverPointHistory query")
         console.log(req.body)
 
         //interpolate the variables into the query
-        let queryString = `SELECT * FROM Users WHERE UserName=\"${req.body.userName}\"`
+        let queryString = `SELECT COUNT(*) from sys.log_pointchange P inner join sys.Users U on P.DriverID = U.UserID where Username = \"${req.body.userName}\"`
+        //let queryString = `SELECT * FROM log_pointchange`
         console.log("Full query string : " + queryString)
         console.log("req.body: " + req.body)
          
@@ -19,7 +20,7 @@ export default async (req, res) => {
        // Below, we can populate the User's data
        // feel free to add as needed
        console.log("Result: " + result.body)
-       //console.log("Points: " + result[0].Points)
+       console.log("Point Change: " + result[0])
        //console.log("Role: " + result[0].Role)
        res.send(result)
        //console.log("Response: " + res.body)

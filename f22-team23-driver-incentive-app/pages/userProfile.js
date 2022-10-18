@@ -10,16 +10,19 @@ export default function userProfile() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [points, setPoints] = useState();
+    const [role, setRole] = useState();
 
     useEffect(() => {
         axios.post('/api/queryUserPoints', {
             userName : user.name
         }).then((response) => {
             setLoading(false);
-            setPoints(response.data);
+            setPoints(response.data[0]['Points']);
+            setRole(response.data[0]['Role'])
             setError('');
-            user.points = points
-            console.log(response);
+            user.points = response.data[0]['Points'];
+            user.role = response.data[0]['Role'];
+            console.log(response.data);
             console.log("POINTS: " + user.points);
         })
         .catch((error) => {
@@ -38,12 +41,16 @@ export default function userProfile() {
             <Link href='../'>Exit Profile</Link>
 
             <p>
-                {user.name}'s Profile
+                {user.name}'s {role} Profile
             </p>
 
             <p>
                 Points Available: {points}
             </p>
+
+            <Link href='pointHistory'>View Point History</Link>
+
+            <p></p>
 
             <Link href='profileData'>Change User Info</Link>
         </div>
