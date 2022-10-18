@@ -1,10 +1,7 @@
 import axios from "axios"
 import user from '../services/user'
-//import { useRouter } from 'next/router';
 
 export default function signIn(values){
-    //const router = useRouter(); // to redirect
-    console.log("HELLO");
 
   axios
     .post('/api/authenticateUser', {
@@ -12,9 +9,7 @@ export default function signIn(values){
     })
     .then((response) => {
       let passwordResponse = response.data;
-
-      console.log('user password is : ' + passwordResponse);
-      console.log('user name is : ' + values.username);
+      console.log("ewfe: " + passwordResponse)
 
         if(passwordResponse === 0){
             alert('Username or Password is incorrect')
@@ -22,9 +17,6 @@ export default function signIn(values){
             if(values.password == passwordResponse){
                 alert("Successful log in: Hello " + values.username + "!")
                 user.name = values.username
-                console.log(user.name)
-                //console.log("HELLO ${userName}!")
-                //router.push('/');
             } else {
                 alert ('Username or Password is incorrect')
             }
@@ -35,10 +27,5 @@ export default function signIn(values){
     }).catch((error) => {
         console.log("Does exist error : " + error)
     })
-    .catch((error) => {
-      console.log('Does exist error : ' + error);
-    })
-    .finally(() => {
-      setSubmitting(false);
-    });
+
 }

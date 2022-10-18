@@ -15,6 +15,7 @@ const Register = () => {
 
   return (
     <div className="flex items-center justify-center">
+      <Link href="/">Exit Registration</Link>
       <Formik
         initialValues={{
           firstName: '',
@@ -24,7 +25,7 @@ const Register = () => {
           confirm_password: '',
         }}
         validationSchema={registerSchema}
-        onSubmit={register}
+        onSubmit={registerAuth}
         /* this is for testing purposes --> form values are displayed in a popup alert
         onSubmit={async (values) => {
           await new Promise((r) => setTimeout(r, 500));
@@ -125,7 +126,6 @@ const Register = () => {
           )}
         </Formik>
       </div>
-    </div>
   );
 };
 

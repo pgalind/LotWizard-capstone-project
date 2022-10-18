@@ -5,7 +5,7 @@ export default async (req, res) => {
     try {
 
         //interpolate the variables into the query
-        let queryString = `SELECT FirstName FROM Users WHERE UserName=\'${req.body.userName}\'`
+        let queryString = `SELECT FirstName, LastName, UserName, Birthday, TruckModel, YearsOfExperience FROM Users WHERE UserName=\'${req.body.userName}\'`
          
        let result = await excuteQuery({
            query: queryString,

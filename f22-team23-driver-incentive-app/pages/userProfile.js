@@ -45,7 +45,7 @@ export default function userProfile() {
                 Points Available: {points}
             </p>
 
-            <Link href='profile'>Change User Info</Link>
+            <Link href='profileData'>Change User Info</Link>
         </div>
     );
     

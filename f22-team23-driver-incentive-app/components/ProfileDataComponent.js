@@ -1,53 +1,68 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Link from 'next/link';
+import token from '../lib/token';
+import user from '../services/user'
 import { Formik } from 'formik';
 import FormSection from '../components/FormSection';
 import ProfileField from '../components/ProfileField';
 import SaveButton from '../components/SaveButton';
-import getUserFirstName from '../hooks/getUserFirstName';
 
-
-
-//THIS FILE IS CURRENTLY NOT IN USE
-const Profile = () => {
+export default function ProfileDataComponent() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [points, setPoints] = useState();
-  let name = ''
+  const [post, setPost] = useState({});
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const [userName, setUserName] = useState();
+  const [birthday, setBirthday] = useState();
+  const [truckModel, setTruckModel] = useState();
+  const [yearsOfExp, setYearsOfExp] = useState();
 
-  useEffect(() => {
-    name = getUserFirstName()
-    console.log(name)
-    
-    if(name != '')
-      setLoading(true)
+  useEffect(() =>{
+    axios.post('/api/getProfileData',{
+        userName : user.name
+    }).then((response) => {
+
+        //response.data is an array of objects
+        //each object has a FirstName key with a string name
+        setFirstName(response.data[0].FirstName)
+        setLastName(response.data[0].LastName)
+        setUserName(response.data[0].UserName)
+        setBirthday(response.data[0].Birthday)
+        setTruckModel(response.data[0].TruckModel)
+        setYearsOfExp(response.data[0].YearsOfExperience)
+        setLoading(false)
+     
+    }).catch((error) => {
+        console.log("Does exist error : " + error)
+        setError("User not found")
+    })
 
   });
 
+    if(loading){
+        return <div>Loading...</div>
+    }
 
-  if(loading){
-      return <div>Loading . . .</div>
-  }
-
-
-
-  return (
-    <div className="flex items-center justify-center">
+    return(
+        <div className="flex items-center justify-center">
       <Formik
         initialValues={{
-          firstName: name,
-          lastName: '',
+          firstName: `${firstName}`,
+          lastName: `${lastName}`,
           email: '',
-          username: '',
-          dob: '',
+          username: `${userName}`,
+          dob: `${birthday}`,
           gender: '',
           country: '',
           addressMain: '',
           addressSecond: '',
           city: '',
           zipcode: '',
-          truckModel: '',
+          truckModel: `${truckModel}`,
           truckYear: '',
-          expYears: '',
+          expYears: `${yearsOfExp}`,
         }}
         //onSubmit={handler function to add values to db}
         // this is for testing purposes --> form values are displayed in a popup alert
@@ -62,7 +77,7 @@ const Profile = () => {
         {({ isSaving, values, handleBlur, handleSubmit, handleChange }) => (
           <form className="max-w-full p-10" onSubmit={handleSubmit}>
             <h1 className="text-center font-bold text-2xl mb-6">
-              User Profile
+              {user.name}'s Profile
             </h1>
             <FormSection>
               <ProfileField
@@ -111,7 +126,7 @@ const Profile = () => {
             <FormSection>
               <ProfileField
                 label="Date of birth:"
-                type="text"
+                type="date"
                 name="dob"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -199,7 +214,7 @@ const Profile = () => {
             <FormSection>
               <ProfileField
                 label="Truck year: "
-                type="text"
+                type="number"
                 name="truckYear"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -210,7 +225,7 @@ const Profile = () => {
             <FormSection>
               <ProfileField
                 label="Years of experience: "
-                type="text"
+                type="number"
                 name="expYears"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -223,7 +238,7 @@ const Profile = () => {
         )}
       </Formik>
     </div>
-  );
-};
+    );
 
-export default Profile;
+
+}
