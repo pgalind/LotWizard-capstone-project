@@ -62,13 +62,10 @@ export default function Layout({ title, children }) {
       })
   }
 
-<<<<<<< HEAD
   const logOutOnClick = () =>{
     user.name = null
     router.push('/login')
   }
-=======
->>>>>>> 73d422423c78b384b3bb11ddbf3d9751142a309e
 
   /*if (loading) {
     return null;
@@ -89,15 +86,6 @@ if(!user.name){
             </Link>
 
             <div>
-<<<<<<< HEAD
-=======
-              <Link href="../pointHistory">
-                <Button startIcon={<Notifications style={{ color: 'red'}} />}>{notificationCount}</Button>
-              </Link>
-              <Link href="../userProfile">
-                <a className="p-2 hover:text-blue-600">{user.name}</a>
-              </Link>
->>>>>>> 73d422423c78b384b3bb11ddbf3d9751142a309e
               <Link href="../register">
                 <a className="p-2 hover:text-blue-600">Register</a>
               </Link>
