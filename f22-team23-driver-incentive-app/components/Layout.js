@@ -27,7 +27,7 @@ export default function Layout({ title, children }) {
           setNotificationCount(response.data[0]['COUNT(*)']);
         } else {
           //notificationColor = 'blue';
-          setNotificationCount('');
+          setNotificationCount(0);
         }
         setError('');
         
