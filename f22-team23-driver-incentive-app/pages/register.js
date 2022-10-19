@@ -84,19 +84,6 @@ const Register = () => {
 
             <FormSection>
               <FormInput
-                label="Email"
-                type="email"
-                name="email"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values?.email}
-                isError="true"
-                error={errors?.email}
-              />
-            </FormSection>
-
-            <FormSection>
-              <FormInput
                 label="Password"
                 type="password"
                 name="password"

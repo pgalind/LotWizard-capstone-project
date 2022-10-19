@@ -18,7 +18,7 @@ const Login = () => {
 
   return (
     <div className="p-10">
-      <Link href="../">Exit Registration</Link>
+      <Link href="../">Exit Sign in</Link>
       {success === 'true' && (
         <div className="pt-10 pb-10 color-green-300">You're signed up!</div>
       )}
