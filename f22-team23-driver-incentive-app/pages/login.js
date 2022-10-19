@@ -6,29 +6,25 @@ import FormInput from '../components/FormInput';
 import FormLink from '../components/FormLink';
 import SubmitButton from '../components/SubmitButton';
 import useValidationSchema from '../hooks/useValidationSchema';
+import useAuth from '../hooks/useAuth';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import signIn from '../hooks/signIn';
-import user from '../services/user';
 
-const Login = () => {
+export default function Login() {
   const router = useRouter();
-  const { success } = router.query;
   const { loginSchema } = useValidationSchema();
+  const { login } = useAuth();
 
   return (
     <div className="p-10">
       <Link href="../">Exit Sign in</Link>
-      {success === 'true' && (
-        <div className="pt-10 pb-10 color-green-300">You're signed up!</div>
-      )}
       <Formik
         initialValues={{
           username: '',
           password: '',
         }}
         validationSchema={loginSchema}
-        onSubmit={signIn}
+        onSubmit={login}
         validateOnMount={false}
         validateOnChange={false}
         validateOnBlur={false}
@@ -37,6 +33,7 @@ const Login = () => {
           isSubmitting,
           errors,
           values,
+          handleReset,
           handleChange,
           handleBlur,
           handleSubmit,
@@ -54,7 +51,6 @@ const Login = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.username}
-                isError="true"
                 error={errors?.username}
               />
             </FormSection>
@@ -67,7 +63,6 @@ const Login = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.password}
-                isError="true"
                 error={errors?.password}
               />
             </FormSection>
@@ -84,6 +79,4 @@ const Login = () => {
       </Formik>
     </div>
   );
-};
-
-export default Login;
+}

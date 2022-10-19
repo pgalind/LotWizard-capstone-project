@@ -7,11 +7,12 @@ import FormInput from '../components/FormInput';
 import FormLink from '../components/FormLink';
 import SubmitButton from '../components/SubmitButton';
 import useValidationSchema from '../hooks/useValidationSchema';
-import registerAuth from '../hooks/registerAuth';
+import useRegisterAuth from '../hooks/useRegisterAuth';
 import Link from 'next/link';
 
-const Register = () => {
+export default function Register() {
   const { registerSchema } = useValidationSchema();
+  const { register } = useRegisterAuth();
 
   return (
     <div className="p-10">
@@ -25,7 +26,7 @@ const Register = () => {
           confirm_password: '',
         }}
         validationSchema={registerSchema}
-        onSubmit={registerAuth}
+        onSubmit={register}
         validateOnMount={false}
         validateOnChange={false}
         validateOnBlur={false}
@@ -118,6 +119,4 @@ const Register = () => {
       </Formik>
     </div>
   );
-};
-
-export default Register;
+}
