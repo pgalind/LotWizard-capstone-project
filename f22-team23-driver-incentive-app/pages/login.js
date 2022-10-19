@@ -9,7 +9,6 @@ import useValidationSchema from '../hooks/useValidationSchema';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import signIn from '../hooks/signIn';
-import { useEffect } from 'react';
 import user from '../services/user';
 
 const Login = () => {
@@ -18,15 +17,71 @@ const Login = () => {
   const { loginSchema } = useValidationSchema();
 
   return (
-    <div>
-      <span className="p-4">
-        <Link href="../">Exit SignIn</Link>
-      </span>
-      <div className="flex items-center justify-center">
-        {success === 'true' && (
-          <div className="pt-10 pb-10 color-green-300">You're signed up!</div>
+    <div className="p-10">
+      <Link href="../">Exit Registration</Link>
+      {success === 'true' && (
+        <div className="pt-10 pb-10 color-green-300">You're signed up!</div>
+      )}
+      <Formik
+        initialValues={{
+          username: '',
+          password: '',
+        }}
+        validationSchema={loginSchema}
+        onSubmit={signIn}
+        validateOnMount={false}
+        validateOnChange={false}
+        validateOnBlur={false}
+      >
+        {({
+          isSubmitting,
+          errors,
+          values,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+        }) => (
+          <form
+            className="flex flex-col items-center w-[300px] min-w-full"
+            onSubmit={handleSubmit}
+          >
+            <h1 className="font-bold text-2xl mb-6 text-center">Sign in</h1>
+            <FormSection>
+              <FormInput
+                label="Username"
+                type="text"
+                name="username"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values?.username}
+                isError="true"
+                error={errors?.username}
+              />
+            </FormSection>
+
+            <FormSection>
+              <FormInput
+                label="Password"
+                type="password"
+                name="password"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values?.password}
+                isError="true"
+                error={errors?.password}
+              />
+            </FormSection>
+
+            <FormSection>
+              <FormLink href="/register">
+                Don't have an account? Register.
+              </FormLink>
+            </FormSection>
+
+            <SubmitButton isSubmitting={isSubmitting} />
+          </form>
         )}
-        </Formik>
+      </Formik>
     </div>
   );
 };
