@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
-import token from '../lib/token';
+//import { token } from '../lib/token';
 
 // This variable inconsistently increments when it's declared inside EbayItem() for some reason
 var imageIndex = 0;
@@ -9,7 +9,7 @@ var imageIndex = 0;
 // NOTE: Ebay's auth token changes often; If the page is stuck on loading
 // Please generate a new auth token by going to https://developer.ebay.com/my/api_test_tool?index=0
 // and set it to auth value in axios call
-export default function EbayItem() {
+export default function EbayItem(itemID) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [post, setPost] = useState({});
@@ -42,11 +42,11 @@ export default function EbayItem() {
   //{loading ? 'Loading' : post.title}
   //{error ? error : null}
   var auth =
-    'Bearer v^1.1#i^1#f^0#r^0#p^1#I^3#t^H4sIAAAAAAAAAOVYf2wTVRxft25kwgQEERFJPdCEH72+u2uv7blWu3WDKms72vFj8sN3d++2Y9e74+66rX84y1CQQByJwQhoWIhoiJEEiUSiJGKIxEFQE0n8kRAjEvwBBhMi8UeId20Z3SSArIlN7D/N+77v+77P5/O+3/fePZCtqZ23cdHGK3W2cZWDWZCttNmI8aC2pnr+3VWVM6orQJGDbTA7J2vvr/qhXocpSWWWIF1VZB05elOSrDM5YwBLazKjQF3UGRmmkM4YHJMItSxmSBwwqqYYCqdImCMSDmDIDyjkgR6eIliOBaRpla/FTCoBjKRYGhGEl6YB9EM3a/brehpFZN2AsmH2A5J0EsBJUEnCx7jdjIfC3bS3HXMsRZouKrLpggMsmIPL5MZqRVhvDhXqOtIMMwgWjISaE7FQJNwUTda7imIFCzokDGik9ZGtRoVHjqVQSqObT6PnvJlEmuOQrmOuYH6GkUGZ0DUwdwA/JzXLemnKTQGOJ90CAKWRslnRUtC4OQ7LIvJOIefKINkQjcytFDXVYNcizii0omaISNhh/bWmoSQKItICWFNDaEUoHseCTXwP1Phoh1OHAuI1sdsZXxJ2enws5ICH4J2c1+NFFOcpTJSPVpB51EyNisyLlmi6I6oYDchEjUZrQxVpYzrF5JgWEgwLUZEfCa5p6CHbrUXNr2La6JStdUUpUwhHrnnrFRgebRiayKYNNBxhdEdOogAGVVXksdGduVwspE+vHsA6DUNlXK6enh68h8IVrcNFAkC4lrcsTnCdKAUx09eq9by/eOsBTjFHhUPmSF1kjIxqYuk1c9UEIHdgQTftISlfQfeRsIKjrf8wFHF2jayIklWIT4BmyngR5H3AIjH2AgkWctRlwUAszDhTUOtChipBDjk5M83SKaSJPEN5BFMaATl52i843X5BcLIennYSAkIAIZbl/L7/U53cbqYnEKchoySpXrI0b2/uFUGM9XW38tHFsbZEiz9Mr5CjFCmtjUe6vOsausPrlj/hDj3Z3BG43WK4IflGSTSVSZrzl1+tL1J0A/FjopfgFBXFFUnkMuW1wJTGx6FmZBJIkkzDmEiGVDVSmq26ZPT+5TZxZ7xLd0T9R8fTDVnpVsqWFytrvG4GgKqIWycQzikpl2LVOjRvH5Z5TQ71mHiL5sW1rFibJPNsRT5/48QViy6ud3O4hnQlrZmXbTxmXcCSSheSzfPM0BRJQtpSYsz1nEqlDchKqNwKuwQJLsIyO2wJmvbQPpr2U2PixeWO0jXltiWVZCu2N9/Zrdo18hs/WJH7Ef22d0G/7UClzQZc4GFiNniopqrNXjVhhi4aCBehgOtih2x+umoI70IZFYpaZY2tr4VpPV30qjC4CkwffleorSLGFz0ygJnXe6qJiffVkSQBCIrwud0eqh3Mvt5rJ6bZp76ttqWGtm3ZuTOR2jJ0pOFZ+yeHKVA37GSzVVfY+20V8XPElGPJhac23XNl+u9/TVrxdeWyM/i2S/sfeGnBoXH1O/l5P548+8uW82cbvx+at2v6ryvXf/hl9yx1808vP7dsYeb5bPRy6vLRia/0uSY9+t1Wdf2eux6RWtdMWzfn4rF3rm6S9hEXmd3vv/B6/6rP23as/vaxp9vr/jg7hK0+/dqFmXua/2x9Txna379w/ubOpOAnL53w+y6cOT5/ysqjh8Ov7h249+OpVzc98/jBufQutNy3oT1dt92e/ub+yQcnfDr0Jpjy1IOfgQnsem4gvPvEV9tXO168tO+jzqs9NfW1TX1vCdu5viPHBz7IvnHg5Bdzj+07VPHb1h2n5J9nbICDMXfjwORZaPe5BcL5veH88v0Ng3PFgO8RAAA=';
+    'Bearer v^1.1#i^1#r^0#p^1#I^3#f^0#t^H4sIAAAAAAAAAOVYD2wTVRhf908bGAtM0UwM9QD/wd296/Wu7UErhTJXZWtHxxgzMK5378qx9q7ce926iGzMxAgoCQIhRLPMhEQTFPwDBhIjGhKNMRiCEhI1MZAQp4JCSPw3pt61ZXSTALImLrG5pHnf+973fr/f+7733h3orbQ/+lz9c79W2e4oHegFvaU2GzMJ2Csr5k4pK62tKAEFDraB3tm95X1lgwuQmEykhGUQpXQNQUcmmdCQkDX6iLShCbqIVCRoYhIiAUtCNNCwVHBSQEgZOtYlPUE4QkEf4QSyIrs5SQKcG/CcZFq1qzGbdR+hxFxe4GQVr6i4ZRnyZj9CaRjSEBY1bI13OkkGkAzTDBiB4QXAUryXbyMcLdBAqq6ZLhQg/Fm4QnasUYD1xlBFhKCBzSCEPxSoi4YDoeCSxuYFdEEsf16HKBZxGo1uLdZl6GgRE2l442lQ1luIpiUJIkTQ/twMo4MKgatgbgN+TuqYOyZ6PbwHOt0cxypFkbJON5IivjEOy6LKpJJ1FaCGVdx9M0VNNWLroITzrUYzRCjosP6a0mJCVVRo+IgliwIrA5EI4V8id4mG3BgnkahA2VA7yciyIMl5YqKZV4xMSm7ODVmJy0+Ui5aXecxMi3VNVi3RkKNRx4ugiRqO1QYUaGM6hbWwEVCwhajQj72qoQe0WYuaW8U0XqtZ6wqTphCObPPmKzAyGmNDjaUxHIkwtiMrkY8QUylVJsZ2ZnMxnz4Z5CPWYpwSaLqrq4vqYindiNNOABi6tWFpVFoLkyJh+lq1nvNXbz6AVLNUJGiORKqAu1MmloyZqyYALU74XTznZD153UfD8o+1/sNQwJkeXRHFqhA5xvIul5dj3Rwri25nMSrEn09S2sIBY2I3mRSNDohTCVGCpGTmWToJDVUWWE4xtVEgKfNehXR5FYWMcTJPMgqEAMJYTPJ6/k+FcqupHoWSAXFRcr1oed5Wl1FBOObpbJIbl4aXRxu8QX6l1sg6E+sioQ73+kWdwfWtT7gCT9bFfbdaDdclvzihmso0m/MXQwCr1osnQr2OMJTHRS8q6SkY0ROq1D2xFpg15Iho4O4oTCRMw7hIBlKpUHH26qLR+5fbxO3xLt4Z9R+dT9dlhayUnVisrPHIDCCmVMo6gShJT9JWreuief2wzO1Z1OPirZo31wnF2iSZY6vKuSsnlaVLoU6JMiDS04Z526bC1g2sWe+AmnmeYUNPJKDRwoy7npPJNBZjCTjRCrsICa6KE+ywZXiec3HAy7Pj4iVlj9L2ibYlFWMrLn/8Nq/V9OiXfH9J9sf02Q6BPtvbpTYboMEcZhZ4oLJseXnZ5FqkYkipokIhNa6Z764GpDpgd0pUjdJK28YGoelUwWeFgVXg3pEPC/YyZlLBVwYw41pPBVN9T5XTyQDGenjAtoFZ13rLmenld/V8d+a3O3+Eg/bV29+4sqnp4Nm7m34HVSNONltFSXmfraRy0w9HVnfJv/Sc3jB/5uCWaP179LBj/wcrOi+EdjieP1I9r2fq11sztX0nX3u2ehW/077smde3ZE5lTnxZ79v/8v2Tg+KL0oUFJw8fOyOFp8+dPrkHz9t+5fBjC//8qyb+9DenQw/te2H75taqmds2RGoGptkvf1622/nmukd+pl85f+nogTXnPur/cOjg9wMtvXvenzPcP7Sr+vhX9RXvnO3vGTy2d0amwt5KoqG3AlPO12h2+tXl7e0dJ7/d/e7CE4d2bLuvaejTl1av6K/dsHHwj33DsxvoqXumfnL8yFM/MVOO4q3xEwRYUf3gtEmhj9XKhr3Va84euHhl52eXdzWfu/hFT8qxeXfN8KWj8x/OLd/fkT15tfARAAA=';
   useEffect(() => {
     axios({
       method: 'get',
-      url: 'https://api.ebay.com/buy/browse/v1/item/v1|374289166032|0',
+      url: `https://api.ebay.com/buy/browse/v1/item/v1|${itemID}|0`,
       headers: {
         Authorization: auth,
         'Content-Type': 'application/json',
@@ -55,14 +55,16 @@ export default function EbayItem() {
           'contextualLocation=country=<2_character_country_code>,zip=<zip_code>,affiliateCampaignId=<ePNCampaignId>,affiliateReferenceId=<referenceId></referenceId>',
       },
     })
-      .then((response) => {
+      .then((res) => {
+        res.json();
+        console.log(res);
+      })
+      .then((data) => {
         setLoading(false);
-        setPost(response.data);
-        setError('');
-        console.log(response);
-        console.log(response.data.title);
-        console.log(response.data.price.value);
-        setImage(response.data.image.imageUrl);
+        setPost(data);
+        setImage(data.image.imageUrl);
+        console.log(data.title);
+        console.log(data.price.value);
       })
       .catch((error) => {
         setLoading(false);
@@ -70,16 +72,17 @@ export default function EbayItem() {
         setError("Couldn't retrive catalog info from ebay :/");
         console.log(error);
       });
-  }, []);
+  }, [itemID]);
+
   return Object.keys(post).length ? (
-    <div className="card">
-      <Link href={'/catalog/5'}>
+    <div className="flex space-between align-center">
+      <Link href={`/catalog/${itemID}`}>
         <a>
           <img src={image} alt={image} className="w-96 h-96" />
         </a>
       </Link>
       <div className="flex flex-col items-center justify-center p-5">
-        <Link href={'/catalog/5'}>
+        <Link href={`/catalog/${itemID}`}>
           <a>
             <h2 className="text-lg">{post.title}</h2>
           </a>
