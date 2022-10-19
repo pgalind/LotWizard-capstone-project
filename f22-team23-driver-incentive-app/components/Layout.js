@@ -64,7 +64,7 @@ export default function Layout({ title, children }) {
 
   const logOutOnClick = () =>{
     user.name = null
-    router.push('/login')
+    router.push('/')
   }
 
   /*if (loading) {
@@ -84,6 +84,8 @@ if(!user.name){
             <Link href="/">
               <a className="text-lg font-bold">LotWizard</a>
             </Link>
+
+
 
             <div>
               <Link href="../register">
@@ -137,6 +139,9 @@ if(!user.name){
             </Link>
 
             <div>
+              <Link href="../pointHistory">
+                <Button startIcon={<Notifications style={{ color: 'red'}} />}>{notificationCount}</Button>
+              </Link>
               <Link href="../userProfile">
                 <a className="p-2 hover:text-blue-600">{user.name}</a>
               </Link>
