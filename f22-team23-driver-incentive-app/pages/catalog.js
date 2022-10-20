@@ -7,17 +7,7 @@ import axios from 'axios';
 import Cookie from 'js-cookie';
 
 export default function Catalog() {
-<<<<<<< HEAD
   // for every catalog item, create an EbayItem component passing the itemID
-  return (
-    <Layout title="Catalog">
-      <h1 className="text-lg">Sponsor Catalog</h1>
-      <CatalogGrid>
-        <EbayItem></EbayItem>
-      </CatalogGrid>
-    </Layout>
-  );
-=======
   //const { data: session } = useSession();
   const [token, setToken] = useState('');
   useEffect(() => {
@@ -47,24 +37,9 @@ export default function Catalog() {
       <Layout title="Catalog">
         <h1 className="text-lg">Sponsor Catalog</h1>
         <CatalogGrid>
-          {itemList.map((item, index) => (
-            <EbayItem key={index} itemID={item.itemID} token={token}></EbayItem>
-          ))}
+          <EbayItem token={token} />
         </CatalogGrid>
       </Layout>
     );
   }
->>>>>>> oauth-solution
 }
-
-/*
-// ADDED BY KALEB
-  // TESTING
-  const [items, setItems] = useState('');
-  useEffect(() => {
-    axios.post('/api/querySponsorItems', {}).then((response) => {
-      setItems(response.data[0]['ItemId']);
-    });
-  }, []);
-  console.log('ITEM ID: ' + items);
-  // END TESTING*/
