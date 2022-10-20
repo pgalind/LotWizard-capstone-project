@@ -6,9 +6,24 @@ import { itemList } from '../data/itemList.js';
 import axios from 'axios';
 import Cookie from 'js-cookie';
 
+// ADDED BY KALEB
+// TESTING
+/*
+const [items, setItems] = useState('');
+useEffect(() => {
+  axios.post('/api/querySponsorItems', {}).then((response) => {
+    setItems(response.data[0]['ItemId']);
+  });
+}, []);
+console.log('ITEM ID: ' + items);*/
+// END TESTING
+
 export default function Catalog() {
   // for every catalog item, create an EbayItem component passing the itemID
   //const { data: session } = useSession();
+  const [itemIDs, setItemIDs] = useState([
+    374289166032, 294670499440, 325371985137,
+  ]);
   const [token, setToken] = useState('');
   useEffect(() => {
     if (typeof Cookie.get('token') == 'undefined') {
@@ -37,7 +52,9 @@ export default function Catalog() {
       <Layout title="Catalog">
         <h1 className="text-lg">Sponsor Catalog</h1>
         <CatalogGrid>
-          <EbayItem token={token} />
+          <EbayItem token={token} itemID={itemIDs[0]} />
+          <EbayItem token={token} itemID={itemIDs[1]} />
+          <EbayItem token={token} itemID={itemIDs[2]} />
         </CatalogGrid>
       </Layout>
     );
