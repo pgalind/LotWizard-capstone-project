@@ -42,11 +42,11 @@ export default function EbayItem(itemID) {
   //{loading ? 'Loading' : post.title}
   //{error ? error : null}
   var auth =
-    'Bearer v^1.1#i^1#f^0#I^3#p^1#r^0#t^H4sIAAAAAAAAAOVYa2wUVRTudtvKGxKhmEbJdrRqgJm9M7Ozj4Fd3b7CKt0tbMG2PJp53N1OOzuznXu37ZoItSgJMShGRMIPU/gDDYb4AFHUaKTqD/1hYngkPBSjiTGAkKAVjcSZ6VK2lQDSTWzi/tnMueee+33fOefeOwP6yqYu3Lxs8/BMxz3FA32gr9jhoKeDqWWli2Y5iytKi0Ceg2Og76G+kn7nT0uRkFLT/EqI0rqGoKs3pWqIt41BImNovC4gBfGakIKIxxIfDzcs5xkK8GlDx7qkq4QrUhskEqzgESEn+2SPR4YsbVq16zGb9CDhkb2iyHI+r8SIHkn0m+MIZWBEQ1jQcJBgAMOQNCDpQBMAvMfPsyxFM/5WwrUaGkjRNdOFAkTIhsvbc408rLeGKiAEDWwGIUKRcH08Fo7U1kWblrrzYoVyOsSxgDNo7FONLkPXakHNwFsvg2xvPp6RJIgQ4Q6NrDA2KB++DuYu4NtSCxzj9bBMICD6hIDsLYiS9bqREvCtYVgWRSYTtisPNazg7O0ENcUQO6CEc09RM0Sk1mX9rcgIqpJQoBEk6qrDLeHGRiJUJ/cIhhxNkkhIQNlQusnGlbUk5xcFCXC0TEo+zgdZicstNBItp/K4lWp0TVYszZArquNqaKKG47Vh87QxnWJazAgnsIUo34+5riHta7VyOpLEDG7XrLTClCmEy368fQZGZ2NsKGIGw9EI4wdsicxUp9OKTIwftEsxVz29KEi0Y5zm3e6enh6qh6V0I+lmAKDdzQ3L41I7TAmE5Wv1uu2v3H4CqdhUJGjORAqPs2kTS69ZqiYALUmEPF6OYf053cfCCo23/sOQx9k9tiEK1SB+IMuSh5Mkr4+DUBYK0SGhXJG6LRxQFLJkSjA6IU6rggRJyayzTAoaisyzXMLUJgFJ2RtIkJ5AIkGKnOwl6QSEAEJRlAL+/1Oj3Gmpx6FkQFyYWi9UnbfW9yogJvq7V8jR5bFV8YZArbdFi7KM2tEY6fR1VXfXdjU/4Qk/WZ8M3mk33JR8jaqYyjSZ6xdEAKvXCybCMh1hKE+IXlzS07BRVxUpO7kSzBpyo2DgbByqqmmYEMlwOh0p0F5dKHr/cpu4O94FPKP+m/PppqyQVbKTi5U1H5kBhLRCWScQJekpt271umBePyxzm416QrwV8+I6qVibJEfYKvLIlZPSLboU6pYoAyI9Y5iXbSpm3cCa9E6omecZNnRVhcZqesL9nEplsCCqcLI1dgEKXBEm2WFLe71e2mPuS+yEeEn2Udo22bakgmzFJfV3d612j33HDxXZP7rfcQj0O94qdjiAG1TRD4LKMueqEueMCqRgSClCgkJKUjNfXQ1IdcJsWlCM4jLHhgZ+xbG8rwoD68B9o98Vpjrp6XkfGcD9N0ZK6dnzZzIMDegAAB4/y7aCB2+MltDlJXOflRKHYVvbp8OnZ6x9YDB15NVdF+rAzFEnh6O0qKTfUTTvpYs7fc3rntrnf+X3a3t2rGmDPUfnJ+duO/5u+fGz59q7F0lLOk+cPV/z8F+bDg3+eG9/xZbFLVVT9u9s+Ca7p3Tzydd+W4M++x59N2P48c8r/c0HXoTZ8m27rl6au/2jY+cO/lmx9vU5Jy9WVYiDVy59semNrQn/I+eOdxwpn3Wo69ujU35+/+VrFx472F9z+pktv145tnLIqSWHX9C/3NHyzsaq99ZzlUOV5z/eeBgMrme3Llg3bf/CM9h54vlpn3xw/tF4716yLrYru5e6em3300tPLea+OnDycpL+4VTXh1T7c3O6OhbvvnxqiTFn3sAGMDTfH638pVNr/WNK5dcXhvYd3X5m9qzomwuYePXbI+n7G4pHVnvvEQAA';
+    'Bearer v^1.1#i^1#f^0#p^1#I^3#r^0#t^H4sIAAAAAAAAAOVYe2wURRjvtdcSRFqjSElFPLb1EWT3Zvdu9/YW7uD6klPaK1whbX3Ufcxel+7tHjt7vRYD1gabqCEa0pgIPkCJiuFVIiKViEFNiMEEE41i/yFBE0SIBlJJFMXdu6NcKwGkl9jE++cy33zzze/3m++bmR3QWzJ1Xv+S/gvTHVMKt/SC3kKHg5wGppYUP1haVFhRXAByHBxbeqt6nX1FpxYiPq4muOUQJXQNQVd3XNUQlzYGsKShcTqPFMRpfBwizhS5aKhhKUcRgEsYuqmLuoq5wrUBjPHTPq+HYgWPjwQkZCyrdjlmsx7AIANJQfCQXpkCvORlrX6EkjCsIZPXzABGAYrCSYBToJlkOcByXoqgPaANc62EBlJ0zXIhABZMw+XSY40crNeGyiMEDdMKggXDofpoJBSurWtsXujOiRXM6hA1eTOJxrZqdAm6VvJqEl57GpT25qJJUYQIYe5gZoaxQbnQZTA3AT8tNQ0kS03W7/cJtEh75bxIWa8bcd68Ng7boki4nHbloGYqZs/1FLXUEFZB0cy2Gq0Q4VqX/bcsyauKrEAjgNVVh1pDTU1YsE5K8YbUGMMRL0PJULrwpuW1OM0KvAhoUsJFH+2DHpHOTpSJlpV53Ew1uiYptmjI1aib1dBCDcdq4+PoHG0sp4gWMUKyaSPK8aPAZQ0pps1e1MwqJs0OzV5XGLeEcKWb11+B0dGmaShC0oSjEcZ3pCUKYHwioUjY+M50LmbTpxsFsA7TTHBudyqVIlIeQjdibgoA0t3SsDQqdsA4j1m+dq1n/JXrD8CVNBURWiORwpk9CQtLt5WrFgAthgW9DE152KzuY2EFx1v/Ycjh7B5bEfmqEL/MkCQl+r28j5F4FuajQoLZJHXbOKDA9+Bx3uiEZkLlRYiLVp4l49BQJM5Dy5Y2MsQlxi/jXr8s4wItMTgpQwggFATRz/6fCuVGUz0KRQOaecn1vOV5W323AiIC27VMalwaWRFt8NcyrVqjh1JXNYU7fauru2pXtzzsDT1SHwvcaDVclXyNqljKNFvz50MAu9bzJ8ISHZlQmhC9qKgnYJOuKmLP5FpgjyE18YbZE4WqahkmRDKUSITzs1fnjd6/3CZujnf+zqj/6Hy6Kitkp+zkYmWPR1YAPqEQ9glEiHrcbde6zlvXD9vcnkY9Id6KdXOdVKwtkhm2ipS5chJpugTqEgkDIj1pWLdtImLfwJr1TqhZ55lp6KoKjZXkhOs5Hk+avKDCyVbYeUhwhZ9khy3JMAzF+j0UNSFeYvoobZ9sW1I+tmLnQzd5rXaP/cgPFqR/ZJ9jH+hzDBY6HMAN7iUrwdySohXOolsrkGJCQuFlAikxzfp2NSDRCXsSvGIUljjWNXDLvsl5VtjyOJg1+rAwtYiclvPKAGZf6Skmy8qnUxQJKECygPVSbaDySq+TnOmccfTnmcean/to4+D8keH3yLUfbip79jUwfdTJ4SgucPY5ChwNfb8cPlb+/umTM774rfXA+W3VI0/+dPGlgcAh7+LKV/vvK3b4N/y5ARsuO1TlG7htaP2R+ohzNztl9hs7zmx79GDpJ/gTpcSe7xauWbAflg68sLP+nu6hvf0Hz3KnT2z9o2r3mkXbL/31sfJ58KnD694lNwt3tvxQDuZ1BGZu1fbuOBWtGNj5wfzFh+Gpr0tp2ZC8RdNGnjk+fOTp51u3v9i/3GTUE5vLU7f8PmcXdffx5LnhtcfrHltftlHZOTJ4whj+dQ/69st3TpJnhtpfP3PsLf7tmgfmHCh3Vdw/dHTbnJY3v/9x1+2xBe1ztVnorjvOXqw6d37f8MuXPhv8dMordalFF/Zvin11KVg2klm+vwFAPXPS8BEAAA==';
   useEffect(() => {
     axios({
       method: 'get',
-      url: `https://api.ebay.com/buy/browse/v1/item/v1|${itemID}|0`,
+      url: `https://api.ebay.com/buy/browse/v1/item/v1|374289166032|0`,
       headers: {
         Authorization: auth,
         'Content-Type': 'application/json',
@@ -55,16 +55,14 @@ export default function EbayItem(itemID) {
           'contextualLocation=country=<2_character_country_code>,zip=<zip_code>,affiliateCampaignId=<ePNCampaignId>,affiliateReferenceId=<referenceId></referenceId>',
       },
     })
-      .then((res) => {
-        res.json();
-        console.log(res);
-      })
-      .then((data) => {
+      .then((response) => {
         setLoading(false);
-        setPost(data);
-        setImage(data.image.imageUrl);
-        console.log(data.title);
-        console.log(data.price.value);
+        setPost(response.data);
+        setError('');
+        console.log(response);
+        console.log(response.data.title);
+        console.log(response.data.price.value);
+        setImage(response.data.image.imageUrl);
       })
       .catch((error) => {
         setLoading(false);
