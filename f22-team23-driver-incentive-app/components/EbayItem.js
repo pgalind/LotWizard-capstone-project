@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
-//import { token } from '../lib/token';
+import token from '../lib/token';
 
 // This variable inconsistently increments when it's declared inside EbayItem() for some reason
 var imageIndex = 0;
@@ -9,11 +9,22 @@ var imageIndex = 0;
 // NOTE: Ebay's auth token changes often; If the page is stuck on loading
 // Please generate a new auth token by going to https://developer.ebay.com/my/api_test_tool?index=0
 // and set it to auth value in axios call
-export default function EbayItem(itemID) {
+export default function EbayItem(propitemID) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [post, setPost] = useState({});
   const [image, setImage] = useState('');
+
+  // ADDED BY KALEB
+  // TESTING
+  const [items, setItems] = useState('');
+  useEffect(() => {
+    axios.post('/api/querySponsorItems', {}).then((response) => {
+      setItems(response.data[0]['ItemId']);
+    });
+  }, []);
+  console.log('ITEM ID: ' + items);
+  // END TESTING
 
   function changePicture(dir) {
     // 👇️ refers to the div element
@@ -41,14 +52,12 @@ export default function EbayItem(itemID) {
   //'https://jsonplaceholder.typicode.com/posts/1',
   //{loading ? 'Loading' : post.title}
   //{error ? error : null}
-  var auth =
-    'Bearer v^1.1#i^1#f^0#p^1#I^3#r^0#t^H4sIAAAAAAAAAOVYe2wURRjvtdcSRFqjSElFPLb1EWT3Zvdu9/YW7uD6klPaK1whbX3Ufcxel+7tHjt7vRYD1gabqCEa0pgIPkCJiuFVIiKViEFNiMEEE41i/yFBE0SIBlJJFMXdu6NcKwGkl9jE++cy33zzze/3m++bmR3QWzJ1Xv+S/gvTHVMKt/SC3kKHg5wGppYUP1haVFhRXAByHBxbeqt6nX1FpxYiPq4muOUQJXQNQVd3XNUQlzYGsKShcTqPFMRpfBwizhS5aKhhKUcRgEsYuqmLuoq5wrUBjPHTPq+HYgWPjwQkZCyrdjlmsx7AIANJQfCQXpkCvORlrX6EkjCsIZPXzABGAYrCSYBToJlkOcByXoqgPaANc62EBlJ0zXIhABZMw+XSY40crNeGyiMEDdMKggXDofpoJBSurWtsXujOiRXM6hA1eTOJxrZqdAm6VvJqEl57GpT25qJJUYQIYe5gZoaxQbnQZTA3AT8tNQ0kS03W7/cJtEh75bxIWa8bcd68Ng7boki4nHbloGYqZs/1FLXUEFZB0cy2Gq0Q4VqX/bcsyauKrEAjgNVVh1pDTU1YsE5K8YbUGMMRL0PJULrwpuW1OM0KvAhoUsJFH+2DHpHOTpSJlpV53Ew1uiYptmjI1aib1dBCDcdq4+PoHG0sp4gWMUKyaSPK8aPAZQ0pps1e1MwqJs0OzV5XGLeEcKWb11+B0dGmaShC0oSjEcZ3pCUKYHwioUjY+M50LmbTpxsFsA7TTHBudyqVIlIeQjdibgoA0t3SsDQqdsA4j1m+dq1n/JXrD8CVNBURWiORwpk9CQtLt5WrFgAthgW9DE152KzuY2EFx1v/Ycjh7B5bEfmqEL/MkCQl+r28j5F4FuajQoLZJHXbOKDA9+Bx3uiEZkLlRYiLVp4l49BQJM5Dy5Y2MsQlxi/jXr8s4wItMTgpQwggFATRz/6fCuVGUz0KRQOaecn1vOV5W323AiIC27VMalwaWRFt8NcyrVqjh1JXNYU7fauru2pXtzzsDT1SHwvcaDVclXyNqljKNFvz50MAu9bzJ8ISHZlQmhC9qKgnYJOuKmLP5FpgjyE18YbZE4WqahkmRDKUSITzs1fnjd6/3CZujnf+zqj/6Hy6Kitkp+zkYmWPR1YAPqEQ9glEiHrcbde6zlvXD9vcnkY9Id6KdXOdVKwtkhm2ipS5chJpugTqEgkDIj1pWLdtImLfwJr1TqhZ55lp6KoKjZXkhOs5Hk+avKDCyVbYeUhwhZ9khy3JMAzF+j0UNSFeYvoobZ9sW1I+tmLnQzd5rXaP/cgPFqR/ZJ9jH+hzDBY6HMAN7iUrwdySohXOolsrkGJCQuFlAikxzfp2NSDRCXsSvGIUljjWNXDLvsl5VtjyOJg1+rAwtYiclvPKAGZf6Skmy8qnUxQJKECygPVSbaDySq+TnOmccfTnmcean/to4+D8keH3yLUfbip79jUwfdTJ4SgucPY5ChwNfb8cPlb+/umTM774rfXA+W3VI0/+dPGlgcAh7+LKV/vvK3b4N/y5ARsuO1TlG7htaP2R+ohzNztl9hs7zmx79GDpJ/gTpcSe7xauWbAflg68sLP+nu6hvf0Hz3KnT2z9o2r3mkXbL/31sfJ58KnD694lNwt3tvxQDuZ1BGZu1fbuOBWtGNj5wfzFh+Gpr0tp2ZC8RdNGnjk+fOTp51u3v9i/3GTUE5vLU7f8PmcXdffx5LnhtcfrHltftlHZOTJ4whj+dQ/69st3TpJnhtpfP3PsLf7tmgfmHCh3Vdw/dHTbnJY3v/9x1+2xBe1ztVnorjvOXqw6d37f8MuXPhv8dMordalFF/Zvin11KVg2klm+vwFAPXPS8BEAAA==';
   useEffect(() => {
     axios({
       method: 'get',
       url: `https://api.ebay.com/buy/browse/v1/item/v1|374289166032|0`,
       headers: {
-        Authorization: auth,
+        Authorization: prop.token,
         'Content-Type': 'application/json',
         'X-EBAY-C-MARKETPLACE-ID': 'EBAY_US',
         'X-EBAY-C-ENDUSERCTX':
