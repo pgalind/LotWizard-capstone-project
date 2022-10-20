@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
-import token from '../lib/token';
 
 // This variable inconsistently increments when it's declared inside EbayItem() for some reason
 var imageIndex = 0;
@@ -9,22 +8,11 @@ var imageIndex = 0;
 // NOTE: Ebay's auth token changes often; If the page is stuck on loading
 // Please generate a new auth token by going to https://developer.ebay.com/my/api_test_tool?index=0
 // and set it to auth value in axios call
-export default function EbayItem(propitemID) {
+export default function EbayItem(prop) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [post, setPost] = useState({});
   const [image, setImage] = useState('');
-
-  // ADDED BY KALEB
-  // TESTING
-  const [items, setItems] = useState('');
-  useEffect(() => {
-    axios.post('/api/querySponsorItems', {}).then((response) => {
-      setItems(response.data[0]['ItemId']);
-    });
-  }, []);
-  console.log('ITEM ID: ' + items);
-  // END TESTING
 
   function changePicture(dir) {
     // 👇️ refers to the div element
@@ -79,17 +67,17 @@ export default function EbayItem(propitemID) {
         setError("Couldn't retrive catalog info from ebay :/");
         console.log(error);
       });
-  }, [itemID]);
+  }, [prop]);
 
   return Object.keys(post).length ? (
     <div className="flex space-between align-center">
-      <Link href={`/catalog/${itemID}`}>
+      <Link href={`/catalog/${prop.itemID}`}>
         <a>
           <img src={image} alt={image} className="w-96 h-96" />
         </a>
       </Link>
       <div className="flex flex-col items-center justify-center p-5">
-        <Link href={`/catalog/${itemID}`}>
+        <Link href={`/catalog/${prop.itemID}`}>
           <a>
             <h2 className="text-lg">{post.title}</h2>
           </a>
