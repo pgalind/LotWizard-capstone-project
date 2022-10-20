@@ -11,7 +11,10 @@
   "dependencies": {
     "@aws-sdk/client-cognito-identity-provider": "^3.178.0",
     "axios": "^0.27.2",
+    "ebay-oauth-nodejs-client": "^1.2.2",
     "formik": "^2.2.9",
+    "js-cookie": "^3.0.1",
+    "js-cookies": "^1.0.4",
     "next": "12.3.0",
     "next-auth": "^4.10.3",
     "react": "18.2.0",
