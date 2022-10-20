@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 //import { token } from '../lib/token';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { Button } from '@mui/material';
 
 // This variable inconsistently increments when it's declared inside EbayItem() for some reason
 var imageIndex = 0;
@@ -9,7 +12,7 @@ var imageIndex = 0;
 // NOTE: Ebay's auth token changes often; If the page is stuck on loading
 // Please generate a new auth token by going to https://developer.ebay.com/my/api_test_tool?index=0
 // and set it to auth value in axios call
-export default function EbayItem(itemID) {
+export default function EbayItem() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [post, setPost] = useState({});
@@ -42,11 +45,11 @@ export default function EbayItem(itemID) {
   //{loading ? 'Loading' : post.title}
   //{error ? error : null}
   var auth =
-    'Bearer v^1.1#i^1#f^0#I^3#p^1#r^0#t^H4sIAAAAAAAAAOVYa2wUVRTudtvKGxKhmEbJdrRqgJm9M7Ozj4Fd3b7CKt0tbMG2PJp53N1OOzuznXu37ZoItSgJMShGRMIPU/gDDYb4AFHUaKTqD/1hYngkPBSjiTGAkKAVjcSZ6VK2lQDSTWzi/tnMueee+33fOefeOwP6yqYu3Lxs8/BMxz3FA32gr9jhoKeDqWWli2Y5iytKi0Ceg2Og76G+kn7nT0uRkFLT/EqI0rqGoKs3pWqIt41BImNovC4gBfGakIKIxxIfDzcs5xkK8GlDx7qkq4QrUhskEqzgESEn+2SPR4YsbVq16zGb9CDhkb2iyHI+r8SIHkn0m+MIZWBEQ1jQcJBgAMOQNCDpQBMAvMfPsyxFM/5WwrUaGkjRNdOFAkTIhsvbc408rLeGKiAEDWwGIUKRcH08Fo7U1kWblrrzYoVyOsSxgDNo7FONLkPXakHNwFsvg2xvPp6RJIgQ4Q6NrDA2KB++DuYu4NtSCxzj9bBMICD6hIDsLYiS9bqREvCtYVgWRSYTtisPNazg7O0ENcUQO6CEc09RM0Sk1mX9rcgIqpJQoBEk6qrDLeHGRiJUJ/cIhhxNkkhIQNlQusnGlbUk5xcFCXC0TEo+zgdZicstNBItp/K4lWp0TVYszZArquNqaKKG47Vh87QxnWJazAgnsIUo34+5riHta7VyOpLEDG7XrLTClCmEy368fQZGZ2NsKGIGw9EI4wdsicxUp9OKTIwftEsxVz29KEi0Y5zm3e6enh6qh6V0I+lmAKDdzQ3L41I7TAmE5Wv1uu2v3H4CqdhUJGjORAqPs2kTS69ZqiYALUmEPF6OYf053cfCCo23/sOQx9k9tiEK1SB+IMuSh5Mkr4+DUBYK0SGhXJG6LRxQFLJkSjA6IU6rggRJyayzTAoaisyzXMLUJgFJ2RtIkJ5AIkGKnOwl6QSEAEJRlAL+/1Oj3Gmpx6FkQFyYWi9UnbfW9yogJvq7V8jR5bFV8YZArbdFi7KM2tEY6fR1VXfXdjU/4Qk/WZ8M3mk33JR8jaqYyjSZ6xdEAKvXCybCMh1hKE+IXlzS07BRVxUpO7kSzBpyo2DgbByqqmmYEMlwOh0p0F5dKHr/cpu4O94FPKP+m/PppqyQVbKTi5U1H5kBhLRCWScQJekpt271umBePyxzm416QrwV8+I6qVibJEfYKvLIlZPSLboU6pYoAyI9Y5iXbSpm3cCa9E6omecZNnRVhcZqesL9nEplsCCqcLI1dgEKXBEm2WFLe71e2mPuS+yEeEn2Udo22bakgmzFJfV3d612j33HDxXZP7rfcQj0O94qdjiAG1TRD4LKMueqEueMCqRgSClCgkJKUjNfXQ1IdcJsWlCM4jLHhgZ+xbG8rwoD68B9o98Vpjrp6XkfGcD9N0ZK6dnzZzIMDegAAB4/y7aCB2+MltDlJXOflRKHYVvbp8OnZ6x9YDB15NVdF+rAzFEnh6O0qKTfUTTvpYs7fc3rntrnf+X3a3t2rGmDPUfnJ+duO/5u+fGz59q7F0lLOk+cPV/z8F+bDg3+eG9/xZbFLVVT9u9s+Ca7p3Tzydd+W4M++x59N2P48c8r/c0HXoTZ8m27rl6au/2jY+cO/lmx9vU5Jy9WVYiDVy59semNrQn/I+eOdxwpn3Wo69ujU35+/+VrFx472F9z+pktv145tnLIqSWHX9C/3NHyzsaq99ZzlUOV5z/eeBgMrme3Llg3bf/CM9h54vlpn3xw/tF4716yLrYru5e6em3300tPLea+OnDycpL+4VTXh1T7c3O6OhbvvnxqiTFn3sAGMDTfH638pVNr/WNK5dcXhvYd3X5m9qzomwuYePXbI+n7G4pHVnvvEQAA';
+    'Bearer v^1.1#i^1#f^0#I^3#r^0#p^1#t^H4sIAAAAAAAAAOVYfWwTZRhft64TcZogToLElBOIAe56d+1d22OtKesGla0dtBtsQuB699527D66e69dxwiZQ/ePyF9+f+BMZoSIiUQUkiUoSNQQ0cQgCeggkQgkippgREOIvtd2o5sEkDVxif2nued93uf9/X7v87zvc0f2O2YsHlw5eKXaVlU+1E/2l9ts1ExyhqNyyb0V5XMry8giB9tQ/4J++0DFxVrIq0qKWwNgStcgcGZVRYNczhjA0obG6TyUIafxKoCcKXDxUFMjRxMklzJ0Uxd0BXNGwgGM9VCixw8Yyu8VKK+XRVZtLGZCD2BehuaBX2B9lI+SBIpB4xCmQUSDJq+ZAYwmaRqnSJwmExTLuT2chyEoxt2OOVuBAWVdQy4EiQVzcLncXKMI682h8hACw0RBsGAk1BCPhSLh+mii1lUUK1jQIW7yZhpOfKrTReBs5ZU0uPkyMOfNxdOCACDEXMH8ChODcqExMHcAPy+1mwGCJPCM20+yPokviZQNuqHy5s1xWBZZxKWcKwc0UzZ7b6UoUiO5GQhm4SmKQkTCTutvdZpXZEkGRgCrXx5qCzU3Y8F6sYc3xGgHDnkJiIacwZvXhHHGl+QFkqFEXPAyXuAWmMJC+WgFmSetVKdromyJBp1R3VwOEGowWRu6SBvkFNNiRkgyLUTFfr4xDT3IzzW2i2mzU7P2FahICGfu8dY7MD7bNA05mTbBeITJAzmJAhifSskiNnkwl4uF9MnCANZpminO5erp6SF63IRudLhokqRc65oa40InUFGGZFWr1vP+8q0n4HKOigDQTChzZm8KYcmiXEUAtA4s6GEZ2u0r6D4RVnCy9R+GIs6uiRVRqgrhRW8yyfCiBJJJt0CzpaiQYCFJXRYOkOR7cZU3uoCZUngB4ALKs7QKDFnk3IyEtJEALrJ+Cff4JQlPMiKLUxIAJECIBL/v/1Qot5vqcSAYwCxJrpcsz9sbsjIZS/oyq8VoY6wl3uQPs21a1E0rm5sjXd7u5Zlw97rHPaFVDR2B262GG5KvU2SkTAKtXwoBrFovnQgrdWgCcUr04oKeAs26Igu902uD3YbYzBtmbxwoCjJMiWQolYqU5qwuGb1/eUzcGe/S3VH/0f10Q1bQStnpxcqaD1EAPiUT1g1ECLrqsmpd51H7YZk35lBPibeMOtdpxRqRzLOVxXzLSeToEjAjEAaAetpA3TYRszqwhN4FNHSfmYauKMBopaZcz6qaNvmkAqZbYZcgwWV+ml22FMuytM/N+qZ2HAm5q3TjdDuSSnEU21fcYVvtmviSHyzL/agB2wfkgG1fuc1GusiF1CPkfEdFi73inrlQNgEh8xIB5Q4NvbsagOgCvSleNsodtm1N3Opvij4rDG0g54x/WJhRQc0s+spAzrs+Uknd92A1TVMkTVKs2+Nh2slHro/aqRr77NMnjnY5jp155eTTl/Zc7XtzdxaeOkdWjzvZbJVl9gFbmR46cpd45Kuffp/1zsLzy14YvvbxQ2d/2/rU96uGL1d9vqO+/eqaP8mQbv+lvWr74Oi1Rb70yT615lrg66Wok2nd2fdy+bbs4KF53f5Nm/t+nRXynMseGtr00d6B2kTNt1/+0fZw23Dw7P73wPbwnoqMObJzZM8zj45s6Vwf+fQ54tTw8R9G3n3j4M/df50/cfjA1pZj/a/+ePCtw8uWXVAPYDuCmR3H2Revnttddf8Tuz7xL92wduaS9Y3O6g1HHVdmD34Ya7qw+NL+tpUt7x+re7KWXvz2itcO1Kydb3PMOfPZ0osLXrq89/WtiX2PPbvp9GhiCZNZNPrFlue/e2CuZ2B+YEVd2ekFRB8ZPbpr9O789v0NwLfZ5fARAAA=';
   useEffect(() => {
     axios({
       method: 'get',
-      url: `https://api.ebay.com/buy/browse/v1/item/v1|${itemID}|0`,
+      url: `https://api.ebay.com/buy/browse/v1/item/v1|374289166032|0`,
       headers: {
         Authorization: auth,
         'Content-Type': 'application/json',
@@ -56,15 +59,12 @@ export default function EbayItem(itemID) {
       },
     })
       .then((res) => {
-        res.json();
         console.log(res);
-      })
-      .then((data) => {
         setLoading(false);
-        setPost(data);
-        setImage(data.image.imageUrl);
-        console.log(data.title);
-        console.log(data.price.value);
+        setPost(res.data);
+        setImage(res.data.image.imageUrl);
+        console.log(res.data.title);
+        console.log(res.data.price.value);
       })
       .catch((error) => {
         setLoading(false);
@@ -72,30 +72,74 @@ export default function EbayItem(itemID) {
         setError("Couldn't retrive catalog info from ebay :/");
         console.log(error);
       });
-  }, [itemID]);
+  }, []);
 
   return Object.keys(post).length ? (
-    <div className="flex space-between align-center">
-      <Link href={`/catalog/${itemID}`}>
-        <a>
-          <img src={image} alt={image} className="w-96 h-96" />
-        </a>
-      </Link>
-      <div className="flex flex-col items-center justify-center p-5">
-        <Link href={`/catalog/${itemID}`}>
+    <span className="flex p-4 bg-slate-200">
+      <div className="flex flex-col w-[25%] justify-content-center">
+        <Link href={`/catalog/374289166032`}>
+          <a>
+            <img src={image} alt={image} />
+          </a>
+        </Link>
+        <div className="flex justify-center space-between">
+          <div>
+            <Button
+              startIcon={
+                <ArrowBackIosIcon
+                  color="action"
+                  onClick={() => changePicture('left')}
+                />
+              }
+            ></Button>
+          </div>
+          <div>
+            <Button
+              startIcon={
+                <ArrowForwardIosIcon
+                  color="action"
+                  onClick={() => changePicture('right')}
+                />
+              }
+            ></Button>
+          </div>
+        </div>
+
+        {/*<div>
+            <button
+              className="mt-5 hover:font-bold hover:text-blue-600 p-4"
+              onClick={() => changePicture('right')}
+            >
+              Next picture
+            </button>
+          </div>
+          <div>
+            <button
+              className="mt-5 hover:font-bold hover:text-blue-600 p-4"
+              onClick={() => changePicture('left')}
+            >
+              Prev picture
+            </button>
+          </div>
+        </div> */}
+      </div>
+
+      <div className="flex flex-col w-[75%] items-center justify-center p-5">
+        <Link href={`/catalog/374289166032`}>
           <a>
             <h2 className="text-lg">{post.title}</h2>
           </a>
         </Link>
-        <p className="mb-2">{'Placeholder text'}</p>
-        <div onClick={() => changePicture('right')}>Next picture</div>
-        <div onClick={() => changePicture('left')}>Prev picture</div>
+        <p className="mb-2">Item description</p>
         <p>${post.price.value}</p>
-        <button className="primary-button" type="button">
+        <button
+          className="primary-button mt-5 bg-slate-200 py-3 px-6 rounded-lg hover:bg-blue-400"
+          type="button"
+        >
           Add to cart
         </button>
       </div>
-    </div>
+    </span>
   ) : (
     <div>Loading . . .</div>
   );

@@ -10,9 +10,7 @@ export default function Catalog() {
     <Layout title="Catalog">
       <h1 className="text-lg">Sponsor Catalog</h1>
       <CatalogGrid>
-        {itemList.map((item, index) => (
-          <EbayItem key={index} itemID={item.itemID}></EbayItem>
-        ))}
+        <EbayItem></EbayItem>
       </CatalogGrid>
     </Layout>
   );
