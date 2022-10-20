@@ -37,7 +37,6 @@ export default function useAuth() {
         if (res.data === 0) {
           setTimeout(() => {
             alert('Username not found!');
-            actions.resetForm();
           }, 1000);
         }
         // if a password is returned
@@ -45,23 +44,22 @@ export default function useAuth() {
           if (values.password == res.data) {
             setTimeout(() => {
               alert('Successful log in!');
-              actions.resetForm();
-              router.push('/');
             }, 1000);
             user.name = values.username;
-            console.log(user.name);
+            console.log('user: ' + user.name);
             populateUserData();
-            console.log(`HELLO ${userName}!`);
           } else {
             setTimeout(() => {
               alert('Username or Password is incorrect');
-              actions.resetForm();
             }, 1000);
           }
         }
       })
       .catch((error) => {
-        console.log('Authentication error: ' + error);
+        console.log(error);
+      })
+      .finally(() => {
+        actions.setSubmitting(false);
       });
   };
 

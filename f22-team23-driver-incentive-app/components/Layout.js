@@ -5,7 +5,8 @@ import axios from 'axios';
 import { logNavigation } from '../lib/helpers';
 import { useRouter } from 'next/router';
 import user from '../services/user';
-import Notifications from '@mui/icons-material/Notifications';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { Button } from '@mui/material';
 
 // Anything inside {} is a dynamic property.
@@ -13,7 +14,7 @@ import { Button } from '@mui/material';
 export default function Layout({ title, children }) {
   const router = useRouter();
   const [error, setError] = useState('');
-  const [notificationCount, setNotificationCount] = useState();
+  const [notificationCount, setNotificationCount] = useState(0);
 
   useEffect(() => {
     axios
@@ -81,10 +82,10 @@ export default function Layout({ title, children }) {
 
               <div>
                 <Link href="../register">
-                  <a className="p-2 hover:text-blue-600">Register</a>
+                  <a className="p-2 hover:text-blue-400">Register</a>
                 </Link>
                 <button
-                  className="p-2 hover:text-blue-600"
+                  className="p-2 hover:text-blue-400"
                   onClick={signInButtonClicked} // CHANGED BY KALEB
                 >
                   Sign in
@@ -95,7 +96,7 @@ export default function Layout({ title, children }) {
 
           <main className="container m-auto mt-8 px-8">{children}</main>
           <div>
-            <button className="p-2 hover:text-blue-600" onClick={UsersClicked}>
+            <button className="p-2 hover:text-blue-400" onClick={UsersClicked}>
               Users
             </button>
           </div>
@@ -124,32 +125,35 @@ export default function Layout({ title, children }) {
             </Link>
 
             <div>
-              <Link href="../pointHistory">
-                <Button
-                  startIcon={
-                    <Notifications
-                      style={
-                        { notificationCount } === 0
-                          ? "color: 'black'"
-                          : "color: 'red'"
-                      }
-                    />
-                  }
-                >
-                  {notificationCount}
-                </Button>
-              </Link>
+              {notificationCount == 0 ? (
+                <Link href="../pointHistory">
+                  <Button
+                    startIcon={<NotificationsNoneIcon color="action" />}
+                  ></Button>
+                </Link>
+              ) : (
+                <Link href="../pointHistory" className="text-black">
+                  <Button startIcon={<NotificationsIcon color="primary" />}>
+                    {notificationCount}
+                  </Button>
+                </Link>
+              )}
               <Link href="../userProfile">
-                <a className="p-2 hover:text-blue-600">{user.name}</a>
+                <a className="p-2 hover:text-blue-400">{user.name}</a>
               </Link>
-              <button onClick={logOutOnClick}>Log Out</button>
+              <button
+                className="p-2 hover:text-blue-400"
+                onClick={logOutOnClick}
+              >
+                Log Out
+              </button>
             </div>
           </nav>
         </header>
 
         <main className="container m-auto mt-8 px-8">{children}</main>
         <div>
-          <button className="p-2 hover:text-blue-600" onClick={UsersClicked}>
+          <button className="p-2 hover:text-blue-400" onClick={UsersClicked}>
             Users
           </button>
         </div>

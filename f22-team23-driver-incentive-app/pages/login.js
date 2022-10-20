@@ -33,7 +33,6 @@ export default function Login() {
           isSubmitting,
           errors,
           values,
-          handleReset,
           handleChange,
           handleBlur,
           handleSubmit,
@@ -50,7 +49,7 @@ export default function Login() {
                 name="username"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values?.username}
+                //value={values?.username}
                 error={errors?.username}
               />
             </FormSection>
@@ -62,7 +61,7 @@ export default function Login() {
                 name="password"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values?.password}
+                //value={values?.password}
                 error={errors?.password}
               />
             </FormSection>
