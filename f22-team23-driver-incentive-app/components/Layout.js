@@ -66,6 +66,15 @@ export default function Layout({ title, children }) {
     router.push('/');
   };
 
+  const AlertIconClicked = () => {
+    axios.post('/api/clearAlerts', {
+      userName: user.name,
+    })
+    .then((response) => {
+      console.log(response);
+    });
+  };
+
   if (!user.name) {
     return (
       <>
@@ -134,7 +143,10 @@ export default function Layout({ title, children }) {
                 </Link>
               ) : (
                 <Link href="../pointHistory" className="text-black">
-                  <Button startIcon={<NotificationsIcon color="primary" />}>
+                  <Button 
+                    startIcon={<NotificationsIcon color="primary" />}
+                    onClick={AlertIconClicked}
+                  >
                     {notificationCount}
                   </Button>
                 </Link>
