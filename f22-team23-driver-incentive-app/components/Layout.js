@@ -18,13 +18,14 @@ export default function Layout({ title, children }) {
 
   useEffect(() => {
     axios
-      .post('/api/getDriverTotalPointChanges', {
+      .post('/api/getDriverAlerts', {
         userName: user.name,
       })
       .then((response) => {
         console.log(response.data[0]['COUNT(*)']);
         setNotificationCount(response.data);
-        if (user.totalPointChanges != response.data) {
+        console.log("User: " + user.totalPointChanges);
+        if (user.totalPointChanges != response.data[0]['COUNT(*)']) {
           //notificationColor = 'red';
           setNotificationCount(response.data[0]['COUNT(*)']);
         } else {
