@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import user from '../services/user'
 import axios from "axios"
+import { useFormik } from 'formik';
 //import getPoints from '../hooks/getUserPoints';
 
 
@@ -12,17 +13,12 @@ export default function userProfile() {
     const [error, setError] = useState('');
     const [sponsors, setSponsors] = useState();
 
+
     useEffect(() => {
         axios.post('/api/getSponsorList').then((response) => {
             setLoading(false);
             setSponsors(response.data);
             setError('');
-            //console.log("Response: " + response.headers);
-            console.log(response.data);
-            console.log(response.data[0]);
-            console.log("LENGTH: " + Object.keys(response.data).length);
-            //console.log(response.data[0]);
-            //console.log(response.data[1]);
         })
         .catch((error) => {
             setLoading(false);
@@ -32,6 +28,15 @@ export default function userProfile() {
         });
     }, []);
 
+    const formik = useFormik({
+        initialValues: {
+          sponsorToApply: '',
+        },
+        onSubmit: values => {
+          alert(JSON.stringify(values, null, 2)); // TODO: axios post to send application to sponsor
+        },
+      });
+
     if (loading) {
         return <div>Loading . . .</div>
     }
@@ -39,13 +44,11 @@ export default function userProfile() {
         <div className="p-10">
             <Link href='../'>Exit</Link>
 
-            <p>
-                {user.name}'s Point History
-            </p>
+            <p>Apply to a Sponsor</p>
 
             <table>
                 <tr>
-                    <th>Sponsor Company</th>
+                    <th>List of Sponsor Companies</th>
                 </tr>
                 {sponsors.map((val, key) => {
                     return (
@@ -55,6 +58,17 @@ export default function userProfile() {
                     )
                 })}
         </table>
+
+        <form onSubmit={formik.handleSubmit}>
+            <label>Email Address</label>
+            <input
+                name="sponsorToApply"
+                onChange={formik.handleChange}
+                value={formik.values.sponsorToApply}
+            />
+        
+            <button type="submit">Submit</button>
+        </form>
 
         </div>
     );
