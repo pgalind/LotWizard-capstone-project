@@ -13,7 +13,7 @@ export default function userProfile() {
     const [role, setRole] = useState();
 
     useEffect(() => {
-        axios.post('/api/queryUserPoints', {
+        axios.post('/api/queryUserPoints', { // change this function name to 'queryUserData'
             userName : user.name
         }).then((response) => {
             setLoading(false);
@@ -37,23 +37,36 @@ export default function userProfile() {
         return <div>Loading . . .</div>
     }
     return (
+        <>
+
         <div className="p-10">
-            <Link href='../'>Exit Profile</Link>
+            <Link href='../'>
+                <a className="p-2 hover:text-blue-400">Exit Profile</a>
+            </Link>
 
             <p>
-                {user.name}'s {role} Profile
+                 {user.name}'s {role} Profile
             </p>
 
             <p>
-                Points Available: {points}
+                 Points Available: {points}
             </p>
 
-            <Link href='pointHistory'>View Point History</Link>
+            <Link href='pointHistory'>
+                <a className="p-2 hover:text-blue-400">View Point History</a>
+            </Link>
+
+            <Link href='sponsorList'>
+                <a className="p-2 hover:text-blue-400">Apply to a Sponsor</a>
+            </Link>
 
             <p></p>
 
-            <Link href='profileData'>Change User Info</Link>
+            <Link href='profileData'>
+                <a className="p-2 hover:text-blue-400">Change User Info</a>
+            </Link>
         </div>
+        </>
     );
     
 }
