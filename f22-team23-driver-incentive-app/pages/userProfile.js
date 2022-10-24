@@ -56,6 +56,7 @@ export default function userProfile() {
                 <a className="p-2 hover:text-blue-400">View Point History</a>
             </Link>
 
+            <p></p>
             <Link href='sponsorList'>
                 <a className="p-2 hover:text-blue-400">Apply to a Sponsor</a>
             </Link>
