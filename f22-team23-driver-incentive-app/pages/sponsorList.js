@@ -31,9 +31,16 @@ export default function userProfile() {
     const formik = useFormik({
         initialValues: {
           sponsorToApply: '',
+          reason: '',
         },
         onSubmit: values => {
-          alert(JSON.stringify(values, null, 2)); // TODO: axios post to send application to sponsor
+          //alert(JSON.stringify(values, null, 2)); // TODO: axios post to send application to sponsor
+          console.log("Reason: " + values.reason)
+          console.log("Sponsor: " + values.sponsorToApply)
+          let data = { driver: user.name,
+                        reason: values.reason,
+                        sponsor: values.sponsorToApply };
+          axios.post('/api/sendDriverApplication', data).then
         },
       });
 
@@ -60,13 +67,20 @@ export default function userProfile() {
         </table>
 
         <form onSubmit={formik.handleSubmit}>
-            <label>Email Address</label>
+            <label>Sponsor: </label>
             <input
                 name="sponsorToApply"
                 onChange={formik.handleChange}
                 value={formik.values.sponsorToApply}
             />
-        
+            <p></p>
+            <label>Reason: </label>
+            <input
+                name="reason"
+                onChange={formik.handleChange}
+                value={formik.values.reason}
+            />
+            <p></p>
             <button type="submit">Submit</button>
         </form>
 
