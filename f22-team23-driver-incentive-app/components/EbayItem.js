@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
-//import { token } from '../lib/token';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Button } from '@mui/material';
@@ -72,7 +71,7 @@ export default function EbayItem(prop) {
       <div className="flex flex-col w-[25%] justify-content-center">
         <Link href={`/catalog/374289166032`}>
           <a>
-            <img src={image} alt={image} />
+            <img src={image} alt={image} width="52" />
           </a>
         </Link>
         <div className="flex justify-center space-between">
@@ -97,24 +96,6 @@ export default function EbayItem(prop) {
             ></Button>
           </div>
         </div>
-
-        {/*<div>
-            <button
-              className="mt-5 hover:font-bold hover:text-blue-600 p-4"
-              onClick={() => changePicture('right')}
-            >
-              Next picture
-            </button>
-          </div>
-          <div>
-            <button
-              className="mt-5 hover:font-bold hover:text-blue-600 p-4"
-              onClick={() => changePicture('left')}
-            >
-              Prev picture
-            </button>
-          </div>
-        </div> */}
       </div>
 
       <div className="flex flex-col w-[75%] items-center justify-center p-5">
@@ -126,7 +107,7 @@ export default function EbayItem(prop) {
         <p className="mb-2">Item description</p>
         <p>${post.price.value}</p>
         <button
-          className="primary-button mt-5 bg-slate-200 py-3 px-6 rounded-lg hover:bg-blue-400"
+          className="primary-button mt-5 bg-slate-200 py-3 px-6 rounded-lg hover:bg-blue-600"
           type="button"
         >
           Add to cart

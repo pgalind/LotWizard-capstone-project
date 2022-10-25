@@ -7,15 +7,14 @@ import FormInput from '../components/FormInput';
 import FormLink from '../components/FormLink';
 import SubmitButton from '../components/SubmitButton';
 import useValidationSchema from '../hooks/useValidationSchema';
-import useRegisterAuth from '../hooks/useRegisterAuth';
-import Link from 'next/link';
+import useAuth from '../hooks/useAuth';
 
 export default function Register() {
   const { registerSchema } = useValidationSchema();
+  const { register } = useAuth();
 
   return (
     <div className="p-10">
-      <Link href="../">Exit Registration</Link>
       <Formik
         initialValues={{
           firstName: '',
@@ -51,7 +50,6 @@ export default function Register() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.firstName}
-                isError="true"
                 error={errors?.firstName}
               />
             </FormSection>
@@ -64,7 +62,6 @@ export default function Register() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.lastName}
-                isError="true"
                 error={errors?.lastName}
               />
             </FormSection>
@@ -77,7 +74,6 @@ export default function Register() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.username}
-                isError="true"
                 error={errors?.username}
               />
             </FormSection>
@@ -90,7 +86,6 @@ export default function Register() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.password}
-                isError="true"
                 error={errors?.password}
               />
             </FormSection>
@@ -103,7 +98,6 @@ export default function Register() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.confirm_password}
-                isError="true"
                 error={errors?.confirm_password}
               />
             </FormSection>

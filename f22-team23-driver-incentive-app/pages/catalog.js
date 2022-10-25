@@ -26,8 +26,8 @@ export default function Catalog() {
 
   if (token == '') {
     return (
-      <Layout title="Home Page">
-        <h1 className="text-lg">Sponsor A's Catalog</h1>
+      <Layout title="Catalog">
+        <h1 className="text-lg">Sponsor Catalog</h1>
         <h2>includes the following...</h2>
         <h3></h3>
       </Layout>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
-//import token from '../lib/token';
+import token from '../lib/token';
 import user from '../services/user'
 import { Formik } from 'formik';
 import FormSection from '../components/FormSection';
@@ -20,34 +20,34 @@ export default function ProfileDataComponent() {
   const [truckModel, setTruckModel] = useState();
   const [yearsOfExp, setYearsOfExp] = useState();
 
-  useEffect(() =>{
-    axios.post('/api/getProfileData',{
-        userName : user.name
-    }).then((response) => {
-
+  useEffect(() => {
+    axios
+      .post('/api/getProfileData', {
+        userName: user.name,
+      })
+      .then((response) => {
         //response.data is an array of objects
         //each object has a FirstName key with a string name
-        setFirstName(response.data[0].FirstName)
-        setLastName(response.data[0].LastName)
-        setUserName(response.data[0].UserName)
-        setBirthday(response.data[0].Birthday)
-        setTruckModel(response.data[0].TruckModel)
-        setYearsOfExp(response.data[0].YearsOfExperience)
-        setLoading(false)
-     
-    }).catch((error) => {
-        console.log("Does exist error : " + error)
-        setError("User not found")
-    })
-
+        setFirstName(response.data[0].FirstName);
+        setLastName(response.data[0].LastName);
+        setUserName(response.data[0].UserName);
+        setBirthday(response.data[0].Birthday);
+        setTruckModel(response.data[0].TruckModel);
+        setYearsOfExp(response.data[0].YearsOfExperience);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log('Does exist error : ' + error);
+        setError('User not found');
+      });
   });
 
-    if(loading){
-        return <div>Loading...</div>
-    }
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-    return(
-        <div className="flex items-center justify-center">
+  return (
+    <div className="flex items-center justify-center">
       <Formik
         initialValues={{
           firstName: `${firstName}`,
@@ -236,7 +236,5 @@ export default function ProfileDataComponent() {
         )}
       </Formik>
     </div>
-    );
-
-
+  );
 }
