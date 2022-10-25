@@ -1,5 +1,5 @@
 // This is the actual log in form, using Formik
-
+import React from 'react';
 import { Formik } from 'formik';
 import FormSection from '../components/FormSection';
 import FormInput from '../components/FormInput';
@@ -7,17 +7,13 @@ import FormLink from '../components/FormLink';
 import SubmitButton from '../components/SubmitButton';
 import useValidationSchema from '../hooks/useValidationSchema';
 import useAuth from '../hooks/useAuth';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 
 export default function Login() {
-  const router = useRouter();
   const { loginSchema } = useValidationSchema();
   const { login } = useAuth();
 
   return (
     <div className="p-10">
-      <Link href="../">Exit Sign in</Link>
       <Formik
         initialValues={{
           username: '',
@@ -49,7 +45,7 @@ export default function Login() {
                 name="username"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                //value={values?.username}
+                value={values?.username}
                 error={errors?.username}
               />
             </FormSection>
@@ -61,7 +57,7 @@ export default function Login() {
                 name="password"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                //value={values?.password}
+                value={values?.password}
                 error={errors?.password}
               />
             </FormSection>

@@ -37,20 +37,23 @@ export default function useAuth() {
         if (res.data === 0) {
           setTimeout(() => {
             alert('Username not found!');
+            actions.setSubmitting(false);
           }, 1000);
         }
         // if a password is returned
         else {
           if (values.password == res.data) {
-            setTimeout(() => {
-              alert('Successful log in!');
-            }, 1000);
             user.name = values.username;
             console.log('user: ' + user.name);
             populateUserData();
+            setTimeout(() => {
+              router.push('/');
+              actions.setSubmitting(false);
+            }, 1000);
           } else {
             setTimeout(() => {
               alert('Username or Password is incorrect');
+              actions.setSubmitting(false);
             }, 1000);
           }
         }
@@ -59,12 +62,60 @@ export default function useAuth() {
         console.log(error);
       })
       .finally(() => {
-        actions.setSubmitting(false);
+        // clear form
+      });
+  };
+
+  const register = (values, actions) => {
+    axios
+      .post('/api/doesUserExist', {
+        userName: values.username,
+      })
+      .then((res) => {
+        console.log('res: ' + res);
+        console.log('data: ' + res.data);
+        //this means no one exists with this username - register the account
+        if (res.data === 0) {
+          //call logNewUser with the registration data to log it into the User table in DB
+          axios
+            .post('/api/logNewUser', {
+              firstName: values.firstName,
+              lastName: values.lastName,
+              userName: values.username,
+              password: values.password,
+            })
+            .then((res) => {
+              console.log(res);
+              // if confirmation is successful, redirect to login page
+              setTimeout(() => {
+                router.push('/login');
+                actions.setSubmitting(false);
+              }, 1000);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+
+        //temp fix - just alert the window if username is already taken
+        else {
+          setTimeout(() => {
+            alert('Username is already taken');
+            actions.setSubmitting(false);
+          }, 1000);
+        }
+      })
+      .catch((error) => {
+        console.log('DoesUserExist error: ' + error);
+      })
+      .finally(() => {
+        // clear form
       });
   };
 
   return {
     populateUserData,
     login,
+    register,
   };
 }
