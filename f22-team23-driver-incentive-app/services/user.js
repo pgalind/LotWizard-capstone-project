@@ -1,7 +1,7 @@
 const user = {
     userID : 0,
     name : '',
-    role : 'Driver',
+    role : '',
     points : 0,
     totalPointChanges : 0
 }

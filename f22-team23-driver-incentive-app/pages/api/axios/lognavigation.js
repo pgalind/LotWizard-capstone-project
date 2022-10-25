@@ -8,6 +8,8 @@ export default async (req, res) => {
             values: [req.body.page, req.body.userID],
         });
       console.log( "ttt",result );
+
+      res.send("nav logged")
   } catch ( error ) {
       console.log( error );
   }
