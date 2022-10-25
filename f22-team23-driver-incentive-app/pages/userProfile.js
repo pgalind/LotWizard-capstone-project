@@ -13,7 +13,7 @@ export default function userProfile() {
     const [role, setRole] = useState();
 
     useEffect(() => {
-        axios.post('/api/queryUserPoints', {
+        axios.post('/api/queryUserPoints', { // change this function name to 'queryUserData'
             userName : user.name
         }).then((response) => {
             setLoading(false);
@@ -35,25 +35,65 @@ export default function userProfile() {
 
     if (loading) {
         return <div>Loading . . .</div>
+    } else if (role == "Driver") {
+        return (
+            <>
+
+            <div className="p-10">
+                <Link href='../'>
+                    <a className="p-2 hover:text-blue-400">Exit Profile</a>
+                </Link>
+
+                <p>
+                    {user.name}'s {role} Profile
+                </p>
+
+                <p>
+                    Points Available: {points}
+                </p>
+
+                <Link href='pointHistory'>
+                    <a className="p-2 hover:text-blue-400">View Point History</a>
+                </Link>
+
+                <p></p>
+                <Link href='sponsorList'>
+                    <a className="p-2 hover:text-blue-400">Apply to a Sponsor</a>
+                </Link>
+
+                <p></p>
+
+                <Link href='profileData'>
+                    <a className="p-2 hover:text-blue-400">Change User Info</a>
+                </Link>
+            </div>
+            </>
+        )
+    } else if (role == "Sponsor") {
+        return (
+            <>
+
+            <div className="p-10">
+                <Link href='../'>
+                    <a className="p-2 hover:text-blue-400">Exit Profile</a>
+                </Link>
+
+                <p>
+                    {user.name}'s {role} Profile
+                </p>
+
+                <Link href='viewApplications'>
+                    <a className="p-2 hover:text-blue-400">View Applications</a>
+                </Link>
+
+                <p></p>
+
+                <Link href='profileData'>
+                    <a className="p-2 hover:text-blue-400">Change User Info</a>
+                </Link>
+            </div>
+            </>
+        )
     }
-    return (
-        <div className="p-10">
-            <Link href='../'>Exit Profile</Link>
-
-            <p>
-                {user.name}'s {role} Profile
-            </p>
-
-            <p>
-                Points Available: {points}
-            </p>
-
-            <Link href='pointHistory'>View Point History</Link>
-
-            <p></p>
-
-            <Link href='profileData'>Change User Info</Link>
-        </div>
-    );
     
 }

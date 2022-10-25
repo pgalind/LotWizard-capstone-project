@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
-import token from '../lib/token';
+//import token from '../lib/token';
 import user from '../services/user'
 import { Formik } from 'formik';
 import FormSection from '../components/FormSection';
