@@ -12,7 +12,6 @@ import Link from 'next/link';
 
 export default function Register() {
   const { registerSchema } = useValidationSchema();
-  const { register } = useRegisterAuth();
 
   return (
     <div className="p-10">
@@ -26,7 +25,7 @@ export default function Register() {
           confirm_password: '',
         }}
         validationSchema={registerSchema}
-        onSubmit={register}
+        onSubmit={useRegisterAuth}
         validateOnMount={false}
         validateOnChange={false}
         validateOnBlur={false}

@@ -45,6 +45,7 @@ export default function useAuth() {
             setTimeout(() => {
               alert('Successful log in!');
             }, 1000);
+            setUserRole(values.username)
             user.name = values.username;
             console.log('user: ' + user.name);
             populateUserData();
@@ -63,8 +64,19 @@ export default function useAuth() {
       });
   };
 
+  //gets and sets the role for the current user thats logged in
+  const setUserRole = (username) => {
+    axios.post('/api/axios/getUserRole',{
+      userName : username
+    }).then((res) => {
+      user.role = res.data
+    })
+  }
+  
+
   return {
     populateUserData,
     login,
+    setUserRole
   };
 }

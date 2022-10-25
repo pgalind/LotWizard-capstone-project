@@ -6,7 +6,8 @@ import user from '../services/user'
 import { Formik } from 'formik';
 import FormSection from '../components/FormSection';
 import ProfileField from '../components/ProfileField';
-import SaveButton from '../components/SaveButton';
+import SubmitButton from '../components/SubmitButton';
+import UpdateProfileData from '../hooks/UpdateProfileData'
 
 export default function ProfileDataComponent() {
   const [loading, setLoading] = useState(true);
@@ -66,10 +67,7 @@ export default function ProfileDataComponent() {
         }}
         //onSubmit={handler function to add values to db}
         // this is for testing purposes --> form values are displayed in a popup alert
-        onSubmit={async (values) => {
-          await new Promise((r) => setTimeout(r, 500));
-          alert(JSON.stringify(values, null, 2));
-        }}
+        onSubmit={UpdateProfileData}
         validateOnMount={false}
         validateOnChange={false}
         validateOnBlur={false}
@@ -233,7 +231,7 @@ export default function ProfileDataComponent() {
               />
             </FormSection>
 
-            <SaveButton isSaving={isSaving} />
+            <SubmitButton/>
           </form>
         )}
       </Formik>

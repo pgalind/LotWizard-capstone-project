@@ -63,6 +63,7 @@ export default function Layout({ title, children }) {
 
   const logOutOnClick = () => {
     user.name = null;
+    user.role = null
     router.push('/');
   };
 
