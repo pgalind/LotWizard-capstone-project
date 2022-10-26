@@ -71,7 +71,7 @@ export default function EbayItem(prop) {
       <div className="flex flex-col w-[25%] justify-content-center">
         <Link href={`/catalog/374289166032`}>
           <a>
-            <img src={image} alt={image} width="52" />
+            <img src={image} alt={image} />
           </a>
         </Link>
         <div className="flex justify-center space-between">

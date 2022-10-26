@@ -115,17 +115,19 @@ export default function useAuth() {
 
   //gets and sets the role for the current user thats logged in
   const setUserRole = (username) => {
-    axios.post('/api/axios/getUserRole',{
-      userName : username
-    }).then((res) => {
-      user.role = res.data
-    })
-  }
-  
+    axios
+      .post('/api/getUserRole', {
+        userName: username,
+      })
+      .then((res) => {
+        user.role = res.data;
+      });
+  };
 
   return {
     populateUserData,
     login,
     register,
+    setUserRole,
   };
 }

@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Link from 'next/link';
-import token from '../lib/token';
-import user from '../services/user'
+import user from '../services/user';
 import { Formik } from 'formik';
 import FormSection from '../components/FormSection';
 import ProfileField from '../components/ProfileField';
 import SubmitButton from '../components/SubmitButton';
-import UpdateProfileData from '../hooks/UpdateProfileData'
+import UpdateProfileData from '../hooks/UpdateProfileData';
 
 export default function ProfileDataComponent() {
   const [loading, setLoading] = useState(true);
@@ -231,7 +229,7 @@ export default function ProfileDataComponent() {
               />
             </FormSection>
 
-            <SubmitButton/>
+            <SubmitButton />
           </form>
         )}
       </Formik>

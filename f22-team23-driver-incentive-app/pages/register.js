@@ -24,7 +24,7 @@ export default function Register() {
           confirm_password: '',
         }}
         validationSchema={registerSchema}
-        onSubmit={useRegisterAuth}
+        onSubmit={register}
         validateOnMount={false}
         validateOnChange={false}
         validateOnBlur={false}

@@ -64,7 +64,7 @@ export default function Layout({ title, children }) {
 
   const logOutOnClick = () => {
     user.name = null;
-    user.role = null
+    user.role = null;
     setTimeout(() => {
       router.push('/');
     }, 1000);
@@ -137,7 +137,7 @@ export default function Layout({ title, children }) {
                   ) : (
                     <Link href="../pointHistory" className="text-black">
                       <button
-                        className="p-2 rounded-lg focus:outline-none"
+                        className="p-2 ml-2 rounded-lg focus:outline-none"
                         onClick={AlertIconClicked}
                       >
                         <NotificationsIcon color="primary" />

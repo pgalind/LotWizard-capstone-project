@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import user from '../services/user';
 import axios from 'axios';
-import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 //import getPoints from '../hooks/getUserPoints';
 
 export default function userProfile() {
@@ -34,67 +33,58 @@ export default function userProfile() {
       });
   }, []);
 
-    if (loading) {
-        return <div>Loading . . .</div>
-    } else if (role == "Driver") {
-        return (
-            <>
+  if (loading) {
+    return <div>Loading . . .</div>;
+  } else if (role == 'Driver') {
+    return (
+      <>
+        <div className="p-10">
+          <Link href="../">
+            <a className="p-2 hover:text-blue-400">Exit Profile</a>
+          </Link>
 
-            <div className="p-10">
-                <Link href='../'>
-                    <a className="p-2 hover:text-blue-400">Exit Profile</a>
-                </Link>
+          <p>
+            {user.name}'s {role} Profile
+          </p>
 
-                <p>
-                    {user.name}'s {role} Profile
-                </p>
+          <p>Points Available: {points}</p>
 
-                <p>
-                    Points Available: {points}
-                </p>
+          <Link href="pointHistory">
+            <a className="p-2 hover:text-blue-400">View Point History</a>
+          </Link>
 
-                <Link href='pointHistory'>
-                    <a className="p-2 hover:text-blue-400">View Point History</a>
-                </Link>
+          <p></p>
+          <Link href="sponsorList">
+            <a className="p-2 hover:text-blue-400">Apply to Sponsor</a>
+          </Link>
 
-                <p></p>
-                <Link href='sponsorList'>
-                    <a className="p-2 hover:text-blue-400">Apply to a Sponsor</a>
-                </Link>
+          <Link href="profileData">
+            <a className="p-2 hover:text-blue-400">Edit Driver Info</a>
+          </Link>
+        </div>
+      </>
+    );
+  } else if (role == 'Sponsor') {
+    return (
+      <>
+        <div className="p-10">
+          <Link href="../">
+            <a className="p-2 hover:text-blue-400">Exit Profile</a>
+          </Link>
 
-                <p></p>
+          <p>
+            {user.name}'s {role} Profile
+          </p>
 
-                <Link href='profileData'>
-                    <a className="p-2 hover:text-blue-400">Change User Info</a>
-                </Link>
-            </div>
-            </>
-        )
-    } else if (role == "Sponsor") {
-        return (
-            <>
+          <Link href="viewApplications">
+            <a className="p-2 hover:text-blue-400">View Applications</a>
+          </Link>
 
-            <div className="p-10">
-                <Link href='../'>
-                    <a className="p-2 hover:text-blue-400">Exit Profile</a>
-                </Link>
-
-                <p>
-                    {user.name}'s {role} Profile
-                </p>
-
-                <Link href='viewApplications'>
-                    <a className="p-2 hover:text-blue-400">View Applications</a>
-                </Link>
-
-                <p></p>
-
-                <Link href='profileData'>
-                    <a className="p-2 hover:text-blue-400">Change User Info</a>
-                </Link>
-            </div>
-            </>
-        )
-    }
-    
+          <Link href="profileData">
+            <a className="p-2 hover:text-blue-400">Edit Sponsor Info</a>
+          </Link>
+        </div>
+      </>
+    );
+  }
 }
