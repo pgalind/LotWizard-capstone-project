@@ -6,9 +6,26 @@ import { itemList } from '../data/itemList.js';
 import axios from 'axios';
 import Cookie from 'js-cookie';
 
+// ADDED BY KALEB
+// TESTING
+/*
+const [items, setItems] = useState('');
+useEffect(() => {
+  axios.post('/api/querySponsorItems', {}).then((response) => {
+    setItems(response.data[0]['ItemId']);
+  });
+}, []);
+console.log('ITEM ID: ' + items);*/
+// END TESTING
+//374289166032, 294670499440, 325371985137,
+
 export default function Catalog() {
   // for every catalog item, create an EbayItem component passing the itemID
   //const { data: session } = useSession();
+  //const [itemIDs, setItemIDs] = useState([
+  //  374289166032, 294670499440, 325371985137,
+  //]);
+  const [itemIDs, setItemIDs] = useState([]);
   const [token, setToken] = useState('');
   useEffect(() => {
     if (typeof Cookie.get('token') == 'undefined') {
@@ -22,9 +39,24 @@ export default function Catalog() {
       console.log('used old token');
       setToken(Cookie.get('token'));
     }
+    axios
+      .post('/api/querySponsorItems', {
+        sponsorID: 1,
+      })
+      .then((response) => {
+        var IDs = [];
+        for (var i = 0; i < response.data.length; i++) {
+          IDs[i] = response.data[i]['ItemID'];
+          console.log(response.data[i]);
+          console.log('reference');
+        }
+        setItemIDs(IDs);
+        console.log('ours');
+        console.log(IDs);
+      });
   }, []);
 
-  if (token == '') {
+  if (token == '' || !itemIDs.length) {
     return (
       <Layout title="Catalog">
         <h1 className="text-lg">Sponsor Catalog</h1>
@@ -37,7 +69,9 @@ export default function Catalog() {
       <Layout title="Catalog">
         <h1 className="text-lg">Sponsor Catalog</h1>
         <CatalogGrid>
-          <EbayItem token={token} />
+          <EbayItem token={token} itemID={itemIDs[0]} />
+          <EbayItem token={token} itemID={itemIDs[1]} />
+          <EbayItem token={token} itemID={itemIDs[2]} />
         </CatalogGrid>
       </Layout>
     );
