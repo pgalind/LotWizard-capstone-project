@@ -55,13 +55,6 @@ export default function Layout({ title, children }) {
     router.push('../login');
   };
 
-  const UsersClicked = (event) => {
-    let data = { content: 'test' };
-    axios.post('/api/fetchUsers', data).then((response) => {
-      console.log(response);
-    });
-  };
-
   const logOutOnClick = () => {
     user.name = null;
     user.role = null;
@@ -166,11 +159,6 @@ export default function Layout({ title, children }) {
         <main className="container m-auto mt-8 px-8">{children}</main>
 
         <footer className="flex bg-slate-50 h-10 justify-center items-center shadow-inner">
-          <div>
-            <button className="p-2 hover:text-blue-600" onClick={UsersClicked}>
-              Users
-            </button>
-          </div>
           <p>&copy; 2022 LotWizard | All Rights Reserved</p>
         </footer>
       </div>
