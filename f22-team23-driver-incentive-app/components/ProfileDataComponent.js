@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Link from 'next/link';
-//import token from '../lib/token';
-import user from '../services/user'
+import user from '../services/user';
 import { Formik } from 'formik';
 import FormSection from '../components/FormSection';
 import ProfileField from '../components/ProfileField';
-import SubmitButton from '../components/SubmitButton';
-import UpdateProfileData from '../hooks/UpdateProfileData'
+import SaveButton from '../components/SaveButton';
+import UpdateProfileData from '../hooks/UpdateProfileData';
+import ExitButton from './ExitButton';
 
 export default function ProfileDataComponent() {
   const [loading, setLoading] = useState(true);
@@ -20,34 +19,35 @@ export default function ProfileDataComponent() {
   const [truckModel, setTruckModel] = useState();
   const [yearsOfExp, setYearsOfExp] = useState();
 
-  useEffect(() =>{
-    axios.post('/api/getProfileData',{
-        userName : user.name
-    }).then((response) => {
-
+  useEffect(() => {
+    axios
+      .post('/api/getProfileData', {
+        userName: user.name,
+      })
+      .then((response) => {
         //response.data is an array of objects
         //each object has a FirstName key with a string name
-        setFirstName(response.data[0].FirstName)
-        setLastName(response.data[0].LastName)
-        setUserName(response.data[0].UserName)
-        setBirthday(response.data[0].Birthday)
-        setTruckModel(response.data[0].TruckModel)
-        setYearsOfExp(response.data[0].YearsOfExperience)
-        setLoading(false)
-     
-    }).catch((error) => {
-        console.log("Does exist error : " + error)
-        setError("User not found")
-    })
-
+        setFirstName(response.data[0].FirstName);
+        setLastName(response.data[0].LastName);
+        setUserName(response.data[0].UserName);
+        setBirthday(response.data[0].Birthday);
+        setTruckModel(response.data[0].TruckModel);
+        setYearsOfExp(response.data[0].YearsOfExperience);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log('Does exist error : ' + error);
+        setError('User not found');
+      });
   });
 
-    if(loading){
-        return <div>Loading...</div>
-    }
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-    return(
-        <div className="flex items-center justify-center">
+  return (
+    <div className="p-10">
+      <ExitButton />
       <Formik
         initialValues={{
           firstName: `${firstName}`,
@@ -73,8 +73,11 @@ export default function ProfileDataComponent() {
         validateOnBlur={false}
       >
         {({ isSaving, values, handleBlur, handleSubmit, handleChange }) => (
-          <form className="max-w-full p-10" onSubmit={handleSubmit}>
-            <h1 className="text-center font-bold text-2xl mb-6">
+          <form
+            className="flex flex-col items-center w-[300px] min-w-full"
+            onSubmit={handleSubmit}
+          >
+            <h1 className="text-center font-bold text-xl mb-6">
               {user.name}'s Profile
             </h1>
             <FormSection>
@@ -231,12 +234,10 @@ export default function ProfileDataComponent() {
               />
             </FormSection>
 
-            <SubmitButton/>
+            <SaveButton isSaving={isSaving} />
           </form>
         )}
       </Formik>
     </div>
-    );
-
-
+  );
 }

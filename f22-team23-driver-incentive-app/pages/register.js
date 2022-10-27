@@ -6,16 +6,17 @@ import FormSection from '../components/FormSection';
 import FormInput from '../components/FormInput';
 import FormLink from '../components/FormLink';
 import SubmitButton from '../components/SubmitButton';
+import ExitButton from '../components/ExitButton';
 import useValidationSchema from '../hooks/useValidationSchema';
-import useRegisterAuth from '../hooks/useRegisterAuth';
-import Link from 'next/link';
+import useAuth from '../hooks/useAuth';
 
 export default function Register() {
   const { registerSchema } = useValidationSchema();
+  const { register } = useAuth();
 
   return (
     <div className="p-10">
-      <Link href="../">Exit Registration</Link>
+      <ExitButton />
       <Formik
         initialValues={{
           firstName: '',
@@ -25,7 +26,7 @@ export default function Register() {
           confirm_password: '',
         }}
         validationSchema={registerSchema}
-        onSubmit={useRegisterAuth}
+        onSubmit={register}
         validateOnMount={false}
         validateOnChange={false}
         validateOnBlur={false}
@@ -51,7 +52,6 @@ export default function Register() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.firstName}
-                isError="true"
                 error={errors?.firstName}
               />
             </FormSection>
@@ -64,7 +64,6 @@ export default function Register() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.lastName}
-                isError="true"
                 error={errors?.lastName}
               />
             </FormSection>
@@ -77,7 +76,6 @@ export default function Register() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.username}
-                isError="true"
                 error={errors?.username}
               />
             </FormSection>
@@ -90,7 +88,6 @@ export default function Register() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.password}
-                isError="true"
                 error={errors?.password}
               />
             </FormSection>
@@ -103,7 +100,6 @@ export default function Register() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values?.confirm_password}
-                isError="true"
                 error={errors?.confirm_password}
               />
             </FormSection>

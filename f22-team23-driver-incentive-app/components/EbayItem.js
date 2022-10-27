@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
-//import { token } from '../lib/token';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Button } from '@mui/material';
+import Cookie from 'js-cookie';
 
 // This variable inconsistently increments when it's declared inside EbayItem() for some reason
 var imageIndex = 0;
@@ -42,7 +42,7 @@ export default function EbayItem(prop) {
   useEffect(() => {
     axios({
       method: 'get',
-      url: `https://api.ebay.com/buy/browse/v1/item/v1|374289166032|0`,
+      url: `https://api.ebay.com/buy/browse/v1/item/v1|` + prop.itemID + `|0`,
       headers: {
         Authorization: prop.token,
         'Content-Type': 'application/json',
@@ -60,10 +60,15 @@ export default function EbayItem(prop) {
         console.log(res.data.price.value);
       })
       .catch((error) => {
-        setLoading(false);
+        setLoading(true);
         setPost({});
         setError("Couldn't retrive catalog info from ebay :/");
         console.log(error);
+        if (error.response.request.status == 401) {
+          // If unauthorized, remove cookie so catalog.js can automatically request a new token
+          console.log(Cookie.remove('token'));
+          console.log('Invalid cookie cleared');
+        }
       });
   }, []);
 
@@ -97,28 +102,10 @@ export default function EbayItem(prop) {
             ></Button>
           </div>
         </div>
-
-        {/*<div>
-            <button
-              className="mt-5 hover:font-bold hover:text-blue-600 p-4"
-              onClick={() => changePicture('right')}
-            >
-              Next picture
-            </button>
-          </div>
-          <div>
-            <button
-              className="mt-5 hover:font-bold hover:text-blue-600 p-4"
-              onClick={() => changePicture('left')}
-            >
-              Prev picture
-            </button>
-          </div>
-        </div> */}
       </div>
 
       <div className="flex flex-col w-[75%] items-center justify-center p-5">
-        <Link href={`/catalog/374289166032`}>
+        <Link href={`/catalog/${prop.itemID}`}>
           <a>
             <h2 className="text-lg">{post.title}</h2>
           </a>
@@ -126,7 +113,7 @@ export default function EbayItem(prop) {
         <p className="mb-2">Item description</p>
         <p>${post.price.value}</p>
         <button
-          className="primary-button mt-5 bg-slate-200 py-3 px-6 rounded-lg hover:bg-blue-400"
+          className="primary-button mt-5 bg-slate-200 py-3 px-6 rounded-lg hover:bg-blue-600"
           type="button"
         >
           Add to cart

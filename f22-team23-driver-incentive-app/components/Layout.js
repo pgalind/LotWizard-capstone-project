@@ -5,6 +5,7 @@ import axios from 'axios';
 import { logNavigation } from '../lib/helpers';
 import { useRouter } from 'next/router';
 import user from '../services/user';
+import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { Button } from '@mui/material';
@@ -24,7 +25,7 @@ export default function Layout({ title, children }) {
       .then((response) => {
         console.log(response.data[0]['COUNT(*)']);
         setNotificationCount(response.data);
-        console.log("User: " + user.totalPointChanges);
+        console.log('User: ' + user.totalPointChanges);
         if (user.totalPointChanges != response.data[0]['COUNT(*)']) {
           //notificationColor = 'red';
           setNotificationCount(response.data[0]['COUNT(*)']);
@@ -43,7 +44,7 @@ export default function Layout({ title, children }) {
   // ADDED BY KALEB
   const log_SignInClicked = (event) => {
     let data = { content: 'sign in attempted' };
-    axios.post('/api/axios/logsignin', data).then((response) => {
+    axios.post('/api/logSignIn', data).then((response) => {
       console.log(response);
     });
   };
@@ -54,73 +55,27 @@ export default function Layout({ title, children }) {
     router.push('../login');
   };
 
-  const UsersClicked = (event) => {
-    let data = { content: 'test' };
-    axios.post('/api/axios/fetchusers', data).then((response) => {
-      console.log(response);
-    });
-  };
-
   const logOutOnClick = () => {
     user.name = null;
-    user.role = null
-    router.push('/');
+    user.role = null;
+    user.points = 0;
+    user.totalPointChanges = 0;
+    user.applyingTo = null;
+    setTimeout(() => {
+      router.push('/');
+    }, 1000);
   };
 
   const AlertIconClicked = () => {
-    axios.post('/api/clearAlerts', {
-      userName: user.name,
-    })
-    .then((response) => {
-      console.log(response);
-    });
+    axios
+      .post('/api/clearAlerts', {
+        userName: user.name,
+      })
+      .then((response) => {
+        console.log(response);
+      });
   };
 
-  if (!user.name) {
-    return (
-      <>
-        <Head>
-          <title>{title ? title + ' - LotWizard' : 'LotWizard'}</title>
-          <meta name="description" content="LotWizard website" />
-        </Head>
-
-        <div className="flex min-h-screen flex-col justify-between">
-          <header>
-            <nav className="flex h-12 justify-between shadow-md items-center px-8">
-              <Link href="/">
-                <a className="text-lg font-bold">LotWizard</a>
-              </Link>
-
-              <div>
-                <Link href="../register">
-                  <a className="p-2 hover:text-blue-400">Register</a>
-                </Link>
-                <button
-                  className="p-2 hover:text-blue-400"
-                  onClick={signInButtonClicked} // CHANGED BY KALEB
-                >
-                  Sign in
-                </button>
-              </div>
-            </nav>
-          </header>
-
-          <main className="container m-auto mt-8 px-8">{children}</main>
-          <div>
-            <button className="p-2 hover:text-blue-400" onClick={UsersClicked}>
-              Users
-            </button>
-          </div>
-
-          <footer className="flex h-10 justify-center items-center shadow-inner">
-            <p>&copy; 2022 LotWizard | All Rights Reserved</p>
-          </footer>
-        </div>
-      </>
-    );
-  }
-
-  // else, if user is signed in...
   return (
     <>
       <Head>
@@ -130,49 +85,80 @@ export default function Layout({ title, children }) {
 
       <div className="flex min-h-screen flex-col justify-between">
         <header>
-          <nav className="flex h-12 justify-between shadow-md items-center px-8">
-            <Link href="/">
+          <nav className="flex h-14 bg-slate-50 justify-between shadow-md items-center px-8">
+            <Link href="../">
               <a className="text-lg font-bold">LotWizard</a>
             </Link>
 
-            <div>
-              {notificationCount == 0 ? (
-                <Link href="../pointHistory">
-                  <Button
-                    startIcon={<NotificationsNoneIcon color="action" />}
-                  ></Button>
-                </Link>
-              ) : (
-                <Link href="../pointHistory" className="text-black">
-                  <Button 
-                    startIcon={<NotificationsIcon color="primary" />}
-                    onClick={AlertIconClicked}
-                  >
-                    {notificationCount}
-                  </Button>
-                </Link>
-              )}
-              <Link href="../userProfile">
-                <a className="p-2 hover:text-blue-400">{user.name}</a>
-              </Link>
+            <form className="flex items-center">
+              <div>
+                <input
+                  type="text"
+                  id="simple-search"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-m rounded-lg focus:outline-none block w-full pl-4 py-2"
+                  placeholder="Search"
+                  required=""
+                ></input>
+              </div>
               <button
-                className="p-2 hover:text-blue-400"
-                onClick={logOutOnClick}
+                type="submit"
+                className="p-1.5 ml-2 text-white bg-slate-200 rounded-lg hover:bg-blue-400 focus:outline-none"
               >
-                Log Out
+                <SearchIcon color="action" />
+                <span className="sr-only">Search</span>
               </button>
+            </form>
+
+            <div>
+              {!user.name ? (
+                <>
+                  <Link href="../register">
+                    <a className="p-2 hover:text-blue-600">Register</a>
+                  </Link>
+                  <button
+                    className="p-2 hover:text-blue-600"
+                    onClick={signInButtonClicked}
+                  >
+                    Sign in
+                  </button>
+                </>
+              ) : (
+                <>
+                  {notificationCount == 0 ? (
+                    <Link href="../pointHistory">
+                      <button className="p-2 ml-2 rounded-lg focus:outline-none">
+                        <NotificationsNoneIcon color="action" />
+                      </button>
+                    </Link>
+                  ) : (
+                    <Link href="../pointHistory" className="text-black">
+                      <button
+                        className="p-2 ml-2 rounded-lg focus:outline-none"
+                        onClick={AlertIconClicked}
+                      >
+                        <NotificationsIcon color="primary" />
+                        {notificationCount}
+                      </button>
+                    </Link>
+                  )}
+                  <Link href="../userPreferences">
+                    <a className="p-2 ml-2 hover:text-blue-600">{user.name}</a>
+                  </Link>
+                  <button
+                    className="p-2 ml-2 hover:text-blue-600"
+                    onClick={logOutOnClick}
+                  >
+                    Log Out
+                  </button>
+                </>
+              )}
             </div>
           </nav>
         </header>
 
         <main className="container m-auto mt-8 px-8">{children}</main>
-        <div>
-          <button className="p-2 hover:text-blue-400" onClick={UsersClicked}>
-            Users
-          </button>
-        </div>
 
-        <footer className="flex h-10 justify-center items-center shadow-inner">
+        <footer className="flex bg-slate-50 h-10 justify-center items-center shadow-inner">
           <p>&copy; 2022 LotWizard | All Rights Reserved</p>
         </footer>
       </div>

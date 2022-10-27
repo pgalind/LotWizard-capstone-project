@@ -1,5 +1,3 @@
-import Cookie from 'js-cookie';
-
 export default async (req, res) => {
   try {
     const EbayAuthToken = require('ebay-oauth-nodejs-client');
@@ -12,7 +10,6 @@ export default async (req, res) => {
     });
 
     const response = await ebayAuthToken.getApplicationToken('PRODUCTION');
-    Cookie.set('token', response.access_token);
 
     res.send(response);
   } catch (error) {
