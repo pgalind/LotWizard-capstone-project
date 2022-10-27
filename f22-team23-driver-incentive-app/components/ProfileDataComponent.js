@@ -4,8 +4,9 @@ import user from '../services/user';
 import { Formik } from 'formik';
 import FormSection from '../components/FormSection';
 import ProfileField from '../components/ProfileField';
-import SubmitButton from '../components/SubmitButton';
+import SaveButton from '../components/SaveButton';
 import UpdateProfileData from '../hooks/UpdateProfileData';
+import ExitButton from './ExitButton';
 
 export default function ProfileDataComponent() {
   const [loading, setLoading] = useState(true);
@@ -45,7 +46,8 @@ export default function ProfileDataComponent() {
   }
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="p-10">
+      <ExitButton />
       <Formik
         initialValues={{
           firstName: `${firstName}`,
@@ -71,8 +73,11 @@ export default function ProfileDataComponent() {
         validateOnBlur={false}
       >
         {({ isSaving, values, handleBlur, handleSubmit, handleChange }) => (
-          <form className="max-w-full p-10" onSubmit={handleSubmit}>
-            <h1 className="text-center font-bold text-2xl mb-6">
+          <form
+            className="flex flex-col items-center w-[300px] min-w-full"
+            onSubmit={handleSubmit}
+          >
+            <h1 className="text-center font-bold text-xl mb-6">
               {user.name}'s Profile
             </h1>
             <FormSection>
@@ -229,7 +234,7 @@ export default function ProfileDataComponent() {
               />
             </FormSection>
 
-            <SubmitButton />
+            <SaveButton isSaving={isSaving} />
           </form>
         )}
       </Formik>

@@ -6,6 +6,7 @@ import FormSection from '../components/FormSection';
 import FormInput from '../components/FormInput';
 import FormLink from '../components/FormLink';
 import SubmitButton from '../components/SubmitButton';
+import ExitButton from '../components/ExitButton';
 import useValidationSchema from '../hooks/useValidationSchema';
 import useAuth from '../hooks/useAuth';
 
@@ -15,6 +16,7 @@ export default function Register() {
 
   return (
     <div className="p-10">
+      <ExitButton />
       <Formik
         initialValues={{
           firstName: '',

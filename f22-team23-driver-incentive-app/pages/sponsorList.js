@@ -1,36 +1,44 @@
 // This page will be viewed by a driver when they are choosing a sponsor to apply to
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import Select from 'react-select';
 import user from '../services/user';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import SubmitButton from '../components/SubmitButton';
 import FormSection from '../components/FormSection';
 import FormInput from '../components/FormInput';
-//import getPoints from '../hooks/getUserPoints';
+import ExitButton from '../components/ExitButton';
 
 export default function userProfile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [sponsors, setSponsors] = useState();
+  const [sponsors, setSponsors] = useState([]);
   const [isSubmitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     axios
       .post('/api/getSponsorList')
       .then((response) => {
+        console.log(response.data);
         setLoading(false);
         setSponsors(response.data);
         setError('');
       })
-      .catch((error) => {
+      .catch((err) => {
         setLoading(false);
         setSponsors();
         setError('Could not retrieve Sponsor List');
         console.log(error);
       });
   }, []);
+
+  const options = sponsors.map((val, key) => {
+    return {
+      value: val['SponsorCompany'],
+      label: key['SponsorCompany'],
+    };
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -56,22 +64,26 @@ export default function userProfile() {
     return <div>Loading . . .</div>;
   }
   return (
-    <div className="p-10">
-      <Link href="../">Exit</Link>
+    <div className="p-10 mx-auto">
+      <ExitButton />
 
-      <p>Apply to a Sponsor!</p>
+      <h1 className="font-bold text-xl mb-6">Apply to a Sponsor!</h1>
 
       <table>
-        <tr>
-          <th>List of Sponsor Companies</th>
-        </tr>
-        {sponsors.map((val, key) => {
-          return (
-            <tr key={key}>
-              <td>{val['SponsorCompany']}</td>
-            </tr>
-          );
-        })}
+        <thead>
+          <tr>
+            <th>List of Sponsor Companies</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sponsors.map((val, key) => {
+            return (
+              <tr key={key}>
+                <td>{val['SponsorCompany']}</td>
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
 
       <form
@@ -79,17 +91,13 @@ export default function userProfile() {
         onSubmit={formik.handleSubmit}
       >
         <FormSection>
-          <FormInput
-            label="Sponsor:"
-            name="sponsorToApply"
-            onChange={formik.handleChange}
-            value={formik.values.sponsorToApply}
-          />
+          <Select options={sponsors} />
         </FormSection>
 
         <FormSection>
           <FormInput
-            label="Reason:"
+            label="Reason"
+            type="text"
             name="reason"
             onChange={formik.handleChange}
             value={formik.values.reason}

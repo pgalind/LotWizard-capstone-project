@@ -4,9 +4,5 @@ import ProfileDataComponent from '../components/ProfileDataComponent';
 import React, { useState, useEffect } from 'react';
 
 export default function profileData() {
-  return (
-    <Layout title="Profile Data">
-      <ProfileDataComponent></ProfileDataComponent>
-    </Layout>
-  );
+  return <ProfileDataComponent />;
 }

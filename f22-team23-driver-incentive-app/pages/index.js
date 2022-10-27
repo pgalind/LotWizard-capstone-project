@@ -12,6 +12,7 @@ export default function Home() {
   const [error, setError] = useState('');
   const [points, setPoints] = useState(0);
   const [role, setRole] = useState('');
+  const [sponsors, setSponsors] = useState([]);
 
   useEffect(() => {
     axios
@@ -26,12 +27,24 @@ export default function Home() {
         user.role = response.data[0]['Role'];
       })
       .catch((err) => {
-        setLoading(false);
-        setPoints();
         setError('Could not retrieve points for user');
         console.log(error);
       });
   }, [user.name]);
+
+  useEffect(() => {
+    axios
+      .post('/api/getSponsorList')
+      .then((response) => {
+        setLoading(false);
+        setSponsors(response.data);
+        setError('');
+      })
+      .catch((err) => {
+        setError('Could not retrieve Sponsor List');
+        console.log(error);
+      });
+  }, []);
 
   if (loading) {
     return <div>Loading . . .</div>;
@@ -58,12 +71,13 @@ export default function Home() {
         <h1 className="text-lg">Need help choosing a Sponsor company?</h1>
         <h2>Learn more about them and view their catalogs!</h2>
         <ItemsGrid>
-          <ItemsLink href="/catalog">Sponsor A</ItemsLink>
-          <ItemsLink href="/catalog">Sponsor B</ItemsLink>
-          <ItemsLink href="/catalog">Sponsor C</ItemsLink>
-          <ItemsLink href="/catalog">Sponsor D</ItemsLink>
-          <ItemsLink href="/catalog">Sponsor E</ItemsLink>
-          <ItemsLink href="/catalog">Sponsor F</ItemsLink>
+          {sponsors.map((val, key) => {
+            return (
+              <ItemsLink key={key} href="/catalog">
+                {val['SponsorCompany']}
+              </ItemsLink>
+            );
+          })}
         </ItemsGrid>
       </Layout>
     );

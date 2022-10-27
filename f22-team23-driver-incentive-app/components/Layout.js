@@ -65,6 +65,9 @@ export default function Layout({ title, children }) {
   const logOutOnClick = () => {
     user.name = null;
     user.role = null;
+    user.points = 0;
+    user.totalPointChanges = 0;
+    user.applyingTo = null;
     setTimeout(() => {
       router.push('/');
     }, 1000);
@@ -90,7 +93,7 @@ export default function Layout({ title, children }) {
       <div className="flex min-h-screen flex-col justify-between">
         <header>
           <nav className="flex h-14 bg-slate-50 justify-between shadow-md items-center px-8">
-            <Link href="/">
+            <Link href="../">
               <a className="text-lg font-bold">LotWizard</a>
             </Link>
 
@@ -145,7 +148,7 @@ export default function Layout({ title, children }) {
                       </button>
                     </Link>
                   )}
-                  <Link href="../userProfile">
+                  <Link href="../userPreferences">
                     <a className="p-2 ml-2 hover:text-blue-600">{user.name}</a>
                   </Link>
                   <button
