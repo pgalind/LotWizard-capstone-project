@@ -74,11 +74,17 @@ export default function EbayItem(prop) {
 
   return Object.keys(post).length ? (
     <span className="flex p-4 bg-slate-200">
-      <div className="flex flex-col w-[25%] justify-content-center">
-        <Link href={`/catalog/374289166032`}>
-          <a>
-            <img src={image} alt={image} />
-          </a>
+      <div className="card">
+        <Link href={`/catalog/${prop.itemID}`}>
+          <span className="flex p-4 bg-zinc-300">
+            <a>
+              <img
+                className="object-contain h-48 w-96"
+                src={image}
+                alt={image}
+              />
+            </a>
+          </span>
         </Link>
         <div className="flex justify-center space-between">
           <div>
@@ -102,22 +108,25 @@ export default function EbayItem(prop) {
             ></Button>
           </div>
         </div>
-      </div>
-
-      <div className="flex flex-col w-[75%] items-center justify-center p-5">
-        <Link href={`/catalog/${prop.itemID}`}>
-          <a>
-            <h2 className="text-lg">{post.title}</h2>
-          </a>
-        </Link>
-        <p className="mb-2">Item description</p>
-        <p>${post.price.value}</p>
-        <button
-          className="primary-button mt-5 bg-slate-200 py-3 px-6 rounded-lg hover:bg-blue-600"
-          type="button"
-        >
-          Add to cart
-        </button>
+        <div className="flex flex-col items-center justify-center p-0">
+          <div className="center">
+            <Link href={`/catalog/${prop.itemID}`}>
+              <a>
+                <h2 className="font-semibold">{post.title}</h2>
+              </a>
+            </Link>
+          </div>
+          <div className="stretch text-zinc-500 tracking-widest">
+            <p className="text-xs">(Hover for Item Description)</p>
+          </div>
+          <p>☆{post.price.value}</p>
+          <button
+            className="primary-button mt-0 bg-slate-200 py-3 px-6 rounded-lg hover:bg-blue-600"
+            type="button"
+          >
+            Add to cart
+          </button>
+        </div>
       </div>
     </span>
   ) : (

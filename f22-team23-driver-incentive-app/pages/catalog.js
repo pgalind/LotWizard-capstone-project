@@ -1,30 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import EbayItem from '../components/EbayItem';
-import CatalogGrid from '../components/CatalogGrid';
+import ItemsGrid from '../components/ItemsGrid';
 import { itemList } from '../data/itemList.js';
 import axios from 'axios';
 import Cookie from 'js-cookie';
 
-// ADDED BY KALEB
-// TESTING
-/*
-const [items, setItems] = useState('');
-useEffect(() => {
-  axios.post('/api/querySponsorItems', {}).then((response) => {
-    setItems(response.data[0]['ItemId']);
-  });
-}, []);
-console.log('ITEM ID: ' + items);*/
-// END TESTING
-//374289166032, 294670499440, 325371985137,
-
 export default function Catalog() {
   // for every catalog item, create an EbayItem component passing the itemID
   //const { data: session } = useSession();
-  //const [itemIDs, setItemIDs] = useState([
-  //  374289166032, 294670499440, 325371985137,
-  //]);
   const [itemIDs, setItemIDs] = useState([]);
   const [token, setToken] = useState('');
   useEffect(() => {
@@ -68,12 +52,16 @@ export default function Catalog() {
     return (
       <Layout title="Catalog">
         <h1 className="text-lg">Sponsor Catalog</h1>
-        <CatalogGrid>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
           <EbayItem token={token} itemID={itemIDs[0]} />
           <EbayItem token={token} itemID={itemIDs[1]} />
           <EbayItem token={token} itemID={itemIDs[2]} />
-        </CatalogGrid>
+        </div>
       </Layout>
     );
   }
 }
+
+//<EbayItem token={token} itemID={itemIDs[3]} />
+//<EbayItem token={token} itemID={itemIDs[4]} />
+//<EbayItem token={token} itemID={itemIDs[5]} />
