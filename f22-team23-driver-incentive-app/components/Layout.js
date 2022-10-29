@@ -156,7 +156,9 @@ export default function Layout({ title, children }) {
           </nav>
         </header>
 
-        <main className="container m-auto mt-8 px-8">{children}</main>
+        <div className="catalog-background">
+          <main className="container m-auto mt-8 px-8">{children}</main>
+        </div>
 
         <footer className="flex bg-slate-50 h-10 justify-center items-center shadow-inner">
           <p>&copy; 2022 LotWizard | All Rights Reserved</p>

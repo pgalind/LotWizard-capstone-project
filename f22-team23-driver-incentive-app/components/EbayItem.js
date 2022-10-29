@@ -66,26 +66,29 @@ export default function EbayItem(prop) {
         console.log(error);
         if (error.response.request.status == 401) {
           // If unauthorized, remove cookie so catalog.js can automatically request a new token
-          console.log(Cookie.remove('token'));
           console.log('Invalid cookie cleared');
+          console.log('catalog.newToken() called from EbayItem.js');
+          prop.newToken();
         }
       });
   }, []);
 
   return Object.keys(post).length ? (
-    <span className="flex p-4 bg-slate-200">
+    <span className="flex p-4 bg-slate-200 shadow-xl rounded-lg catalog-item-border catalog-item-internal">
       <div className="card">
-        <Link href={`/catalog/${prop.itemID}`}>
-          <span className="flex p-4 bg-zinc-300">
+        <span className="flex p-4 bg-zinc-300 rounded-lg">
+          <Link href={`/catalog/${prop.itemID}`}>
             <a>
-              <img
-                className="object-contain h-48 w-96"
-                src={image}
-                alt={image}
-              />
+              <div className="rounded">
+                <img
+                  className="object-contain h-48 w-96"
+                  src={image}
+                  alt={image}
+                />
+              </div>
             </a>
-          </span>
-        </Link>
+          </Link>
+        </span>
         <div className="flex justify-center space-between">
           <div>
             <Button
@@ -108,7 +111,7 @@ export default function EbayItem(prop) {
             ></Button>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center p-0">
+        <div className="flex flex-col items-center justify-center p-0 text-black">
           <div className="center">
             <Link href={`/catalog/${prop.itemID}`}>
               <a>
