@@ -85,11 +85,10 @@ export default function Layout({ title, children }) {
 
       <div className="flex min-h-screen flex-col justify-between">
         <header>
-          <nav className="flex h-14 bg-slate-50 justify-between shadow-md items-center px-8">
+          <nav className="flex h-14 bg-slate-50 justify-between shadow-xl items-center px-8">
             <Link href="../">
               <a className="text-lg font-bold">LotWizard</a>
             </Link>
-
             <form className="flex items-center">
               <div>
                 <input
@@ -156,9 +155,9 @@ export default function Layout({ title, children }) {
           </nav>
         </header>
 
-        <div className="catalog-background">
-          <main className="container m-auto mt-8 px-8">{children}</main>
-        </div>
+        <main className="catalog-background container m-auto mt-8 px-8">
+          {children}
+        </main>
 
         <footer className="flex bg-slate-50 h-10 justify-center items-center shadow-inner">
           <p>&copy; 2022 LotWizard | All Rights Reserved</p>

@@ -39,7 +39,7 @@ body {
 }
 
 .catalog-background {
-  background-image: url('../public/blurredStore.jpg');
+  background-image: url('../public/blurredStore.png');
   background-repeat: no-repeat;
   background-size: cover;
   filter: saturate(100%);
