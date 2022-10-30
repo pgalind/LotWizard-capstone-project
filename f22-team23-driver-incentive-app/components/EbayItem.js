@@ -24,7 +24,7 @@ export default function EbayItem(prop) {
     const imageUrl = [post.image];
     const pictures = imageUrl.concat(post.additionalImages);
 
-    if (dir == 'right' && imageIndex < pictures.length - 1) {
+    if (dir == 'right' && imageIndex < pictures.length) {
       imageIndex++;
       console.log('right');
     } else if (dir == 'left' && imageIndex > 0) {
@@ -64,7 +64,7 @@ export default function EbayItem(prop) {
         setPost({});
         setError("Couldn't retrive catalog info from ebay :/");
         console.log(error);
-        if (error.response.request.status == 401) {
+        if (prop.refresh == true && error.response.request.status == 401) {
           // If unauthorized, remove cookie so catalog.js can automatically request a new token
           console.log('Invalid cookie cleared');
           console.log('catalog.newToken() called from EbayItem.js');
