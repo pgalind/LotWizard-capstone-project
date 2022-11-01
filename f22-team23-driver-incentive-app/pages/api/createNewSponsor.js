@@ -33,20 +33,6 @@ export default async (req, res) => {
     
       console.log(numResults)
 
-      try {
-        console.log(req)
-        let queryString = `UPDATE Users SET \`SponsorCompany\`=\"${req.body.values.name}\" WHERE UserName=\"${req.body.values.user}\"`;
-        console.log("query : " + queryString)
-
-        let result = await excuteQuery({
-        query: queryString,
-        values: [req.body],
-        });
-        } catch (error) {
-            console.log(error);
-            response = "failed"
-        }
-
     if(numResults == 0){
         try {
             console.log(req)
@@ -61,12 +47,21 @@ export default async (req, res) => {
             console.log(error);
             response = "failed"
         }
-    }
-
-    if(response != "failed"){
-        res.send(response)
+        try {
+            console.log(req)
+            let queryString = `UPDATE Users SET \`SponsorCompany\`=\"${req.body.values.name}\" WHERE UserName=\"${req.body.values.user}\"`;
+            console.log("query : " + queryString)
+    
+            let result = await excuteQuery({
+            query: queryString,
+            values: [req.body],
+            });
+        } catch (error) {
+            console.log(error);
+        }
+        res.send("success");
     }
     else{
-        res.send(response)
+        res.send("failed");
     }
 };
