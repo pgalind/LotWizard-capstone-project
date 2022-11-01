@@ -5,6 +5,7 @@ import ItemsGrid from '../components/ItemsGrid';
 import ItemsLink from '../components/ItemsLink';
 import SponsorHomePageComponent from '../components/SponsorHomePageComponent';
 import DriverHomePageComponent from '../components/DriverHomePageComponent';
+import AdminHomePageComponent from '../components/AdminHomePageComponent';
 import axios from 'axios';
 
 export default function Home() {
@@ -64,6 +65,12 @@ export default function Home() {
           <SponsorHomePageComponent />
         </Layout>
       );
+    } else if (user.role == 'Admin') {
+        return (
+            <Layout title="Home Page">
+                <AdminHomePageComponent />
+            </Layout>
+        )
     }
   } else
     return (

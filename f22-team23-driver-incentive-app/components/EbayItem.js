@@ -24,7 +24,7 @@ export default function EbayItem(prop) {
     const imageUrl = [post.image];
     const pictures = imageUrl.concat(post.additionalImages);
 
-    if (dir == 'right' && imageIndex < pictures.length - 1) {
+    if (dir == 'right' && imageIndex < pictures.length) {
       imageIndex++;
       console.log('right');
     } else if (dir == 'left' && imageIndex > 0) {
@@ -64,22 +64,31 @@ export default function EbayItem(prop) {
         setPost({});
         setError("Couldn't retrive catalog info from ebay :/");
         console.log(error);
-        if (error.response.request.status == 401) {
+        if (prop.refresh == true && error.response.request.status == 401) {
           // If unauthorized, remove cookie so catalog.js can automatically request a new token
-          console.log(Cookie.remove('token'));
           console.log('Invalid cookie cleared');
+          console.log('catalog.newToken() called from EbayItem.js');
+          prop.newToken();
         }
       });
   }, []);
 
   return Object.keys(post).length ? (
-    <span className="flex p-4 bg-slate-200">
-      <div className="flex flex-col w-[25%] justify-content-center">
-        <Link href={`/catalog/374289166032`}>
-          <a>
-            <img src={image} alt={image} />
-          </a>
-        </Link>
+    <span className="flex p-4 bg-slate-200 shadow-xl rounded-lg catalog-item-border catalog-item-internal">
+      <div className="card">
+        <span className="flex p-4 bg-zinc-300 rounded-lg">
+          <Link href={`/catalog/${prop.itemID}`}>
+            <a>
+              <div className="rounded">
+                <img
+                  className="object-contain h-48 w-96"
+                  src={image}
+                  alt={image}
+                />
+              </div>
+            </a>
+          </Link>
+        </span>
         <div className="flex justify-center space-between">
           <div>
             <Button
@@ -102,22 +111,25 @@ export default function EbayItem(prop) {
             ></Button>
           </div>
         </div>
-      </div>
-
-      <div className="flex flex-col w-[75%] items-center justify-center p-5">
-        <Link href={`/catalog/${prop.itemID}`}>
-          <a>
-            <h2 className="text-lg">{post.title}</h2>
-          </a>
-        </Link>
-        <p className="mb-2">Item description</p>
-        <p>${post.price.value}</p>
-        <button
-          className="primary-button mt-5 bg-slate-200 py-3 px-6 rounded-lg hover:bg-blue-600"
-          type="button"
-        >
-          Add to cart
-        </button>
+        <div className="flex flex-col items-center justify-center p-0 text-black">
+          <div className="center">
+            <Link href={`/catalog/${prop.itemID}`}>
+              <a>
+                <h2 className="font-semibold">{post.title}</h2>
+              </a>
+            </Link>
+          </div>
+          <div className="stretch text-zinc-500 tracking-widest">
+            <p className="text-xs">(Hover for Item Description)</p>
+          </div>
+          <p>☆{post.price.value}</p>
+          <button
+            className="primary-button mt-0 bg-slate-200 py-3 px-6 rounded-lg hover:bg-blue-600"
+            type="button"
+          >
+            Add to cart
+          </button>
+        </div>
       </div>
     </span>
   ) : (
