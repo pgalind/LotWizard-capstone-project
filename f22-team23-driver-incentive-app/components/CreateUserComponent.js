@@ -49,16 +49,6 @@ export default function CreateUserComponent() {
             </h1>
 
             <FormSection>
-              <ProfileField
-                label="Email:"
-                type="email"
-                name="email"
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </FormSection>
-
-            <FormSection>
                 <div className="flex mr-4 pb-2">
                     <span className="block m-2">
                         <label htmlFor="Role">Role:</label>
@@ -85,6 +75,16 @@ export default function CreateUserComponent() {
                         </option>
                     </select>
                 </div>
+            </FormSection>
+
+            <FormSection>
+            <ProfileField
+                label="Email:"
+                type="email"
+                name="email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+            />
             </FormSection>
 
             <FormSection>
