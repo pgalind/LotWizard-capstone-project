@@ -11,10 +11,10 @@
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity-provider": "^3.178.0",
-    "@emotion/react": "^11.10.4",
-    "@emotion/styled": "^11.10.4",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.10.9",
-    "@mui/material": "^5.10.9",
+    "@mui/material": "^5.10.12",
     "axios": "^0.27.2",
     "ebay-oauth-nodejs-client": "^1.2.2",
     "formik": "^2.2.9",
