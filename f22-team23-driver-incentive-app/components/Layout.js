@@ -5,10 +5,8 @@ import axios from 'axios';
 import { logNavigation } from '../lib/helpers';
 import { useRouter } from 'next/router';
 import user from '../services/user';
-import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import { Button } from '@mui/material';
 
 // Anything inside {} is a dynamic property.
 
@@ -83,30 +81,12 @@ export default function Layout({ title, children }) {
         <meta name="description" content="LotWizard website" />
       </Head>
 
-      <div className="flex min-h-screen flex-col justify-between">
+      <div className="flex h-screen flex-col">
         <header>
           <nav className="flex h-14 bg-slate-50 justify-between shadow-xl items-center px-8">
             <Link href="../">
               <a className="text-lg font-bold">LotWizard</a>
             </Link>
-            <form className="flex items-center">
-              <div>
-                <input
-                  type="text"
-                  id="simple-search"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-m rounded-lg focus:outline-none block w-full pl-4 py-2"
-                  placeholder="Search"
-                  required=""
-                ></input>
-              </div>
-              <button
-                type="submit"
-                className="p-1.5 ml-2 text-white bg-slate-200 rounded-lg hover:bg-blue-400 focus:outline-none"
-              >
-                <SearchIcon color="action" />
-                <span className="sr-only">Search</span>
-              </button>
-            </form>
 
             <div>
               {!user.name ? (
@@ -155,11 +135,9 @@ export default function Layout({ title, children }) {
           </nav>
         </header>
 
-        <main className="catalog-background container m-auto mt-8 px-8">
-          {children}
-        </main>
+        <main className="container m-auto px-10 py-5">{children}</main>
 
-        <footer className="flex bg-slate-50 h-10 justify-center items-center shadow-inner">
+        <footer className="flex bg-slate-50 p-4 h-10 justify-center items-center shadow-inner">
           <p>&copy; 2022 LotWizard | All Rights Reserved</p>
         </footer>
       </div>

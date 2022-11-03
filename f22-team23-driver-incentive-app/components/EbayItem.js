@@ -74,65 +74,75 @@ export default function EbayItem(prop) {
   }, []);
 
   return Object.keys(post).length ? (
-    <span className="flex p-4 bg-slate-200 shadow-xl rounded-lg catalog-item-border catalog-item-internal">
-      <div className="card">
-        <span className="flex p-4 bg-zinc-300 rounded-lg">
+    //<span className="flex p-4 shadow-xl rounded-lg catalog-item-border catalog-item-internal">
+    <div className="flex flex-col catalog-item-border bg-black rounded-lg">
+      <span className="flex p-4 catalog-background rounded-t-lg">
+        <Link href={`/catalog/${prop.itemID}`}>
+          <a>
+            <div>
+              <img
+                className="object-contain h-48 w-96"
+                src={image}
+                alt={image}
+              />
+            </div>
+          </a>
+        </Link>
+      </span>
+      <div className="flex bg-white justify-center space-between">
+        <div>
+          <Button
+            startIcon={
+              <ArrowBackIosIcon
+                color="action"
+                onClick={() => changePicture('left')}
+              />
+            }
+          ></Button>
+        </div>
+        <div>
+          <Button
+            startIcon={
+              <ArrowForwardIosIcon
+                color="action"
+                onClick={() => changePicture('right')}
+              />
+            }
+          ></Button>
+        </div>
+      </div>
+
+      <div className="bg-white shadow-xl flex flex-col p-4 items-center grow rounded-b-lg">
+        <div>
           <Link href={`/catalog/${prop.itemID}`}>
             <a>
-              <div className="rounded">
-                <img
-                  className="object-contain h-48 w-96"
-                  src={image}
-                  alt={image}
-                />
-              </div>
+              <h2 className="font-semibold pb-2">{post.title}</h2>
             </a>
           </Link>
-        </span>
-        <div className="flex justify-center space-between">
-          <div>
-            <Button
-              startIcon={
-                <ArrowBackIosIcon
-                  color="action"
-                  onClick={() => changePicture('left')}
-                />
-              }
-            ></Button>
-          </div>
-          <div>
-            <Button
-              startIcon={
-                <ArrowForwardIosIcon
-                  color="action"
-                  onClick={() => changePicture('right')}
-                />
-              }
-            ></Button>
-          </div>
         </div>
-        <div className="flex flex-col items-center justify-center p-0 text-black">
-          <div className="center">
-            <Link href={`/catalog/${prop.itemID}`}>
-              <a>
-                <h2 className="font-semibold">{post.title}</h2>
-              </a>
-            </Link>
-          </div>
-          <div className="stretch text-zinc-500 tracking-widest">
-            <p className="text-xs">(Hover for Item Description)</p>
-          </div>
-          <p>☆{post.price.value}</p>
+        <div className="text-zinc-500 tracking-widest">
+          <p className="text-xs">Hover for Item Description</p>
+        </div>
+        <p>☆{post.price.value}</p>
+        {prop.view == 'driver' ? (
           <button
-            className="primary-button mt-0 bg-slate-200 py-3 px-6 rounded-lg hover:bg-blue-600"
+            className="primary-button bg-slate-200 mt-4 py-2 px-4 rounded-lg hover:text-white hover:bg-blue-400"
             type="button"
           >
             Add to cart
           </button>
-        </div>
+        ) : (
+          <button
+            className="primary-button bg-slate-200 mt-4 py-2 px-4 rounded-lg hover:text-white hover:bg-blue-400"
+            type="button"
+          >
+            Add to catalog
+          </button>
+        )}
       </div>
-    </span>
+    </div>
   ) : (
+    //</span>
     <div>Loading . . .</div>
   );
 }

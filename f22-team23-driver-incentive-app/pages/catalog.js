@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import EbayItem from '../components/EbayItem';
-import ItemsGrid from '../components/ItemsGrid';
-import { itemList } from '../data/itemList.js';
 import axios from 'axios';
 import Cookie from 'js-cookie';
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function Catalog() {
   // for every catalog item, create an EbayItem component passing the itemID
@@ -63,57 +62,164 @@ export default function Catalog() {
   } else if (view == 'driver') {
     return (
       <Layout title="Catalog">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center pb-4">
           <a className="catalog-title">Sponsor Catalog</a>
+
+          <form className="flex items-center">
+            <div className="xl:w-96">
+              <input
+                type="text"
+                id="simple-search"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-m rounded-l-lg focus:outline-none block w-full pl-4 py-2"
+                placeholder="Search"
+                required=""
+              ></input>
+            </div>
+            <button
+              type="submit"
+              className="p-2 text-white bg-slate-200 rounded-r-lg hover:bg-blue-400 focus:outline-none"
+            >
+              <SearchIcon color="action" />
+              <span className="sr-only">Search</span>
+            </button>
+          </form>
+
           <button
-            className="p-2 hover:text-white bg-gray-200 rounded-2xl hover:bg-gray-400"
+            className="py-2 px-4 hover:text-white bg-gray-200 rounded-lg hover:bg-slate-400"
             onClick={() => setView('sponsor')}
           >
             Switch to Sponsor View
           </button>
         </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-4 lg:grid-cols-4">
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-4 lg:grid-cols-4">
           <EbayItem
             token={token}
             itemID={itemIDs[0]}
             newToken={newToken}
             refresh={true}
+            view={view}
           />
-          <EbayItem token={token} itemID={itemIDs[1]} newToken={newToken} />
-          <EbayItem token={token} itemID={itemIDs[2]} newToken={newToken} />
-          <EbayItem token={token} itemID={itemIDs[3]} newToken={newToken} />
-          <EbayItem token={token} itemID={itemIDs[4]} newToken={newToken} />
-          <EbayItem token={token} itemID={itemIDs[5]} newToken={newToken} />
+          <EbayItem
+            token={token}
+            itemID={itemIDs[1]}
+            newToken={newToken}
+            view={view}
+          />
+          <EbayItem
+            token={token}
+            itemID={itemIDs[2]}
+            newToken={newToken}
+            view={view}
+          />
+          <EbayItem
+            token={token}
+            itemID={itemIDs[3]}
+            newToken={newToken}
+            view={view}
+          />
+          <EbayItem
+            token={token}
+            itemID={itemIDs[4]}
+            newToken={newToken}
+            view={view}
+          />
+          <EbayItem
+            token={token}
+            itemID={itemIDs[5]}
+            newToken={newToken}
+            view={view}
+          />
         </div>
       </Layout>
     );
   } else {
     return (
       <Layout title="Catalog">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center pb-5">
           <a className="catalog-title">Add to Sponsor Catalog</a>
+
+          <form className="flex items-center">
+            <div className="xl:w-96">
+              <input
+                type="text"
+                id="simple-search"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-m rounded-l-lg focus:outline-none block w-full pl-4 py-2"
+                placeholder="Search"
+                required=""
+              ></input>
+            </div>
+            <button
+              type="submit"
+              className="p-2 text-white bg-slate-200 rounded-r-lg hover:bg-blue-400 focus:outline-none"
+            >
+              <SearchIcon color="action" />
+              <span className="sr-only">Search</span>
+            </button>
+          </form>
+
           <button
-            className="p-2 hover:text-white bg-gray-200 rounded-2xl hover:bg-gray-400"
+            className="py-2 px-4 hover:text-white bg-gray-200 rounded-lg hover:bg-slate-400"
             onClick={() => setView('driver')}
           >
             Back to Driver View
           </button>
         </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-8 lg:grid-cols-8">
+        <div className="grid gap-4 grid-cols-1  md:grid-cols-6 lg:grid-cols-6">
           <EbayItem
             token={token}
             itemID={itemIDs[0]}
             newToken={newToken}
             refresh={true}
+            view={view}
           />
-          <EbayItem token={token} itemID={itemIDs[1]} newToken={newToken} />
-          <EbayItem token={token} itemID={itemIDs[2]} newToken={newToken} />
-          <EbayItem token={token} itemID={itemIDs[3]} newToken={newToken} />
-          <EbayItem token={token} itemID={itemIDs[4]} newToken={newToken} />
-          <EbayItem token={token} itemID={itemIDs[5]} newToken={newToken} />
-          <EbayItem token={token} itemID={itemIDs[3]} newToken={newToken} />
-          <EbayItem token={token} itemID={itemIDs[4]} newToken={newToken} />
-          <EbayItem token={token} itemID={itemIDs[5]} newToken={newToken} />
+          <EbayItem
+            token={token}
+            itemID={itemIDs[1]}
+            newToken={newToken}
+            view={view}
+          />
+          <EbayItem
+            token={token}
+            itemID={itemIDs[2]}
+            newToken={newToken}
+            view={view}
+          />
+          <EbayItem
+            token={token}
+            itemID={itemIDs[3]}
+            newToken={newToken}
+            view={view}
+          />
+          <EbayItem
+            token={token}
+            itemID={itemIDs[4]}
+            newToken={newToken}
+            view={view}
+          />
+          <EbayItem
+            token={token}
+            itemID={itemIDs[5]}
+            newToken={newToken}
+            view={view}
+          />
+          <EbayItem
+            token={token}
+            itemID={itemIDs[3]}
+            newToken={newToken}
+            view={view}
+          />
+          <EbayItem
+            token={token}
+            itemID={itemIDs[4]}
+            newToken={newToken}
+            view={view}
+          />
+          <EbayItem
+            token={token}
+            itemID={itemIDs[5]}
+            newToken={newToken}
+            view={view}
+          />
         </div>
       </Layout>
     );
