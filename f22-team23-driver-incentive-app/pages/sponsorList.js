@@ -35,10 +35,18 @@ export default function userProfile() {
 
   const options = sponsors.map((val, key) => {
     return {
-      value: val['SponsorCompany'],
-      label: key['SponsorCompany'],
+      value: key,
+      label: val['SponsorCompany'],
     };
   });
+
+  /*const options = [
+    { value: 'developer', label: 'Software Developer' },
+    { value: 'chef', label: 'Chef' },
+    { value: 'enginner', label: 'Enginner' },
+    { value: 'painter', label: 'Painter' }
+  
+  ]*/
 
   const formik = useFormik({
     initialValues: {
@@ -91,7 +99,7 @@ export default function userProfile() {
         onSubmit={formik.handleSubmit}
       >
         <FormSection>
-          <Select options={sponsors} />
+          <Select options={options} />
         </FormSection>
 
         <FormSection>
