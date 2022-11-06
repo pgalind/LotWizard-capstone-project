@@ -99,7 +99,10 @@ export default function userProfile() {
         onSubmit={formik.handleSubmit}
       >
         <FormSection>
-          <Select options={options} />
+          <Select 
+            options={options} 
+            onChange={value=>formik.setFieldValue('sponsorToApply',value.label)}
+            value={formik.values.sponsorToApply}/>
         </FormSection>
 
         <FormSection>
