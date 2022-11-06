@@ -77,23 +77,6 @@ export default function userProfile() {
 
       <h1 className="font-bold text-xl mb-6">Apply to a Sponsor!</h1>
 
-      <table>
-        <thead>
-          <tr>
-            <th>List of Sponsor Companies</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sponsors.map((val, key) => {
-            return (
-              <tr key={key}>
-                <td>{val['SponsorCompany']}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-
       <form
         className="flex flex-col items-center w-[300px] min-w-full"
         onSubmit={formik.handleSubmit}
