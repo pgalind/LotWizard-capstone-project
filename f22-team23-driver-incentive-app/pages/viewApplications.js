@@ -59,12 +59,14 @@ export default function userProfile() {
         <tr>
           <th>Driver</th>
           <th>Reason</th>
+          <th>Link</th>
         </tr>
         {applications.map((val, key) => {
           return (
             <tr key={key}>
               <td>{val['DriverID']}</td>
               <td>{val['Application_Reason']}</td>
+              <td><a href="./decideApplication" className="p-2 hover:text-blue-600">Click to Decide</a></td>
             </tr>
           );
         })}
