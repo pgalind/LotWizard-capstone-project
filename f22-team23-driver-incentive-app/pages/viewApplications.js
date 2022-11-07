@@ -55,8 +55,12 @@ export default function userProfile() {
     },
   });
 
-  function submitDecision(driverID, decision) {
-    console.log(driverID + ": " + decision)
+  function submitDecision(id, decision) {
+    console.log(id + " : " + decision)
+    let data = { id : id,
+                  decision : decision };
+    axios.post('/api/decideApplication', data)
+          .then((response) => console.log(response));
   }
 
 
@@ -94,7 +98,7 @@ export default function userProfile() {
                 />
                </FormSection>
                 </td>
-              <td><button className="p-2 hover:text-blue-600" onClick={() => submitDecision(val['DriverID'], formik.values.decision)}>Submit</button></td>
+              <td><button className="p-2 hover:text-blue-600" onClick={() => submitDecision(val['id'], formik.values.decision)}>Submit</button></td>
             </tr>
           );
         })}
