@@ -3,7 +3,7 @@ import excuteQuery from '../../lib/db'
 export default async (req, res) => {
 
     try {
-        console.log("about to run the getSponsorList query")
+        console.log("about to run the getOpenApplicationList query")
         console.log(req.body)
 
         //interpolate the variables into the query

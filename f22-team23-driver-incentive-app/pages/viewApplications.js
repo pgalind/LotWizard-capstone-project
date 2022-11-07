@@ -13,21 +13,27 @@ import SubmitButton from '../components/SubmitButton';
 export default function userProfile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [applications, setApplications] = useState();
-  const [isSubmitting, setSubmitting] = useState(false);
+  const [openApplications, setOpenApplications] = useState();
+  const [pastApplications, setPastApplications] = useState();
 
   useEffect(() => {
     let data = { sponsorUserName: user.name };
     axios
-      .post('/api/getApplicationList', data)
+      .post('/api/getOpenApplicationList', data)
       .then((response) => {
-        setLoading(false);
-        setApplications(response.data);
+        setOpenApplications(response.data);
         setError('');
+        axios
+          .post('/api/getPastApplicationList', data)
+          .then((response) => {
+            setLoading(false);
+            setPastApplications(response.data)
+          })
+        
       })
       .catch((error) => {
         setLoading(false);
-        setSponsors();
+        setOpenApplications();
         setError('Could not retrieve Application List');
         console.log(error);
       });
@@ -85,7 +91,7 @@ export default function userProfile() {
           <th>Decision</th>
           <th>Submit</th>
         </tr>
-        {applications.map((val, key) => {
+        {openApplications.map((val, key) => {
           return (
             <tr key={key}>
               <td>{val['DriverID']}</td>
@@ -104,6 +110,24 @@ export default function userProfile() {
         })}
       </table>
 
+      <p></p>
+      <h1 className="font-bold text-xl mb-6">Past Applications</h1>
+      <table>
+        <tr>
+          <th>Driver</th>
+          <th>Reason</th>
+          <th>Decision</th>
+        </tr>
+        {pastApplications.map((val, key) => {
+          return (
+            <tr key={key}>
+              <td>{val['DriverID']}</td>
+              <td>{val['Application_Reason']}</td>
+              <td>{val['Decision']}</td>
+            </tr>
+          );
+        })}
+       </table>
 
     </div>
   );
