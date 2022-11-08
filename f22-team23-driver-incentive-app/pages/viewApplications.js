@@ -8,6 +8,7 @@ import ExitButton from '../components/ExitButton';
 import 'reactjs-popup/dist/index.css';
 import FormSection from '../components/FormSection';
 import Select from 'react-select';
+import Popup from 'reactjs-popup';
 import SubmitButton from '../components/SubmitButton';
 
 export default function userProfile() {
@@ -104,14 +105,16 @@ export default function userProfile() {
                 />
                </FormSection>
                 </td>
-              <td><button className="p-2 hover:text-blue-600" onClick={() => submitDecision(val['id'], formik.values.decision)}>Submit</button></td>
+              <td><button className="p-2 hover:text-blue-600" 
+                                  onClick={() => submitDecision(val['id'], formik.values.decision)}>
+                                  Submit</button></td>
             </tr>
           );
         })}
       </table>
 
       <p></p>
-      <h1 className="font-bold text-xl mb-6">Past Applications</h1>
+      <h2 className="font-bold text-xl mb-6">Past Applications</h2>
       <table>
         <tr>
           <th>Driver</th>

@@ -130,7 +130,7 @@ export default function Layout({ title, children }) {
                       </button>
                     </Link>
                   ) : (
-                    <Link href="../pointHistory" className="text-black">
+                    <Link href="../notificationPortal" className="text-black">
                       <button
                         className="p-2 ml-2 rounded-lg focus:outline-none"
                         onClick={AlertIconClicked}
