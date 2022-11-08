@@ -124,7 +124,7 @@ export default function Layout({ title, children }) {
               ) : (
                 <>
                   {notificationCount == 0 ? (
-                    <Link href="../pointHistory">
+                    <Link href="../notificationPortal">
                       <button className="p-2 ml-2 rounded-lg focus:outline-none">
                         <NotificationsNoneIcon color="action" />
                       </button>
