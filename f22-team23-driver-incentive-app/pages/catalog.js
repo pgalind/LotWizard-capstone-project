@@ -92,6 +92,15 @@ export default function Catalog() {
       <Layout title="Catalog">
         <div className="flex justify-between items-center">
           <a className="catalog-title">Add to Sponsor Catalog</a>
+          <div>
+            <input
+              type="text"
+              id="simple-search"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-m rounded-lg focus:outline-none block w-full pl-4 py-2"
+              placeholder="Search"
+              required=""
+            ></input>
+          </div>
           <button
             className="p-2 hover:text-white bg-gray-200 rounded-2xl hover:bg-gray-400"
             onClick={() => setView('driver')}
