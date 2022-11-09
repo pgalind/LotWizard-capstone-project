@@ -16,6 +16,7 @@ export default function Layout({ title, children }) {
   const router = useRouter();
   const [error, setError] = useState('');
   const [notificationCount, setNotificationCount] = useState(0);
+  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     axios
@@ -39,6 +40,9 @@ export default function Layout({ title, children }) {
         setError('Could not retrieve point history for user');
         console.log(error);
       });
+  
+    // check cart
+    setCartCount(user.cart.length);
   }, []);
 
   // ADDED BY KALEB
@@ -123,11 +127,20 @@ export default function Layout({ title, children }) {
                     </Link>
                   )}
                   { //Cart business!
+                    cartCount == 0 ? (
                     <Link href="../shoppingCart">
                       <button className="p-2 ml-2 rounded-lg focus:outline-none">
                         <ShoppingCartIcon color="action" />
                       </button>
                     </Link>
+                    ) : (
+                      <Link href="../shoppingCart">
+                      <button className="p-2 ml-2 rounded-lg focus:outline-none">
+                        <ShoppingCartIcon color="primary" />
+                        {cartCount}
+                      </button>
+                    </Link>
+                    )
                   }
                   <Link href="../userPreferences">
                     <a className="p-2 ml-2 hover:text-blue-600">{user.name}</a>
