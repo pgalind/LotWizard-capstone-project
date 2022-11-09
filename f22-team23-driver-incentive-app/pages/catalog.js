@@ -103,7 +103,7 @@ import SearchIcon from '@mui/icons-material/Search';
           />
 
 */
-export default function Catalog() {
+export default function Catalog(sponsorID) {
   // for every catalog item, create an EbayItem component passing the itemID
   //const { data: session } = useSession();
   const [itemIDs, setItemIDs] = useState([]);
@@ -276,15 +276,27 @@ export default function Catalog() {
           </button>
         </div>
         <div className="grid gap-4 grid-cols-1  md:grid-cols-6 lg:grid-cols-6">
-          {searchIDs.map((ID, index) => (
-            <EbayItem
-              token={token}
-              itemID={ID}
-              newToken={newToken}
-              view={view}
-              key={ID}
-            />
-          ))}
+          {searchIDs.map((ID, index) =>
+            itemIDs.includes(ID) ? (
+              <EbayItem
+                token={token}
+                itemID={ID}
+                newToken={newToken}
+                view={view}
+                key={ID}
+                inCatalog={true}
+              />
+            ) : (
+              <EbayItem
+                token={token}
+                itemID={ID}
+                newToken={newToken}
+                view={view}
+                key={ID}
+                inCatalog={false}
+              />
+            )
+          )}
         </div>
       </Layout>
     );

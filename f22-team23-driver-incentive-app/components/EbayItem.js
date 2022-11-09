@@ -9,14 +9,12 @@ import Cookie from 'js-cookie';
 // This variable inconsistently increments when it's declared inside EbayItem() for some reason
 var imageIndex = 0;
 
-// If token=? in <EbayItem token=? />, we can get token value here by calling prop.token
-// I have no idea why react.js is set up to where we get the property of a passed in value
-// instead of the passed in value itself
 export default function EbayItem(prop) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [post, setPost] = useState({});
   const [image, setImage] = useState('');
+  const [inCatalog, setInCatalog] = useState(prop.inCatalog);
 
   function changePicture(dir) {
     if ('additionalImages' in post) {
@@ -131,10 +129,19 @@ export default function EbayItem(prop) {
           >
             Add to cart
           </button>
+        ) : inCatalog ? (
+          <button
+            className="primary-button text-white bg-red-500 mt-4 py-2 px-4 rounded-lg hover:bg-red-700"
+            type="button"
+            onClick={() => setInCatalog(false)}
+          >
+            Remove from catalog
+          </button>
         ) : (
           <button
-            className="primary-button bg-slate-200 mt-4 py-2 px-4 rounded-lg hover:text-white hover:bg-blue-400"
+            className="primary-button text-white bg-green-500 mt-4 py-2 px-4 rounded-lg hover:bg-green-700"
             type="button"
+            onClick={() => setInCatalog(true)}
           >
             Add to catalog
           </button>
