@@ -121,7 +121,7 @@ export default function Catalog() {
   //#console.log(location.sponsorID);
 
   function newToken(forceReload) {
-    axios.post('/api/token', {}).then((response) => {
+    axios.post('/api/getToken', {}).then((response) => {
       setToken('Bearer ' + response.data.access_token);
       Cookie.set('token', 'Bearer ' + response.data.access_token);
       console.log('Got new token:');
@@ -197,7 +197,7 @@ export default function Catalog() {
       setToken(Cookie.get('token'));
     }
     axios
-      .post('/api/querySponsorItems', {
+      .get('/api/querySponsorItems', {
         sponsorID: 1,
       })
       .then((response) => {
