@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useHistory } from 'react';
 import user from '../services/user';
 import Layout from '../components/Layout';
 import ItemsGrid from '../components/ItemsGrid';
@@ -66,11 +66,11 @@ export default function Home() {
         </Layout>
       );
     } else if (user.role == 'Admin') {
-        return (
-            <Layout title="Home Page">
-                <AdminHomePageComponent />
-            </Layout>
-        )
+      return (
+        <Layout title="Home Page">
+          <AdminHomePageComponent />
+        </Layout>
+      );
     }
   } else
     return (

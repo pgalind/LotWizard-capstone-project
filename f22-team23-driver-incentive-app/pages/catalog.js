@@ -103,17 +103,22 @@ import SearchIcon from '@mui/icons-material/Search';
           />
 
 */
-export default function Catalog(sponsorID) {
+export default function Catalog() {
   // for every catalog item, create an EbayItem component passing the itemID
   //const { data: session } = useSession();
   const [itemIDs, setItemIDs] = useState([]);
   const [searchIDs, setSearchIDs] = useState([]);
   const [token, setToken] = useState('');
   const [view, setView] = useState('driver');
-  const [searchInput, setSearchInput] = useState('');
   const [init, setInit] = useState(false);
 
-  console.log('page loaded');
+  const [limit, setLimit] = useState(20);
+  const [keyword, setKeyword] = useState('');
+
+  const [sponsorID, setSponsorID] = useState(1);
+
+  //console.log('other');
+  //#console.log(location.sponsorID);
 
   function newToken(forceReload) {
     axios.post('/api/token', {}).then((response) => {
@@ -127,17 +132,31 @@ export default function Catalog(sponsorID) {
     }
   }
 
+  function editCatalog(event, ID) {
+    if (event == 'add') {
+    } else if (event == 'remove') {
+    }
+  }
+
+  function changeLimit(event) {
+    setLimit(event.target.value);
+    // Fake event to imitate react's own event handling for onClick
+    // Instead of getting a new keyword for value, we just pass the value
+    // we already had stored in keyword
+    const object = { target: { value: keyword } };
+    searchCatalog(object);
+  }
+
   function searchCatalog(event) {
+    setKeyword(event.target.value);
     const timer = setTimeout(() => {
-      const keyword = event.target.value;
-      const limit = 20;
-      console.log(keyword);
-      if (keyword.length >= 1) {
+      const input = event.target.value;
+      if (input.length >= 1) {
         axios({
           method: 'get',
           url:
             `https://api.ebay.com/buy/browse/v1/item_summary/search?q=` +
-            keyword +
+            input +
             `&limit=` +
             limit,
           headers: {
@@ -255,6 +274,7 @@ export default function Catalog(sponsorID) {
                 id="simple-search"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-m rounded-l-lg focus:outline-none block w-full pl-4 py-2"
                 placeholder="Search for products"
+                value={keyword}
                 onChange={searchCatalog}
                 required=""
               ></input>
@@ -267,6 +287,31 @@ export default function Catalog(sponsorID) {
               <span className="sr-only">Search</span>
             </button>
           </form>
+
+          <span>
+            <input
+              id="minmax-range"
+              type="range"
+              min="0"
+              max="40"
+              value={limit}
+              class="w-72 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+              onChange={changeLimit}
+            ></input>
+            <div className="text-xs">
+              Dislaying {limit} results at a time (scroll to change)
+              <b>
+                {searchIDs.length > limit ? (
+                  <b></b>
+                ) : (
+                  <b className="font-normal underline decoration-pink-500">
+                    {' '}
+                    *Only {searchIDs.length} items found
+                  </b>
+                )}
+              </b>
+            </div>
+          </span>
 
           <button
             className="py-2 px-4 hover:text-white bg-gray-200 rounded-lg hover:bg-slate-400"
@@ -285,6 +330,7 @@ export default function Catalog(sponsorID) {
                 view={view}
                 key={ID}
                 inCatalog={true}
+                editCatalog={editCatalog}
               />
             ) : (
               <EbayItem
@@ -294,6 +340,7 @@ export default function Catalog(sponsorID) {
                 view={view}
                 key={ID}
                 inCatalog={false}
+                editCatalog={editCatalog}
               />
             )
           )}

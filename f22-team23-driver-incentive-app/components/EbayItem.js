@@ -30,13 +30,9 @@ export default function EbayItem(prop) {
       }
 
       setImage(pictures[imageIndex].imageUrl);
-
-      console.log(pictures[imageIndex].imageUrl);
-      console.log(pictures);
-      console.log(imageIndex);
-      console.log('Next picture');
     }
   }
+
   useEffect(() => {
     axios({
       method: 'get',
@@ -133,7 +129,10 @@ export default function EbayItem(prop) {
           <button
             className="primary-button text-white bg-red-500 mt-4 py-2 px-4 rounded-lg hover:bg-red-700"
             type="button"
-            onClick={() => setInCatalog(false)}
+            onClick={() => {
+              setInCatalog(false);
+              prop.setEditCatalog('false', prop.itemID);
+            }}
           >
             Remove from catalog
           </button>
@@ -141,7 +140,10 @@ export default function EbayItem(prop) {
           <button
             className="primary-button text-white bg-green-500 mt-4 py-2 px-4 rounded-lg hover:bg-green-700"
             type="button"
-            onClick={() => setInCatalog(true)}
+            onClick={() => {
+              setInCatalog(true);
+              prop.setEditCatalog('add', prop.itemID);
+            }}
           >
             Add to catalog
           </button>
