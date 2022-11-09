@@ -197,7 +197,7 @@ export default function Catalog() {
       setToken(Cookie.get('token'));
     }
     axios
-      .get('/api/querySponsorItems', {
+      .post('/api/querySponsorItems', {
         sponsorID: 1,
       })
       .then((response) => {
