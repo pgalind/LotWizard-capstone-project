@@ -8,6 +8,7 @@ import user from '../services/user';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Button } from '@mui/material';
 
 // Anything inside {} is a dynamic property.
@@ -140,6 +141,13 @@ export default function Layout({ title, children }) {
                       </button>
                     </Link>
                   )}
+                  { //Cart business!
+                    <Link href="../shoppingCart">
+                      <button className="p-2 ml-2 rounded-lg focus:outline-none">
+                        <ShoppingCartIcon color="action" />
+                      </button>
+                    </Link>
+                  }
                   <Link href="../userPreferences">
                     <a className="p-2 ml-2 hover:text-blue-600">{user.name}</a>
                   </Link>
