@@ -11,7 +11,7 @@ export default function AdminHomePageComponent() {
         <ItemsLink href="/profileData">Edit Your Profile</ItemsLink>
         <ItemsLink href="/createUser">New User</ItemsLink>
         <ItemsLink href="/createSponsor">New Sponsor Company</ItemsLink>
-        <ItemsLink href="/">Edit a User's Profile</ItemsLink>
+        <ItemsLink href="/editUser">Edit a User's Profile</ItemsLink>
       </ItemsGrid>
     </>
   );

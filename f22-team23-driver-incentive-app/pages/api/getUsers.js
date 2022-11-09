@@ -4,10 +4,10 @@ export default async (req, res) => {
   try {
     console.log('req nom', req.body);
     const result = await excuteQuery({
-      query: 'SELECT * FROM `Users`',
+      query: 'SELECT UserName FROM `Users`',
       values: [],
     });
-    console.log('ttt', result);
+    res.send(result);
   } catch (error) {
     console.log(error);
   }
