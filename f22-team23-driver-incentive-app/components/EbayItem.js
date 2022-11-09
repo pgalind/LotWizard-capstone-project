@@ -19,30 +19,30 @@ export default function EbayItem(prop) {
   const [image, setImage] = useState('');
 
   function changePicture(dir) {
-    // 👇️ refers to the div element
-    //console.log(event.currentTarget);
-    const imageUrl = [post.image];
-    const pictures = imageUrl.concat(post.additionalImages);
+    if ('additionalImages' in post) {
+      const imageUrl = [post.image];
+      var pictures = imageUrl.concat(post.additionalImages);
 
-    if (dir == 'right' && imageIndex < pictures.length) {
-      imageIndex++;
-      console.log('right');
-    } else if (dir == 'left' && imageIndex > 0) {
-      console.log('left');
-      imageIndex--;
+      if (dir == 'right' && imageIndex < pictures.length - 1) {
+        imageIndex++;
+        console.log('right');
+      } else if (dir == 'left' && imageIndex > 0) {
+        console.log('left');
+        imageIndex--;
+      }
+
+      setImage(pictures[imageIndex].imageUrl);
+
+      console.log(pictures[imageIndex].imageUrl);
+      console.log(pictures);
+      console.log(imageIndex);
+      console.log('Next picture');
     }
-
-    setImage(pictures[imageIndex].imageUrl);
-
-    console.log(pictures[imageIndex].imageUrl);
-    console.log(pictures);
-    console.log(imageIndex);
-    console.log('Next picture');
   }
   useEffect(() => {
     axios({
       method: 'get',
-      url: `https://api.ebay.com/buy/browse/v1/item/v1|` + prop.itemID + `|0`,
+      url: `https://api.ebay.com/buy/browse/v1/item/` + prop.itemID,
       headers: {
         Authorization: prop.token,
         'Content-Type': 'application/json',
