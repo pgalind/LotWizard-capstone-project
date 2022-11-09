@@ -42,7 +42,7 @@ export default function EbayItem(prop) {
   useEffect(() => {
     axios({
       method: 'get',
-      url: `https://api.ebay.com/buy/browse/v1/item/v1|` + prop.itemID.split("|")[1] + `|0`,
+      url: `https://api.ebay.com/buy/browse/v1/item/` + prop.itemID,
       headers: {
         Authorization: prop.token,
         'Content-Type': 'application/json',
