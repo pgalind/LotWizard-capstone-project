@@ -23,8 +23,8 @@ export default function CreateSponsorComponent() {
         //each object has a FirstName key with a string name
         console.log(response);
         userNames.push(
-            <option value="" label="select a username">
-                Select a role{" "}
+            <option key="" value="" label="select a username">
+                {""}
             </option>
         )
         for (var index=0; index < response.data.length; index++){
@@ -54,7 +54,8 @@ export default function CreateSponsorComponent() {
       <ExitButton />
       <Formik
         initialValues={{
-            
+            name: '',
+            user: ''
         }}
         //onSubmit={handler function to add values to db}
         // this is for testing purposes --> form values are displayed in a popup alert
@@ -91,7 +92,8 @@ export default function CreateSponsorComponent() {
                     <select
                         className="py-1 px-2 bg-slate-100 rounded-md"
                         name="user"
-                        value={values.role}
+                        type="user"
+                        value={values.user}
                         onChange={handleChange}
                         onBlur={handleBlur}
                     >
