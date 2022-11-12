@@ -45,6 +45,7 @@ export default function userProfile() {
       <ExitButton />
 
       <h1 className="font-bold text-xl mb-6">{user.name}'s Shopping Cart</h1>
+      <p>You have {user.cart.length} items in the cart.</p>
 
     </div>
   );

@@ -5,104 +5,6 @@ import axios from 'axios';
 import Cookie from 'js-cookie';
 import SearchIcon from '@mui/icons-material/Search';
 
-/*
-<EbayItem
-            token={token}
-            itemID={itemIDs[0]}
-            newToken={newToken}
-            refresh={true}
-            view={view}
-          />
-          <EbayItem
-            token={token}
-            itemID={itemIDs[1]}
-            newToken={newToken}
-            view={view}
-          />
-          <EbayItem
-            token={token}
-            itemID={itemIDs[2]}
-            newToken={newToken}
-            view={view}
-          />
-          <EbayItem
-            token={token}
-            itemID={itemIDs[3]}
-            newToken={newToken}
-            view={view}
-          />
-          <EbayItem
-            token={token}
-            itemID={itemIDs[4]}
-            newToken={newToken}
-            view={view}
-          />
-          <EbayItem
-            token={token}
-            itemID={itemIDs[5]}
-            newToken={newToken}
-            view={view}
-          />
-          <EbayItem
-            token={token}
-            itemID={itemIDs[3]}
-            newToken={newToken}
-            view={view}
-          />
-          <EbayItem
-            token={token}
-            itemID={itemIDs[4]}
-            newToken={newToken}
-            view={view}
-          />
-          <EbayItem
-            token={token}
-            itemID={itemIDs[5]}
-            newToken={newToken}
-            view={view}
-          />
-*/
-
-/*
-<EbayItem
-            token={token}
-            itemID={itemIDs[0]}
-            newToken={newToken}
-            refresh={true}
-            view={view}
-          />
-          <EbayItem
-            token={token}
-            itemID={itemIDs[1]}
-            newToken={newToken}
-            view={view}
-          />
-          <EbayItem
-            token={token}
-            itemID={itemIDs[2]}
-            newToken={newToken}
-            view={view}
-          />
-          <EbayItem
-            token={token}
-            itemID={itemIDs[3]}
-            newToken={newToken}
-            view={view}
-          />
-          <EbayItem
-            token={token}
-            itemID={itemIDs[4]}
-            newToken={newToken}
-            view={view}
-          />
-          <EbayItem
-            token={token}
-            itemID={itemIDs[5]}
-            newToken={newToken}
-            view={view}
-          />
-
-*/
 export default function Catalog() {
   // for every catalog item, create an EbayItem component passing the itemID
   //const { data: session } = useSession();
@@ -112,6 +14,8 @@ export default function Catalog() {
   const [view, setView] = useState('driver');
   const [searchInput, setSearchInput] = useState('');
   const [init, setInit] = useState(false);
+
+
 
   console.log('page loaded');
 
