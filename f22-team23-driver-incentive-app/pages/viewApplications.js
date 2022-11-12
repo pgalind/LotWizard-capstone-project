@@ -1,4 +1,4 @@
-// This page will be viewed by a driver when they are choosing a sponsor to apply to
+// This page will be viewed by a sponsor when they are viewing a drivers applications
 
 import React, { useState, useEffect } from 'react';
 import user from '../services/user';

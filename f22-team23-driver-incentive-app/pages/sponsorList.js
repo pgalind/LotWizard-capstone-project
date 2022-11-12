@@ -40,13 +40,6 @@ export default function userProfile() {
     };
   });
 
-  /*const options = [
-    { value: 'developer', label: 'Software Developer' },
-    { value: 'chef', label: 'Chef' },
-    { value: 'enginner', label: 'Enginner' },
-    { value: 'painter', label: 'Painter' }
-  
-  ]*/
 
   const formik = useFormik({
     initialValues: {
