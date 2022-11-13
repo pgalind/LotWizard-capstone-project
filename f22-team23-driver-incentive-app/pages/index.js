@@ -9,6 +9,7 @@ import AdminHomePageComponent from '../components/AdminHomePageComponent';
 import axios from 'axios';
 
 export default function Home() {
+  const [active, setActive] = useState(true);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [points, setPoints] = useState(0);
@@ -37,6 +38,7 @@ export default function Home() {
     axios
       .post('/api/getSponsorList')
       .then((response) => {
+        console.log('sponsors reponse: ' + response.data);
         setLoading(false);
         setSponsors(response.data);
         setError('');
@@ -66,11 +68,11 @@ export default function Home() {
         </Layout>
       );
     } else if (user.role == 'Admin') {
-        return (
-            <Layout title="Home Page">
-                <AdminHomePageComponent />
-            </Layout>
-        )
+      return (
+        <Layout title="Home Page">
+          <AdminHomePageComponent />
+        </Layout>
+      );
     }
   } else
     return (

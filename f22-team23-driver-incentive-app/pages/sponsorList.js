@@ -44,8 +44,7 @@ export default function userProfile() {
     { value: 'developer', label: 'Software Developer' },
     { value: 'chef', label: 'Chef' },
     { value: 'enginner', label: 'Enginner' },
-    { value: 'painter', label: 'Painter' }
-  
+    { value: 'painter', label: 'Painter' } 
   ]*/
 
   const formik = useFormik({
@@ -82,10 +81,13 @@ export default function userProfile() {
         onSubmit={formik.handleSubmit}
       >
         <FormSection>
-          <Select 
-            options={options} 
-            onChange={value=>formik.setFieldValue('sponsorToApply',value.label)}
-            value={formik.values.sponsorToApply}/>
+          <Select
+            options={options}
+            onChange={(value) =>
+              formik.setFieldValue('sponsorToApply', value.label)
+            }
+            value={formik.values.sponsorToApply}
+          />
         </FormSection>
 
         <FormSection>

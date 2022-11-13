@@ -6,7 +6,7 @@ export default async (req, res) => {
     console.log(req.body);
 
     //interpolate the variables into the query
-    let queryString = `SELECT Password FROM Users WHERE UserName=\'${req.body.userName}\'`;
+    let queryString = `SELECT Password FROM Users WHERE UserName=\'${req.body.userName}\' AND NOT AccountStatus=\"disabled\"`;
     console.log('Full query string : ' + queryString);
 
     let result = await excuteQuery({

@@ -5,11 +5,10 @@ import user from '../services/user';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import ExitButton from '../components/ExitButton';
-import 'reactjs-popup/dist/index.css';
+//import 'reactjs-popup/dist/index.css';
 import FormSection from '../components/FormSection';
 import Select from 'react-select';
 import Popup from 'reactjs-popup';
-import SubmitButton from '../components/SubmitButton';
 
 export default function userProfile() {
   const [loading, setLoading] = useState(true);
@@ -24,13 +23,10 @@ export default function userProfile() {
       .then((response) => {
         setOpenApplications(response.data);
         setError('');
-        axios
-          .post('/api/getPastApplicationList', data)
-          .then((response) => {
-            setLoading(false);
-            setPastApplications(response.data)
-          })
-        
+        axios.post('/api/getPastApplicationList', data).then((response) => {
+          setLoading(false);
+          setPastApplications(response.data);
+        });
       })
       .catch((error) => {
         setLoading(false);
@@ -43,8 +39,8 @@ export default function userProfile() {
   // Options for sponsor to accept or reject individual applications
   const options = [
     { value: 'accepted', label: 'Accept' },
-    { value: 'rejected', label: 'Reject' }
-  ]
+    { value: 'rejected', label: 'Reject' },
+  ];
 
   const formik = useFormik({
     initialValues: {
@@ -54,7 +50,7 @@ export default function userProfile() {
       console.log('Decision: ' + values.decision);
       let data = {
         sponsor: user.name,
-        decision: values.decision
+        decision: values.decision,
       };
       /*axios.post('/api/sendDriverApplication', data).then((res) => {
         actions.setSubmitting(false);
@@ -63,13 +59,12 @@ export default function userProfile() {
   });
 
   function submitDecision(id, decision) {
-    console.log(id + " : " + decision)
-    let data = { id : id,
-                  decision : decision };
-    axios.post('/api/decideApplication', data)
-          .then((response) => console.log(response));
+    console.log(id + ' : ' + decision);
+    let data = { id: id, decision: decision };
+    axios
+      .post('/api/decideApplication', data)
+      .then((response) => console.log(response));
   }
-
 
   if (loading) {
     return <div>Loading . . .</div>;
@@ -98,16 +93,25 @@ export default function userProfile() {
               <td>{val['DriverID']}</td>
               <td>{val['Application_Reason']}</td>
               <td>
-              <FormSection name={key}>
-                <Select 
-                    options={options} 
-                    onChange={value=>formik.setFieldValue('decision',value.label)}
-                />
-               </FormSection>
-                </td>
-              <td><button className="p-2 hover:text-blue-600" 
-                                  onClick={() => submitDecision(val['id'], formik.values.decision)}>
-                                  Submit</button></td>
+                <FormSection name={key}>
+                  <Select
+                    options={options}
+                    onChange={(value) =>
+                      formik.setFieldValue('decision', value.label)
+                    }
+                  />
+                </FormSection>
+              </td>
+              <td>
+                <button
+                  className="p-2 hover:text-blue-600"
+                  onClick={() =>
+                    submitDecision(val['id'], formik.values.decision)
+                  }
+                >
+                  Submit
+                </button>
+              </td>
             </tr>
           );
         })}
@@ -130,8 +134,7 @@ export default function userProfile() {
             </tr>
           );
         })}
-       </table>
-
+      </table>
     </div>
   );
 }

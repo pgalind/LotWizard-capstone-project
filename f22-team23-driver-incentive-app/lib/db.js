@@ -11,6 +11,7 @@ const db = mysql({
     password: 'L3tsAceThis5h1t',
   },
 });
+
 export default async function excuteQuery({ query, values }) {
   try {
     const results = await db.query(query, values);

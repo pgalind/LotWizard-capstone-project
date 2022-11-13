@@ -54,11 +54,14 @@ export default function Layout({ title, children }) {
   };
 
   const logOutOnClick = () => {
+    user.userID = 0;
     user.name = null;
     user.role = null;
     user.points = 0;
+    user.status = 'LoggedOut';
     user.totalPointChanges = 0;
     user.applyingTo = null;
+    user.reportToPrint = null;
     setTimeout(() => {
       router.push('/');
     }, 1000);

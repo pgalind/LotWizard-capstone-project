@@ -1,8 +1,9 @@
 // This is the actual registration form
 // Needs to have Formik installed --  npm install formik --save
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik } from 'formik';
 import FormSection from '../components/FormSection';
+import ProfileField from '../components/ProfileField';
 import FormInput from '../components/FormInput';
 import FormLink from '../components/FormLink';
 import SubmitButton from '../components/SubmitButton';
@@ -13,7 +14,6 @@ import useAuth from '../hooks/useAuth';
 export default function Register() {
   const { registerSchema } = useValidationSchema();
   const { register } = useAuth();
-
   return (
     <div className="p-10">
       <ExitButton />
@@ -45,8 +45,8 @@ export default function Register() {
           >
             <h1 className="font-bold text-2xl mb-6">Welcome to LotWizard!</h1>
             <FormSection>
-              <FormInput
-                label="First name"
+              <ProfileField
+                label="First name:"
                 type="text"
                 name="firstName"
                 onChange={handleChange}
@@ -57,8 +57,8 @@ export default function Register() {
             </FormSection>
 
             <FormSection>
-              <FormInput
-                label="Last name"
+              <ProfileField
+                label="Last name:"
                 type="text"
                 name="lastName"
                 onChange={handleChange}
@@ -69,8 +69,8 @@ export default function Register() {
             </FormSection>
 
             <FormSection>
-              <FormInput
-                label="Username"
+              <ProfileField
+                label="Username:"
                 type="text"
                 name="username"
                 onChange={handleChange}
@@ -81,8 +81,8 @@ export default function Register() {
             </FormSection>
 
             <FormSection>
-              <FormInput
-                label="Password"
+              <ProfileField
+                label="Password:"
                 type="password"
                 name="password"
                 onChange={handleChange}
@@ -93,8 +93,8 @@ export default function Register() {
             </FormSection>
 
             <FormSection>
-              <FormInput
-                label="Confirm password"
+              <ProfileField
+                label="Confirm password:"
                 type="password"
                 name="confirm_password"
                 onChange={handleChange}
