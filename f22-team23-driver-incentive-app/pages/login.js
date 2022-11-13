@@ -2,7 +2,7 @@
 import React from 'react';
 import { Formik } from 'formik';
 import FormSection from '../components/FormSection';
-import FormInput from '../components/FormInput';
+import FormInput from '../components/ProfileField';
 import FormLink from '../components/FormLink';
 import SubmitButton from '../components/SubmitButton';
 import ExitButton from '../components/ExitButton';
@@ -42,7 +42,7 @@ export default function Login() {
             <h1 className="font-bold text-2xl mb-6 text-center">Sign in</h1>
             <FormSection>
               <FormInput
-                label="Username"
+                label="Username:"
                 type="text"
                 name="username"
                 onChange={handleChange}
@@ -54,7 +54,7 @@ export default function Login() {
 
             <FormSection>
               <FormInput
-                label="Password"
+                label="Password:"
                 type="password"
                 name="password"
                 onChange={handleChange}

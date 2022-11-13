@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Formik } from 'formik';
 import FormSection from '../components/FormSection';
-import ProfileField from '../components/ProfileField';
+import FormInput from '../components/ProfileField';
 import FormLink from '../components/FormLink';
 import SubmitButton from '../components/SubmitButton';
 import ExitButton from '../components/ExitButton';
@@ -44,7 +44,7 @@ export default function Register() {
           >
             <h1 className="font-bold text-2xl mb-6">Welcome to LotWizard!</h1>
             <FormSection>
-              <ProfileField
+              <FormInput
                 label="First name:"
                 type="text"
                 name="firstName"
@@ -56,7 +56,7 @@ export default function Register() {
             </FormSection>
 
             <FormSection>
-              <ProfileField
+              <FormInput
                 label="Last name:"
                 type="text"
                 name="lastName"
@@ -68,7 +68,7 @@ export default function Register() {
             </FormSection>
 
             <FormSection>
-              <ProfileField
+              <FormInput
                 label="Username:"
                 type="text"
                 name="username"
@@ -80,7 +80,7 @@ export default function Register() {
             </FormSection>
 
             <FormSection>
-              <ProfileField
+              <FormInput
                 label="Password:"
                 type="password"
                 name="password"
@@ -92,7 +92,7 @@ export default function Register() {
             </FormSection>
 
             <FormSection>
-              <ProfileField
+              <FormInput
                 label="Confirm password:"
                 type="password"
                 name="confirm_password"
