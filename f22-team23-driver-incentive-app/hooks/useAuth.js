@@ -60,9 +60,6 @@ export default function useAuth() {
       })
       .catch((error) => {
         console.log(error);
-      })
-      .finally(() => {
-        // clear form
       });
   };
 

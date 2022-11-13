@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Formik } from 'formik';
 import FormSection from '../components/FormSection';
 import ProfileField from '../components/ProfileField';
-import FormInput from '../components/FormInput';
 import FormLink from '../components/FormLink';
 import SubmitButton from '../components/SubmitButton';
 import ExitButton from '../components/ExitButton';
