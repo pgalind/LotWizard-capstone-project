@@ -6,7 +6,6 @@ import Cookie from 'js-cookie';
 import SearchIcon from '@mui/icons-material/Search';
 
 export default function Catalog() {
-  // for every catalog item, create an EbayItem component passing the itemID
   //const { data: session } = useSession();
   const [itemIDs, setItemIDs] = useState([]);
   const [searchIDs, setSearchIDs] = useState([]);
@@ -15,16 +14,17 @@ export default function Catalog() {
   const [isSearching, setIsSearching] = useState(false);
   const [init, setInit] = useState(false);
 
-  const [limit, setLimit] = useState(20);
+  const [limit, setLimit] = useState(10);
   const [keyword, setKeyword] = useState('');
 
   const [sponsorID, setSponsorID] = useState(1);
 
+  // ACTION: OLD TOKEN IS INVALID
   function newToken(forceReload) {
     axios.post('/api/getToken', {}).then((response) => {
       setToken('Bearer ' + response.data.access_token);
       Cookie.set('token', 'Bearer ' + response.data.access_token);
-      console.log('Grabbed new token for auth:');
+      console.log('Grabbed new token for Auth:');
       console.log('Bearer ' + response.data.access_token);
     });
     if (forceReload == true) {
@@ -32,6 +32,7 @@ export default function Catalog() {
     }
   }
 
+  // ACTION: CHILD COMPONENT EBAY ITEM 'ADD TO CATALOG' OR 'REMOVE FROM CATALOG' BUTTON CLICKED
   function editCatalog(event, itemID) {
     if (event == 'add') {
       axios
@@ -66,15 +67,26 @@ export default function Catalog() {
     }
   }
 
-  // Fake event to imitate react's own event handling for onClick
-  // Instead of getting a new keyword for value, we just pass the value
-  // we already had stored in keyword
+  // ACTION: LIMIT SEARCH RESULTS SLIDER MOVED
   function changeLimit(event) {
     setLimit(event.target.value);
+
+    // Object being passed into searchCatalog call is a fake
+    // event used to imitate react's own event handling for onClick,
+    // Instead of getting a new keyword for value, we just pass
+    // the value we already had stored in keyword
     const object = { target: { value: keyword } };
     searchCatalog(object);
   }
 
+  // ACTION: SEARCH ICON NEXT TO SEARCH BOX CLICKED
+  function clickSearchIcon(event) {
+    event.preventDefault();
+    const object = { target: { value: keyword } };
+    searchCatalog(object);
+  }
+
+  // ACTION: TEXT ENTERED INTO SEARCH BOX
   function searchCatalog(event) {
     setKeyword(event.target.value);
     setIsSearching(true);
@@ -99,13 +111,14 @@ export default function Catalog() {
           .then((response) => {
             var IDs = [];
             var items = response.data.itemSummaries;
+            //console.log(response);
             for (var i = 0; i < items.length; i++) {
               IDs[i] = items[i].itemId;
             }
             setSearchIDs(IDs);
-            console.log(response);
-            console.log('searchbar');
-            console.log(IDs);
+            //console.log(response);
+            //console.log('searchbar');
+            //console.log(IDs);
           })
           .catch((error) => {
             console.log(error);
@@ -115,6 +128,7 @@ export default function Catalog() {
     return () => clearTimeout(timer);
   }
 
+  // ACTION: ITEMIDS LIST IS OUT OF DATE
   async function getSponsorItems() {
     axios
       .post('/api/querySponsorItems', {
@@ -124,27 +138,28 @@ export default function Catalog() {
         var IDs = [];
         for (var i = 0; i < response.data.length; i++) {
           IDs[i] = response.data[i]['ItemID'];
-          console.log(response.data[i]);
+          //console.log(response.data[i]);
         }
         setItemIDs(IDs);
-        console.log(IDs);
         setInit(true);
+        console.log('ItemIDs pulled for Sponsor from Database: ');
+        console.log(IDs);
+        return IDs;
       });
   }
 
+  // ACTION: PAGE REFRESHED
   useEffect(() => {
     if (typeof Cookie.get('token') == 'undefined') {
       newToken(false);
     } else {
-      console.log('Used old token for auth');
+      console.log('Used old token for Auth');
       setToken(Cookie.get('token'));
     }
     getSponsorItems();
   }, []);
 
-  console.log('itemIDs');
-  console.log(itemIDs);
-
+  // for each catalog item, create an EbayItem component passing in the itemID
   if ((token == '' || !itemIDs.length) && init == false) {
     return (
       <Layout title="Catalog">
@@ -200,7 +215,7 @@ export default function Catalog() {
               className="py-2 px-4 hover:text-white bg-gray-200 rounded-lg hover:bg-slate-400"
               onClick={() => setIsSearching(false)}
             >
-              Show currently added items
+              Show items currently in Sponsor's Catalog
             </button>
           ) : (
             <a className="catalog-title">Sponsor's Catalog</a>
@@ -221,6 +236,7 @@ export default function Catalog() {
             <button
               type="submit"
               className="p-2 text-white bg-slate-200 rounded-r-lg hover:bg-blue-400 focus:outline-none"
+              onClick={clickSearchIcon}
             >
               <SearchIcon color="action" />
               <span className="sr-only">Search</span>
@@ -240,13 +256,13 @@ export default function Catalog() {
             <div className="text-xs">
               Dislaying {limit} results at a time (scroll to change)
               <b>
-                {searchIDs.length > limit ? (
-                  <b></b>
-                ) : (
+                {searchIDs.length <= limit && isSearching ? (
                   <b className="font-normal underline decoration-pink-500">
                     {' '}
                     *Only {searchIDs.length} items found
                   </b>
+                ) : (
+                  <b></b>
                 )}
               </b>
             </div>
@@ -304,7 +320,3 @@ export default function Catalog() {
     );
   }
 }
-
-//<EbayItem token={token} itemID={itemIDs[3]} />
-//<EbayItem token={token} itemID={itemIDs[4]} />
-//<EbayItem token={token} itemID={itemIDs[5]} />
