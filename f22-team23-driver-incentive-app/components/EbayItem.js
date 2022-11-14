@@ -22,9 +22,9 @@ export default function EbayItem(prop) {
 
       if (dir == 'right' && imageIndex < pictures.length - 1) {
         imageIndex++;
-        console.log('right');
+        console.log('Navigate picture right');
       } else if (dir == 'left' && imageIndex > 0) {
-        console.log('left');
+        console.log('Navigate picture left');
         imageIndex--;
       }
 
@@ -45,12 +45,12 @@ export default function EbayItem(prop) {
       },
     })
       .then((res) => {
-        console.log(res);
         setLoading(false);
         setPost(res.data);
         setImage(res.data.image.imageUrl);
-        console.log(res.data.title);
-        console.log(res.data.price.value);
+        //console.log(res);
+        //console.log(res.data.title);
+        //console.log(res.data.price.value);
       })
       .catch((error) => {
         setLoading(true);
