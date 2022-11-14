@@ -28,7 +28,7 @@ export default function Catalog() {
       console.log('Bearer ' + response.data.access_token);
     });
     if (forceReload == true) {
-      window.location.reload(false);
+      window.location.reload(true);
     }
   }
 
