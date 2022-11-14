@@ -1,15 +1,21 @@
-import excuteQuery from '../../../lib/db';
+import excuteQuery from '../../lib/db';
 
 export default async (req, res) => {
   try {
     //interpolate the variables into the query
-    let queryString = `SELECT * FROM SponsorA`;
-    console.log('Full query string : ' + queryString);
+    let queryString =
+      'SELECT * FROM catalogs' +
+      " WHERE (`SponsorID` = '" +
+      req.body.sponsorID +
+      "')";
+    console.log('Database executed: ' + queryString);
 
     let result = await excuteQuery({
       query: queryString,
       values: [req.body],
     });
+
+    console.log(result);
 
     res.send(result);
   } catch (error) {

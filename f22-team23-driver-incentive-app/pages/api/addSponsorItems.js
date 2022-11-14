@@ -1,14 +1,15 @@
-import excuteQuery from '../../../lib/db';
+import excuteQuery from '../../lib/db';
 
 export default async (req, res) => {
   try {
     //interpolate the variables into the query
     let queryString =
-      'SELECT * FROM catalogs' +
-      " WHERE (`SponsorID` = '" +
+      "INSERT INTO `catalogs` (`SponsorID`, `ItemID`) VALUES ('" +
       req.body.sponsorID +
+      "', '" +
+      req.body.itemID +
       "')";
-    console.log('Ran the following query into the database: ' + queryString);
+    console.log('Database executed: ' + queryString);
 
     let result = await excuteQuery({
       query: queryString,

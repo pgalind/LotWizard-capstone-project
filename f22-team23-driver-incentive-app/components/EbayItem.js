@@ -9,9 +9,6 @@ import Cookie from 'js-cookie';
 // This variable inconsistently increments when it's declared inside EbayItem() for some reason
 var imageIndex = 0;
 
-// If token=? in <EbayItem token=? />, we can get token value here by calling prop.token
-// I have no idea why react.js is set up to where we get the property of a passed in value
-// instead of the passed in value itself
 export default function EbayItem(prop) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -25,20 +22,16 @@ export default function EbayItem(prop) {
 
       if (dir == 'right' && imageIndex < pictures.length - 1) {
         imageIndex++;
-        console.log('right');
+        console.log('Navigate picture right');
       } else if (dir == 'left' && imageIndex > 0) {
-        console.log('left');
+        console.log('Navigate picture left');
         imageIndex--;
       }
 
       setImage(pictures[imageIndex].imageUrl);
-
-      console.log(pictures[imageIndex].imageUrl);
-      console.log(pictures);
-      console.log(imageIndex);
-      console.log('Next picture');
     }
   }
+
   useEffect(() => {
     axios({
       method: 'get',
@@ -52,12 +45,12 @@ export default function EbayItem(prop) {
       },
     })
       .then((res) => {
-        console.log(res);
         setLoading(false);
         setPost(res.data);
         setImage(res.data.image.imageUrl);
-        console.log(res.data.title);
-        console.log(res.data.price.value);
+        //console.log(res);
+        //console.log(res.data.title);
+        //console.log(res.data.price.value);
       })
       .catch((error) => {
         setLoading(true);
@@ -68,7 +61,7 @@ export default function EbayItem(prop) {
           // If unauthorized, remove cookie so catalog.js can automatically request a new token
           console.log('Invalid cookie cleared');
           console.log('catalog.newToken() called from EbayItem.js');
-          prop.newToken();
+          prop.newToken(true);
         }
       });
   }, []);
@@ -131,10 +124,23 @@ export default function EbayItem(prop) {
           >
             Add to cart
           </button>
+        ) : prop.inCatalog ? (
+          <button
+            className="primary-button text-white bg-red-500 mt-4 py-2 px-4 rounded-lg hover:bg-red-700"
+            type="button"
+            onClick={() => {
+              prop.editCatalog('remove', prop.itemID);
+            }}
+          >
+            Remove from catalog
+          </button>
         ) : (
           <button
-            className="primary-button bg-slate-200 mt-4 py-2 px-4 rounded-lg hover:text-white hover:bg-blue-400"
+            className="primary-button text-white bg-green-500 mt-4 py-2 px-4 rounded-lg hover:bg-green-700"
             type="button"
+            onClick={() => {
+              prop.editCatalog('add', prop.itemID);
+            }}
           >
             Add to catalog
           </button>
