@@ -33,11 +33,6 @@ export default function Catalog() {
     });
   }
 
-  function testing() {
-    Cookie.set('token', 'Bearer this doesnt work');
-    console.log('cookie sabotaged');
-  }
-
   // ACTION: CHILD COMPONENT EBAY ITEM 'ADD TO CATALOG' OR 'REMOVE FROM CATALOG' BUTTON CLICKED
   function editCatalog(event, itemID) {
     if (event == 'add') {
