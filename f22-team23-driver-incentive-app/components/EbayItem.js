@@ -14,7 +14,6 @@ export default function EbayItem(prop) {
   const [error, setError] = useState('');
   const [post, setPost] = useState({});
   const [image, setImage] = useState('');
-  const [inCatalog, setInCatalog] = useState(prop.inCatalog);
 
   function changePicture(dir) {
     if ('additionalImages' in post) {
@@ -125,13 +124,12 @@ export default function EbayItem(prop) {
           >
             Add to cart
           </button>
-        ) : inCatalog ? (
+        ) : prop.inCatalog ? (
           <button
             className="primary-button text-white bg-red-500 mt-4 py-2 px-4 rounded-lg hover:bg-red-700"
             type="button"
             onClick={() => {
-              setInCatalog(false);
-              prop.setEditCatalog('false', prop.itemID);
+              prop.editCatalog('remove', prop.itemID);
             }}
           >
             Remove from catalog
@@ -141,8 +139,7 @@ export default function EbayItem(prop) {
             className="primary-button text-white bg-green-500 mt-4 py-2 px-4 rounded-lg hover:bg-green-700"
             type="button"
             onClick={() => {
-              setInCatalog(true);
-              prop.setEditCatalog('add', prop.itemID);
+              prop.editCatalog('add', prop.itemID);
             }}
           >
             Add to catalog

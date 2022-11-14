@@ -4,9 +4,10 @@ export default async (req, res) => {
   try {
     //interpolate the variables into the query
     let queryString =
-      'SELECT * FROM catalogs' +
-      " WHERE (`SponsorID` = '" +
+      "INSERT INTO `catalogs` (`SponsorID`, `ItemID`) VALUES ('" +
       req.body.sponsorID +
+      "', '" +
+      req.body.itemID +
       "')";
     console.log('Database executed: ' + queryString);
 
