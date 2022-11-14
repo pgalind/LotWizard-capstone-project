@@ -26,10 +26,16 @@ export default function Catalog() {
       Cookie.set('token', 'Bearer ' + response.data.access_token);
       console.log('Grabbed new token for Auth:');
       console.log('Bearer ' + response.data.access_token);
+      if (forceReload == true) {
+        console.log('Force reload attempted to resolve outdated cookie');
+        window.location.reload();
+      }
     });
-    if (forceReload == true) {
-      window.location.reload(true);
-    }
+  }
+
+  function testing() {
+    Cookie.set('token', 'Bearer this doesnt work');
+    console.log('cookie sabotaged');
   }
 
   // ACTION: CHILD COMPONENT EBAY ITEM 'ADD TO CATALOG' OR 'REMOVE FROM CATALOG' BUTTON CLICKED

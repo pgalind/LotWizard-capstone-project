@@ -61,7 +61,7 @@ export default function EbayItem(prop) {
           // If unauthorized, remove cookie so catalog.js can automatically request a new token
           console.log('Invalid cookie cleared');
           console.log('catalog.newToken() called from EbayItem.js');
-          prop.newToken();
+          prop.newToken(true);
         }
       });
   }, []);
