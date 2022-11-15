@@ -5,7 +5,7 @@ export default function UpdateProfileData(values) {
   console.log(values.firstName);
 
   axios
-    .post('/api/updateUserData', {
+    .post('../pages/api/updateUserData', {
       firstName: values.firstName,
       currentUser: user.name,
     })

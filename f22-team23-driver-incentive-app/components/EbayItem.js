@@ -4,7 +4,9 @@ import Link from 'next/link';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Button } from '@mui/material';
+import Layout from '../components/Layout';
 import Cookie from 'js-cookie';
+import user from '../services/user';
 
 // This variable inconsistently increments when it's declared inside EbayItem() for some reason
 var imageIndex = 0;
@@ -32,6 +34,16 @@ export default function EbayItem(prop) {
     }
   }
 
+
+
+  // Adds the current item to the cart
+  // Added by Kaleb
+  function addToCartClicked() {
+    console.log("CLICKED");
+    user.cart.push(prop.itemID);
+    console.log(user.cart);
+    return(<Layout></Layout>);
+  }
   useEffect(() => {
     axios({
       method: 'get',
@@ -121,6 +133,7 @@ export default function EbayItem(prop) {
           <button
             className="primary-button bg-slate-200 mt-4 py-2 px-4 rounded-lg hover:text-white hover:bg-blue-400"
             type="button"
+            onClick={() => addToCartClicked()}
           >
             Add to cart
           </button>
