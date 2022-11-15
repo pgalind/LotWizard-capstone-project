@@ -26,7 +26,7 @@ export default function userProfile() {
     },
     onSubmit: (values, actions) => {
       //alert(JSON.stringify(values, null, 2)); // TODO: axios post to send application to sponsor
-      console.log('Cart Data: ' + values.cartData);
+      console.log('Cart Data: ' + values.cartData.toString);
       console.log('length: ' + values.cartData.length)
       let data = {
         driver: user.name,
@@ -59,8 +59,8 @@ export default function userProfile() {
                 <FormInput
                   type="number"
                   name="qty"
-                  onChange={formik.handleChange}
-                  value={formik.values.cartData.push(item)}
+                  onChange={console.log(index)}
+                  value={formik.values.cartData[index]}
                 />
               </FormSection>
               </td>
