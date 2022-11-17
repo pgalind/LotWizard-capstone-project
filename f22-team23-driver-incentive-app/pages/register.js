@@ -47,24 +47,27 @@ export default function Register() {
             errors.password = 'Required';
           }
           if (
-            !/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/i.test(
+            !/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-+]).{8,}$/i.test(
               values.password
             ) &&
             values.password
           ) {
-            errors.password = 'Invalid password';
+            errors.password = `Invalid password. Must be 8 characters long and include: upper case [A-Z], lower case [a-z], digit [0-9] and special character [#?!@$%^&*-]`;
           }
           if (!values.confirm_password) {
             errors.confirm_password = 'Required';
           }
-          if (values.password != values.confirm_password) {
+          if (
+            values.password != values.confirm_password &&
+            values.confirm_password
+          ) {
             errors.confirm_password = 'Passwords do not match';
           }
           return errors;
         }}
         onSubmit={register}
-        validateOnChange={true}
-        validateOnBlur={false}
+        validateOnChange={false}
+        validateOnBlur={true}
         validateOnMount={false}
       >
         {({
