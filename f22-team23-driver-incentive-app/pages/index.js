@@ -16,21 +16,25 @@ export default function Home() {
   const [sponsors, setSponsors] = useState([]);
 
   useEffect(() => {
-    axios
-      .post('/api/queryUserPoints', {
-        userName: user.name,
-      })
-      .then((response) => {
-        setLoading(false);
-        setPoints(response.data[0]['Points']);
-        setRole(response.data[0]['Role']);
-        user.points = response.data[0]['Points'];
-        user.role = response.data[0]['Role'];
-      })
-      .catch((err) => {
-        setError('Could not retrieve points for user');
-        console.log(error);
-      });
+    if (user.name !== '') {
+      axios
+        .post('/api/queryUserPoints', {
+          userName: user.name,
+        })
+        .then((response) => {
+          setLoading(false);
+          setPoints(response.data[0]['Points']);
+          setRole(response.data[0]['Role']);
+          user.points = response.data[0]['Points'];
+          user.role = response.data[0]['Role'];
+          setError('');
+          console.log('check: no error retrieving user points');
+        })
+        .catch((err) => {
+          setError('Could not retrieve points for user');
+          console.log(error);
+        });
+    }
   }, [user.name]);
 
   useEffect(() => {
@@ -40,6 +44,7 @@ export default function Home() {
         setLoading(false);
         setSponsors(response.data);
         setError('');
+        console.log('check: no error retrieving sponsor list');
       })
       .catch((err) => {
         setError('Could not retrieve Sponsor List');

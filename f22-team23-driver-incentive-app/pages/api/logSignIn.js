@@ -1,4 +1,4 @@
-import excuteQuery from '../../lib/db';
+import { excuteQuery } from '../../lib/db';
 
 export default async (req, res) => {
   try {
@@ -7,6 +7,7 @@ export default async (req, res) => {
       query: 'INSERT INTO Log_SignIn(value) VALUES(?)',
       values: [req.body.content],
     });
+    res.end(JSON.stringify(result));
     console.log('ttt', result);
   } catch (error) {
     console.log(error);

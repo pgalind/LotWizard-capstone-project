@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import user from '../services/user';
 import { Formik } from 'formik';
 import FormSection from '../components/FormSection';
 import ProfileField from '../components/ProfileField';
@@ -9,12 +7,12 @@ import newUser from '../hooks/newUser';
 import ExitButton from './ExitButton';
 
 export default function CreateUserComponent() {
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
-    const [post, setPost] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [post, setPost] = useState({});
 
   useEffect(() => {
-    setLoading(false)
+    setLoading(false);
   });
 
   if (loading) {
@@ -26,20 +24,56 @@ export default function CreateUserComponent() {
       <ExitButton />
       <Formik
         initialValues={{
-            email:'',
-            username: '',
-            role: '',
-            password: '',
-            passwordrepeat: ''
+          email: '',
+          username: '',
+          role: '',
+          password: '',
+          passwordrepeat: '',
+        }}
+        validate={(values) => {
+          const errors = {};
+          if (!values.firstName) {
+            errors.email = 'Required';
+          }
+          if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+            errors.email = 'Invalid email address';
+          }
+          if (!values.username) {
+            errors.username = 'Required';
+          }
+          if (!values.password) {
+            errors.password = 'Required';
+          }
+          if (
+            !/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/i.test(
+              values.password
+            )
+          ) {
+            errors.password = 'Invalid password';
+          }
+          if (!values.passwordrepeat) {
+            errors.confirm_password = 'Required';
+          }
+          if (values.password != values.passwordrepeat) {
+            errors.confirm_password = 'Passwords do not match';
+          }
+          return errors;
         }}
         //onSubmit={handler function to add values to db}
         // this is for testing purposes --> form values are displayed in a popup alert
         onSubmit={newUser}
-        validateOnMount={false}
         validateOnChange={false}
-        validateOnBlur={false}
+        //validateOnBlur={false}
+        validateOnMount={false}
       >
-        {({ isSaving, values, handleBlur, handleSubmit, handleChange }) => (
+        {({
+          isSaving,
+          errors,
+          values,
+          handleBlur,
+          handleSubmit,
+          handleChange,
+        }) => (
           <form
             className="flex flex-col items-center w-[300px] min-w-full"
             onSubmit={handleSubmit}
@@ -49,42 +83,44 @@ export default function CreateUserComponent() {
             </h1>
 
             <FormSection>
-                <div className="flex mr-4 pb-2">
-                    <span className="block m-2">
-                        <label htmlFor="Role">Role:</label>
-                    </span>
+              <div className="flex mr-4 pb-2">
+                <span className="block m-2">
+                  <label htmlFor="Role">Role:</label>
+                </span>
 
-                    <select
-                        className="py-1 px-2 bg-slate-100 rounded-md"
-                        name="role"
-                        value={values.role}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                    >
-                        <option value="" label="select a role">
-                            Select a role{" "}
-                        </option>
-                        <option value="Driver" label="Driver">
-                            Driver
-                        </option>
-                        <option value="Sponsor" label="Sponsor">
-                            Sponsor
-                        </option>
-                        <option value="Admin" label="Admin">
-                            Admin
-                        </option>
-                    </select>
-                </div>
+                <select
+                  className="py-1 px-2 bg-slate-100 rounded-md"
+                  name="role"
+                  value={values.role}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                >
+                  <option value="" label="select a role">
+                    Select a role{' '}
+                  </option>
+                  <option value="Driver" label="Driver">
+                    Driver
+                  </option>
+                  <option value="Sponsor" label="Sponsor">
+                    Sponsor
+                  </option>
+                  <option value="Admin" label="Admin">
+                    Admin
+                  </option>
+                </select>
+              </div>
             </FormSection>
 
             <FormSection>
-            <ProfileField
+              <ProfileField
                 label="Email:"
                 type="email"
                 name="email"
                 onChange={handleChange}
                 onBlur={handleBlur}
-            />
+                value={values?.email}
+                error={errors?.email}
+              />
             </FormSection>
 
             <FormSection>
@@ -94,6 +130,8 @@ export default function CreateUserComponent() {
                 name="username"
                 onChange={handleChange}
                 onBlur={handleBlur}
+                value={values?.username}
+                error={errors?.username}
               />
             </FormSection>
 
@@ -104,6 +142,8 @@ export default function CreateUserComponent() {
                 name="password"
                 onChange={handleChange}
                 onBlur={handleBlur}
+                value={values?.password}
+                error={errors?.password}
               />
             </FormSection>
 
@@ -114,6 +154,8 @@ export default function CreateUserComponent() {
                 name="passwordrepeat"
                 onChange={handleChange}
                 onBlur={handleBlur}
+                value={values?.passwordrepeat}
+                error={errors?.passwordrepeat}
               />
             </FormSection>
 

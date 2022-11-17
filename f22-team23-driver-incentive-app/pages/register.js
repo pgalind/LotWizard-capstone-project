@@ -1,18 +1,25 @@
 // This is the actual registration form
 // Needs to have Formik installed --  npm install formik --save
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import FormSection from '../components/FormSection';
-import FormInput from '../components/FormInput';
+import ProfileField from '../components/ProfileField';
 import FormLink from '../components/FormLink';
 import SubmitButton from '../components/SubmitButton';
 import ExitButton from '../components/ExitButton';
-import useValidationSchema from '../hooks/useValidationSchema';
 import useAuth from '../hooks/useAuth';
 
 export default function Register() {
-  const { registerSchema } = useValidationSchema();
+  const [loading, setLoading] = useState(true);
   const { register } = useAuth();
+
+  useEffect(() => {
+    setLoading(false);
+  });
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="p-10">
@@ -25,11 +32,40 @@ export default function Register() {
           password: '',
           confirm_password: '',
         }}
-        validationSchema={registerSchema}
+        validate={(values) => {
+          const errors = {};
+          if (!values.firstName) {
+            errors.firstName = 'Required';
+          }
+          if (!values.lastName) {
+            errors.lastName = 'Required';
+          }
+          if (!values.username) {
+            errors.username = 'Required';
+          }
+          if (!values.password) {
+            errors.password = 'Required';
+          }
+          if (
+            !/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/i.test(
+              values.password
+            ) &&
+            values.password
+          ) {
+            errors.password = 'Invalid password';
+          }
+          if (!values.confirm_password) {
+            errors.confirm_password = 'Required';
+          }
+          if (values.password != values.confirm_password) {
+            errors.confirm_password = 'Passwords do not match';
+          }
+          return errors;
+        }}
         onSubmit={register}
-        validateOnMount={false}
-        validateOnChange={false}
+        validateOnChange={true}
         validateOnBlur={false}
+        validateOnMount={false}
       >
         {({
           isSubmitting,
@@ -40,13 +76,13 @@ export default function Register() {
           handleBlur,
         }) => (
           <form
-            className="flex flex-col items-center w-[300px] min-w-full"
+            className="flex flex-col items-center min-w-full"
             onSubmit={handleSubmit}
           >
             <h1 className="font-bold text-2xl mb-6">Welcome to LotWizard!</h1>
             <FormSection>
-              <FormInput
-                label="First name"
+              <ProfileField
+                label="First name:"
                 type="text"
                 name="firstName"
                 onChange={handleChange}
@@ -57,8 +93,8 @@ export default function Register() {
             </FormSection>
 
             <FormSection>
-              <FormInput
-                label="Last name"
+              <ProfileField
+                label="Last name:"
                 type="text"
                 name="lastName"
                 onChange={handleChange}
@@ -69,8 +105,8 @@ export default function Register() {
             </FormSection>
 
             <FormSection>
-              <FormInput
-                label="Username"
+              <ProfileField
+                label="Username:"
                 type="text"
                 name="username"
                 onChange={handleChange}
@@ -81,8 +117,8 @@ export default function Register() {
             </FormSection>
 
             <FormSection>
-              <FormInput
-                label="Password"
+              <ProfileField
+                label="Password:"
                 type="password"
                 name="password"
                 onChange={handleChange}
@@ -93,8 +129,8 @@ export default function Register() {
             </FormSection>
 
             <FormSection>
-              <FormInput
-                label="Confirm password"
+              <ProfileField
+                label="Confirm password:"
                 type="password"
                 name="confirm_password"
                 onChange={handleChange}

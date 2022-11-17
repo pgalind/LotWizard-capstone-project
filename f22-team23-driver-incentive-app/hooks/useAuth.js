@@ -1,10 +1,12 @@
 import axios from 'axios';
 import user from '../services/user';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 export default function useAuth() {
   const router = useRouter();
 
+  useEffect;
   const populateUserData = () => {
     // Get User Total Point Changes
     axios
@@ -32,9 +34,9 @@ export default function useAuth() {
         userName: values.username,
       })
       .then((res) => {
-        console.log('res: ' + res);
-        console.log('data: ' + res.data);
-        if (res.data === 0) {
+        let numUsers = res.data;
+        console.log('numUsers: ' + numUsers);
+        if (numUsers == 0) {
           setTimeout(() => {
             alert('Username not found!');
             actions.setSubmitting(false);
@@ -60,32 +62,27 @@ export default function useAuth() {
       })
       .catch((error) => {
         console.log(error);
-      })
-      .finally(() => {
-        // clear form
       });
   };
 
   const register = (values, actions) => {
+    console.log('Inside useAuth register');
     axios
       .post('/api/doesUserExist', {
         userName: values.username,
       })
       .then((res) => {
-        console.log('res: ' + res);
-        console.log('data: ' + res.data);
+        let numUsers = res.data;
+        console.log('numUsers: ' + numUsers);
         //this means no one exists with this username - register the account
-        if (res.data === 0) {
+        if (numUsers == 0) {
           //call logNewUser with the registration data to log it into the User table in DB
           axios
             .post('/api/logNewUser', {
-              firstName: values.firstName,
-              lastName: values.lastName,
-              userName: values.username,
-              password: values.password,
+              values: values,
             })
             .then((res) => {
-              console.log(res);
+              console.log('res from logNewuser: ' + res);
               // if confirmation is successful, redirect to login page
               setTimeout(() => {
                 router.push('/login');
@@ -107,9 +104,6 @@ export default function useAuth() {
       })
       .catch((error) => {
         console.log('DoesUserExist error: ' + error);
-      })
-      .finally(() => {
-        // clear form
       });
   };
 

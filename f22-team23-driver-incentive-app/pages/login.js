@@ -1,17 +1,24 @@
 // This is the actual log in form, using Formik
-import React from 'react';
-import { Formik } from 'formik';
+import React, { useState, useEffect } from 'react';
+import { Formik, Form, Field } from 'formik';
 import FormSection from '../components/FormSection';
-import FormInput from '../components/FormInput';
+import ProfileField from '../components/ProfileField';
 import FormLink from '../components/FormLink';
 import SubmitButton from '../components/SubmitButton';
 import ExitButton from '../components/ExitButton';
-import useValidationSchema from '../hooks/useValidationSchema';
 import useAuth from '../hooks/useAuth';
 
 export default function Login() {
-  const { loginSchema } = useValidationSchema();
+  const [loading, setLoading] = useState(true);
   const { login } = useAuth();
+
+  useEffect(() => {
+    setLoading(false);
+  });
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="p-10">
@@ -21,11 +28,20 @@ export default function Login() {
           username: '',
           password: '',
         }}
-        validationSchema={loginSchema}
+        validate={(values) => {
+          const errors = {};
+          if (!values.username) {
+            errors.username = 'Required';
+          }
+          if (!values.password) {
+            errors.password = 'Required';
+          }
+          return errors;
+        }}
         onSubmit={login}
-        validateOnMount={false}
-        validateOnChange={false}
+        validateOnChange={true}
         validateOnBlur={false}
+        validateOnMount={false}
       >
         {({
           isSubmitting,
@@ -35,14 +51,14 @@ export default function Login() {
           handleBlur,
           handleSubmit,
         }) => (
-          <form
-            className="flex flex-col items-center w-[300px] min-w-full"
+          <Form
+            className="flex flex-col items-center min-w-full"
             onSubmit={handleSubmit}
           >
             <h1 className="font-bold text-2xl mb-6 text-center">Sign in</h1>
             <FormSection>
-              <FormInput
-                label="Username"
+              <ProfileField
+                label="Username:"
                 type="text"
                 name="username"
                 onChange={handleChange}
@@ -53,8 +69,8 @@ export default function Login() {
             </FormSection>
 
             <FormSection>
-              <FormInput
-                label="Password"
+              <ProfileField
+                label="Password:"
                 type="password"
                 name="password"
                 onChange={handleChange}
@@ -71,7 +87,7 @@ export default function Login() {
             </FormSection>
 
             <SubmitButton isSubmitting={isSubmitting} />
-          </form>
+          </Form>
         )}
       </Formik>
     </div>

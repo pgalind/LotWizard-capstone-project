@@ -1,4 +1,4 @@
-import excuteQuery from '../../lib/db';
+import { excuteQuery } from '../../lib/db';
 
 export default async (req, res) => {
   try {
@@ -7,7 +7,8 @@ export default async (req, res) => {
       query: 'INSERT INTO log_navigation(pageNavigated, UserID) VALUES(?, ?)',
       values: [req.body.page, req.body.userID],
     });
-    console.log('ttt', result);
+    res.end(JSON.stringify(result));
+    console.log('res', res);
   } catch (error) {
     console.log(error);
   }

@@ -16,11 +16,8 @@ export default async (req, res) => {
 
     //turns SQL result set into readable JSON and gets number of items in the JSON array
     let numResults = Object.keys(result).length;
-
-    //console.log("resssss : " + resultSetJSON)
-    //console.log(numResults)
-
     res.send(numResults);
+    res.end(JSON.stringify(result));
   } catch (error) {
     console.log(error);
   }
