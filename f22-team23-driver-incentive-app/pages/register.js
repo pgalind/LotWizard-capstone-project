@@ -66,7 +66,7 @@ export default function Register() {
           return errors;
         }}
         onSubmit={register}
-        validateOnChange={false}
+        validateOnChange={true}
         validateOnBlur={true}
         validateOnMount={false}
       >

@@ -9,11 +9,11 @@ import newSponsor from '../hooks/newSponsor';
 import ExitButton from './ExitButton';
 
 export default function CreateSponsorComponent() {
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
-    const [post, setPost] = useState({});
-    const [options, setOptions] = useState();
-    const userNames = []
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [post, setPost] = useState({});
+  const [options, setOptions] = useState();
+  const userNames = [];
 
   useEffect(() => {
     axios
@@ -23,19 +23,19 @@ export default function CreateSponsorComponent() {
         //each object has a FirstName key with a string name
         console.log(response);
         userNames.push(
-            <option key="" value="" label="select a username">
-                {""}
+          <option key="" value="" label="select a username">
+            {''}
+          </option>
+        );
+        for (var index = 0; index < response.data.length; index++) {
+          var user = response.data[index].UserName;
+          userNames.push(
+            <option key={user} value={user} label={user}>
+              {user}
             </option>
-        )
-        for (var index=0; index < response.data.length; index++){
-            var user = response.data[index].UserName
-            userNames.push(
-                <option key={user} value={user} label={user}>
-                    {user}
-                </option>
-            )
+          );
         }
-        console.log(options)
+        console.log(options);
         setOptions(userNames);
         setLoading(false);
       })
@@ -54,15 +54,15 @@ export default function CreateSponsorComponent() {
       <ExitButton />
       <Formik
         initialValues={{
-            name: '',
-            user: ''
+          name: '',
+          user: '',
         }}
         //onSubmit={handler function to add values to db}
         // this is for testing purposes --> form values are displayed in a popup alert
         onSubmit={newSponsor}
         validateOnMount={false}
-        validateOnChange={false}
-        validateOnBlur={false}
+        validateOnChange={true}
+        validateOnBlur={true}
       >
         {({ isSaving, values, handleBlur, handleSubmit, handleChange }) => (
           <form
@@ -84,22 +84,22 @@ export default function CreateSponsorComponent() {
             </FormSection>
 
             <FormSection>
-                <div className="flex mr-4 pb-2">
-                    <span className="block m-2">
-                        <label htmlFor="Role">Sponsor Admin:</label>
-                    </span>
+              <div className="flex mr-4 pb-2">
+                <span className="block m-2">
+                  <label htmlFor="Role">Sponsor Admin:</label>
+                </span>
 
-                    <select
-                        className="py-1 px-2 bg-slate-100 rounded-md"
-                        name="user"
-                        type="user"
-                        value={values.user}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                    >
-                        {options}
-                    </select>
-                </div>
+                <select
+                  className="py-1 px-2 bg-slate-100 rounded-md"
+                  name="user"
+                  type="user"
+                  value={values.user}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                >
+                  {options}
+                </select>
+              </div>
             </FormSection>
 
             <SubmitButton isSaving={isSaving} />

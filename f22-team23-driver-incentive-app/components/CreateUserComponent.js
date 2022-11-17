@@ -32,7 +32,7 @@ export default function CreateUserComponent() {
         }}
         validate={(values) => {
           const errors = {};
-          if (!values.firstName) {
+          if (!values.email) {
             errors.email = 'Required';
           }
           if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
@@ -41,29 +41,36 @@ export default function CreateUserComponent() {
           if (!values.username) {
             errors.username = 'Required';
           }
+          if (!values.role) {
+            errors.role = 'Required';
+          }
           if (!values.password) {
             errors.password = 'Required';
           }
           if (
             !/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/i.test(
               values.password
-            )
+            ) &&
+            values.password
           ) {
             errors.password = 'Invalid password';
           }
           if (!values.passwordrepeat) {
-            errors.confirm_password = 'Required';
+            errors.passwordrepeat = 'Required';
           }
-          if (values.password != values.passwordrepeat) {
-            errors.confirm_password = 'Passwords do not match';
+          if (
+            values.password != values.passwordrepeat &&
+            values.passwordrepeat
+          ) {
+            errors.passwordrepeat = 'Passwords do not match';
           }
           return errors;
         }}
         //onSubmit={handler function to add values to db}
         // this is for testing purposes --> form values are displayed in a popup alert
         onSubmit={newUser}
-        validateOnChange={false}
-        //validateOnBlur={false}
+        validateOnChange={true}
+        validateOnBlur={true}
         validateOnMount={false}
       >
         {({
@@ -149,7 +156,7 @@ export default function CreateUserComponent() {
 
             <FormSection>
               <ProfileField
-                label="Repeat Password:"
+                label="Confirm Password:"
                 type="password"
                 name="passwordrepeat"
                 onChange={handleChange}

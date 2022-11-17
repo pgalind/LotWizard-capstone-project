@@ -16,23 +16,19 @@ let checkVals = (values) => {
 }
 */
 export default function newUser(values) {
-  if (checkVals(values)) {
-    console.log(values);
-
-    axios
-      .post('/api/createNewUser', {
-        values: values,
-      })
-      .then((res) => {
-        if (res.data == 'failed') {
-          alert('Failed to create new user. User probably already exists.');
-        } else {
-          console.log('New User Created');
-          alert('New User Created');
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  axios
+    .post('/api/createNewUser', {
+      values: values,
+    })
+    .then((res) => {
+      if (res.data == 'failed') {
+        alert('Failed to create new user. User probably already exists.');
+      } else {
+        console.log('New User Created');
+        alert('New User Created');
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
