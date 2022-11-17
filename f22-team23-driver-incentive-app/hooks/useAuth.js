@@ -1,12 +1,10 @@
 import axios from 'axios';
 import user from '../services/user';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 
 export default function useAuth() {
   const router = useRouter();
 
-  useEffect;
   const populateUserData = () => {
     // Get User Total Point Changes
     axios
