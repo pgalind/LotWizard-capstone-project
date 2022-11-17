@@ -65,12 +65,55 @@ export default function ProfileDataComponent() {
           truckYear: '',
           expYears: `${yearsOfExp}`,
         }}
-        //onSubmit={handler function to add values to db}
-        // this is for testing purposes --> form values are displayed in a popup alert
+        validate={(values) => {
+          const errors = {};
+          if (!values.firstName) {
+            errors.firstName = 'Required';
+          }
+          if (!values.lastName) {
+            errors.lastName = 'Required';
+          }
+          if (!values.email) {
+            errors.email = 'Required';
+          }
+          if (
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email) &&
+            values.email
+          ) {
+            errors.email = 'Invalid email address';
+          }
+          if (!values.username) {
+            errors.username = 'Required';
+          }
+          if (!values.role) {
+            errors.role = 'Required';
+          }
+          if (!values.password) {
+            errors.password = 'Required';
+          }
+          if (
+            !/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/i.test(
+              values.password
+            ) &&
+            values.password
+          ) {
+            errors.password = 'Invalid password';
+          }
+          if (!values.passwordrepeat) {
+            errors.passwordrepeat = 'Required';
+          }
+          if (
+            values.password != values.passwordrepeat &&
+            values.passwordrepeat
+          ) {
+            errors.passwordrepeat = 'Passwords do not match';
+          }
+          return errors;
+        }}
         onSubmit={UpdateProfileData}
         validateOnMount={false}
-        validateOnChange={false}
-        validateOnBlur={false}
+        validateOnChange={true}
+        validateOnBlur={true}
       >
         {({ isSaving, values, handleBlur, handleSubmit, handleChange }) => (
           <form

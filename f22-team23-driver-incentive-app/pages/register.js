@@ -52,7 +52,8 @@ export default function Register() {
             ) &&
             values.password
           ) {
-            errors.password = `Invalid password. Must be 8 characters long and include: upper case [A-Z], lower case [a-z], digit [0-9] and special character [#?!@$%^&*-]`;
+            errors.password =
+              'Invalid password. Must be 8 characters long and include: upper case [A-Z], lower case [a-z], digit [0-9] and special character [#?!@$%^&*-]';
           }
           if (!values.confirm_password) {
             errors.confirm_password = 'Required';

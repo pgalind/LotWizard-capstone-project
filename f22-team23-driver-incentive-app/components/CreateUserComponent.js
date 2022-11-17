@@ -35,7 +35,10 @@ export default function CreateUserComponent() {
           if (!values.email) {
             errors.email = 'Required';
           }
-          if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+          if (
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email) &&
+            values.email
+          ) {
             errors.email = 'Invalid email address';
           }
           if (!values.username) {
