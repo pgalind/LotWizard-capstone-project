@@ -40,7 +40,7 @@ export default function Login() {
         }}
         onSubmit={login}
         validateOnChange={true}
-        validateOnBlur={false}
+        validateOnBlur={true}
         validateOnMount={false}
       >
         {({
