@@ -16,29 +16,6 @@ export default function userProfile() {
   const [sponsors, setSponsors] = useState([]);
   const [isSubmitting, setSubmitting] = useState(false);
 
-  /*useEffect(() => {
-    axios
-      .post('/api/getSponsorList')
-      .then((response) => {
-        console.log(response.data);
-        setLoading(false);
-        setSponsors(response.data);
-        setError('');
-      })
-      .catch((err) => {
-        setLoading(false);
-        setSponsors();
-        setError('Could not retrieve Sponsor List');
-        console.log(error);
-      });
-  }, []);
-
-  const options = sponsors.map((val, key) => {
-    return {
-      value: key,
-      label: val['SponsorCompany'],
-    };
-  }); */
 
   const formik = useFormik({
     initialValues: {
