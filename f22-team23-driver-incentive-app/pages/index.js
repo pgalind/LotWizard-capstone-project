@@ -85,7 +85,7 @@ export default function Home() {
         <ItemsGrid>
           {sponsors.map((val, key) => {
             return (
-              <ItemsLink key={key} href="/catalog">
+              <ItemsLink key={key} href="/catalog" state="Test"> 
                 {val['SponsorCompany']}
               </ItemsLink>
             );

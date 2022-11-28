@@ -1,5 +1,5 @@
-import excuteQuery from '../../../lib/db';
-import user from '../../../services/user';
+import excuteQuery from '../../lib/db';
+import user from '../../services/user';
 
 //updates the DB with new profile information
 export default async (req, res) => {
