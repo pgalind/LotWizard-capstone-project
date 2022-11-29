@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useHistory } from 'react';
+import React, { useState, useEffect } from 'react';
 import user from '../services/user';
 import Layout from '../components/Layout';
 import ItemsGrid from '../components/ItemsGrid';
-import ItemsLink from '../components/ItemsLink';
+import SponsorCatalogLink from '../components/SponsorCatalogLink';
 import SponsorHomePageComponent from '../components/SponsorHomePageComponent';
 import DriverHomePageComponent from '../components/DriverHomePageComponent';
 import AdminHomePageComponent from '../components/AdminHomePageComponent';
@@ -80,9 +80,11 @@ export default function Home() {
         <ItemsGrid>
           {sponsors.map((val, key) => {
             return (
-              <ItemsLink key={key} href="/catalog" state="Test"> 
-                {val['SponsorCompany']}
-              </ItemsLink>
+              <SponsorCatalogLink
+                key={key}
+                ID={val['id']}
+                name={val['SponsorCompany']}
+              />
             );
           })}
         </ItemsGrid>
