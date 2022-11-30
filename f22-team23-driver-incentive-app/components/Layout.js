@@ -42,7 +42,7 @@ export default function Layout({ title, children }) {
       });
   
     // check cart
-    setCartCount(user.cart.length);
+    setCartCount(user.cart.item.length);
   }, []);
 
   // ADDED BY KALEB

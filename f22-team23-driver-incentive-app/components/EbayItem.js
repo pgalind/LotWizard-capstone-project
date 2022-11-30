@@ -40,7 +40,9 @@ export default function EbayItem(prop) {
   // Added by Kaleb
   function addToCartClicked() {
     console.log("CLICKED");
-    user.cart.push(prop.itemID);
+    user.cart.item.push(post.title);
+    user.cart.cost.push(parseFloat(post.price.value))
+    user.cart.id.push(prop.itemID);
     console.log(user.cart);
     return(<Layout></Layout>);
   }
