@@ -6,7 +6,7 @@ import FormSection from '../components/FormSection';
 import ProfileField from '../components/ProfileField';
 import FetchButton from '../components/FetchButton'
 import SubmitButton from '../components/SubmitButton';
-//import editUser from '../hooks/editUser';
+import editUser from '../hooks/adminEditUser';
 import ExitButton from './ExitButton';
 import { Dropdown } from 'react-bootstrap';
 
@@ -24,6 +24,7 @@ export default function EditUserComponent() {
     // Profile values
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
+    const [password, setPassword] = useState();
     const [role, setRole] = useState();
     const [userSponsor, setSponsor] = useState();
 
@@ -55,6 +56,29 @@ export default function EditUserComponent() {
         console.log('Does exist error : ' + error);
         setError('User not found');
       });
+  }, []);
+
+  let getUserProfile = (values) => {
+    axios
+        .post('/api/getUserProfile', {
+            values: values,
+        })
+        .then((response) => {
+            console.log(`\n\n\nUser Profile:`);
+            console.log(response.data[0])
+            setFirstName(response.data[0].FirstName)
+            setLastName(response.data[0].LastName)
+            setUsername(response.data[0].UserName)
+            setPassword(response.data[0].Password)
+            setRole(response.data[0].Role)
+            setSponsor(response.data[0].SponsorCompany)
+            setSelected(true);
+        })
+        .catch((error) => {
+            console.log('Error');
+            setError('Database error');
+        })
+
     
     axios
     .post('/api/getSponsorList', {})
@@ -62,6 +86,11 @@ export default function EditUserComponent() {
       //response.data is an array of objects
       //each object has a FirstName key with a string name
       console.log(response);
+      sponsors.push(
+        <option value="" label="No Sponsor">
+            No Sponsor{" "}
+        </option>
+      )
       for (var index=0; index < response.data.length; index++){
           var sponsor = response.data[index].SponsorCompany
           sponsors.push(
@@ -77,27 +106,6 @@ export default function EditUserComponent() {
       console.log('Does exist error : ' + error);
       setError('User not found');
     });
-  }, []);
-
-  let getUserProfile = (values) => {
-    axios
-        .post('/api/getUserProfile', {
-            values: values,
-        })
-        .then((response) => {
-            console.log(`\n\n\nUser Profile:`);
-            console.log(response.data[0])
-            setUsername(response.data[0].UserName)
-            setFirstName(response.data[0].FirstName)
-            setLastName(response.data[0].LastName)
-            setRole(response.data[0].Role)
-            setSponsor(response.data[0].SponsorCompany)
-            setSelected(true);
-        })
-        .catch((error) => {
-            console.log('Error');
-            setError('Database error');
-        })
   };
 
   if (loading) {
@@ -105,7 +113,7 @@ export default function EditUserComponent() {
   }
 
   if (!usernameSelected && !loading) {
-    page =
+    return(
         <div className="p-10">
         <ExitButton />
         <Formik
@@ -149,7 +157,7 @@ export default function EditUserComponent() {
             )}
         </Formik>
         </div>
-    ;
+    );
   }
 
   if(usernameSelected && !loading){
@@ -158,53 +166,14 @@ export default function EditUserComponent() {
         <ExitButton />
         <Formik
             initialValues={{
-                user: "",
-            }}
-            onSubmit={getUserProfile}
-            validateOnMount={false}
-            validateOnChange={false}
-            validateOnBlur={false}
-            enableReinitialize={true}
-        >
-            {({ isSaving, values, handleBlur, handleSubmit, handleChange }) => (
-            <form
-                className="flex flex-col items-center w-[300px] min-w-full"
-                onSubmit={handleSubmit}
-            >
-                <h1 className="text-center font-bold text-xl mb-6">
-                Edit A User
-                </h1>
-
-                <FormSection>
-                    <div className="flex mr-4 pb-2">
-                        <span className="block m-2">
-                            <label htmlFor="Role">Username:</label>
-                        </span>
-
-                        <select
-                            className="py-1 px-2 bg-slate-100 rounded-md"
-                            name="user"
-                            value={values.user}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                        >
-                        </select>
-                    </div>
-                </FormSection>
-
-                <FetchButton isSaving={isSaving} />
-            </form>
-            )}
-        </Formik>
-        <Formik
-            initialValues={{
-                user: "",
+                user: `${selectedUsername}`,
                 firstName: `${firstName}`,
                 lastName: `${lastName}`,
+                password: `${password}`,
                 role: `${role}`,
                 userSponsor: `${userSponsor}`
             }}
-            onSubmit={getUserProfile}
+            onSubmit={editUser}
             validateOnMount={false}
             validateOnChange={false}
             validateOnBlur={false}
@@ -277,8 +246,8 @@ export default function EditUserComponent() {
 
                         <select
                             className="py-1 px-2 bg-slate-100 rounded-md"
-                            name="user"
-                            value={values.sponsor}
+                            name="userSponsor"
+                            value={values.userSponsor}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             label={userSponsor}
@@ -288,6 +257,18 @@ export default function EditUserComponent() {
                     </div>
                 </FormSection>
 
+                <FormSection>
+                    <ProfileField
+                        label="Password:"
+                        type="password"
+                        name="password"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values?.password}
+                    />
+                </FormSection>
+
+                <SubmitButton isSaving={isSaving} />
             </form>
             )}
         </Formik>
