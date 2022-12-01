@@ -1,8 +1,23 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import { Router, Routes, Route } from 'react-router-dom';
+import { Link, BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Catalog from '../components/Catalog';
-import Link from 'next/link';
+
+const Testing = ({ match, location }) => {
+  console.log('HERE');
+  return (
+    <>
+      <p>
+        <strong>Match Props: </strong>
+        <code>{JSON.stringify(match, null, 2)}</code>
+      </p>
+      <p>
+        <strong>Location Props: </strong>
+        <code>{JSON.stringify(location, null, 2)}</code>
+      </p>
+    </>
+  );
+};
 
 export default function SponsorCatalogLink(prop) {
   const [path, setPath] = useState('/catalog/:' + prop.ID);
@@ -11,15 +26,16 @@ export default function SponsorCatalogLink(prop) {
   return (
     <section className="App">
       <Router>
-        <Link to="/">Home</Link>
-        <Link to="/catalog">About</Link>
-        <Link to="/users">Users</Link>
-        <Route exact path="/" component={Catalog} />
-        <Route exact path="/users" component={Catalog} />
-        <Route exact path="/user/:userId" component={Catalog} />
-        <Route exact path="/about" component={Catalog} />
+        <Link to="/16">
+          <a className="bg-slate-100 p-6 rounded-lg hover:bg-slate-200">
+            {prop.name}
+          </a>
+        </Link>
+        <Routes>
+          <Route exact path="/16" element={<Catalog />} />
+        </Routes>
       </Router>
-      <a href="/about">about with browser reload</a>
+      <a href="/about">with reload</a>
     </section>
     /*<Link href={href}>
       <a className="bg-slate-100 p-6 rounded-lg hover:bg-slate-200">
