@@ -71,13 +71,13 @@ export default function Layout({ title, children }) {
   };
 
   const AlertIconClicked = () => {
-    axios
+    /*axios
       .post('/api/clearAlerts', {
         userName: user.name,
       })
       .then((response) => {
         console.log(response);
-      });
+      });*/
   };
 
   return (
