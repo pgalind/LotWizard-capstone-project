@@ -1,16 +1,17 @@
 import excuteQuery from '../../lib/db'
 
+
+// yes this is a terrible way of doing this, but the trigger was causing locks
 export default async (req, res) => {
 
     try {
-        console.log("about to run the sponsorAlterDriverPoints query")
+        console.log("about to run the sponsorIncrementDriverPoints query")
         console.log(req.body)
 
         //interpolate the variables into the query
 
-        let queryString = `INSERT INTO sys.log_pointchange (SponsorUserID, SponsorID, DriverID, PointChange, Reason) 
-                            SELECT '1', '1', U.UserID, \"${req.body.pointChange}\", \"${req.body.reason}\"
-                            FROM Users U WHERE U.UserName = \"${req.body.driver}\";` 
+        let queryString = `UPDATE Users
+                            SET Points = Points + \"${req.body.pointChange}\" WHERE UserName = \"${req.body.driver}\";` 
         //let queryString = `SELECT * FROM log_pointchange`
         console.log("Full query string : " + queryString)
         console.log("req.body: " + req.body)

@@ -50,6 +50,7 @@ export default function driverReportMenu(){
         };
         console.log(data)
         axios.post('/api/sponsorAlterDriverPoints', data)
+        axios.post('/api/sponsorIncrementDriverPoints', data)
         actions.setSubmitting(false);
         alert("Points successfully altered!")
         router.push('/');
