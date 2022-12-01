@@ -9,6 +9,7 @@ import SubmitButton from '../components/SubmitButton';
 import FormSection from '../components/FormSection';
 import FormInput from '../components/FormInput';
 import ExitButton from '../components/ExitButton';
+import { useRouter } from 'next/router';
 
 export default function userProfile() {
   //const [loading, setLoading] = useState(true);
@@ -16,7 +17,10 @@ export default function userProfile() {
   const [total, setTotal] = useState([]);
   const [isSubmitting, setSubmitting] = useState(false);
 
-  var totalQty = user.cart.cost.reduce((a,b)=>a+b);
+  var totalQty = 0;
+  if (user.cart.cost.length != 0) {
+    totalQty = user.cart.cost.reduce((a,b)=>a+b)
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -28,6 +32,7 @@ export default function userProfile() {
       }
     },
     onSubmit: (values, actions) => {
+      actions.setSubmitting(true);
       // for loop for each item in the cart
       for (let i = 0; i < user.cart.item.length; i++) {
         let data = {
@@ -40,6 +45,11 @@ export default function userProfile() {
         axios.post('/api/driverPurchaseItems', data)
       }
       actions.setSubmitting(false);
+      user.cart.id = [];
+      user.cart.item = [];
+      user.cart.cost = [];
+      alert("Successfully purchased!");
+      router.push('/');
     },
   });
 
