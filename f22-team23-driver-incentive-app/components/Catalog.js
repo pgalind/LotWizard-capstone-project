@@ -5,7 +5,7 @@ import axios from 'axios';
 import Cookie from 'js-cookie';
 import SearchIcon from '@mui/icons-material/Search';
 
-export default function Catalog({ match, location }) {
+export default function Catalog(props) {
   //const { data: session } = useSession();
   const [itemIDs, setItemIDs] = useState([]);
   const [searchIDs, setSearchIDs] = useState([]);
@@ -17,7 +17,7 @@ export default function Catalog({ match, location }) {
   const [limit, setLimit] = useState(10);
   const [keyword, setKeyword] = useState('');
 
-  const [sponsorID, setSponsorID] = useState(1);
+  const [sponsorID, setSponsorID] = useState(props.ID);
 
   // ACTION: OLD TOKEN IS INVALID
   function newToken(forceReload) {
@@ -163,16 +163,16 @@ export default function Catalog({ match, location }) {
   // for each catalog item, create an EbayItem component passing in the itemID
   if ((token == '' || !itemIDs.length) && init == false) {
     return (
-      <Layout title="Catalog">
+      <span>
         <h1 className="text-xl text-black drop-shadow-2xl">
           Connecting to database . . .
         </h1>
         <h2>LOADING</h2>
-      </Layout>
+      </span>
     );
   } else if (view == 'driver') {
     return (
-      <Layout title="Catalog">
+      <span>
         <div className="flex justify-between items-center pb-4">
           <a className="catalog-title">Sponsor's Catalog</a>
 
@@ -205,11 +205,11 @@ export default function Catalog({ match, location }) {
             )
           )}
         </div>
-      </Layout>
+      </span>
     );
   } else {
     return (
-      <Layout title="Catalog">
+      <span>
         <div className="flex justify-between items-center pb-5">
           {isSearching ? (
             <button
@@ -317,7 +317,7 @@ export default function Catalog({ match, location }) {
             )}
           </div>
         )}
-      </Layout>
+      </span>
     );
   }
 }

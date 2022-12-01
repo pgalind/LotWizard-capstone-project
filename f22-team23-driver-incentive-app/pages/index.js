@@ -2,11 +2,19 @@ import React, { useState, useEffect } from 'react';
 import user from '../services/user';
 import Layout from '../components/Layout';
 import ItemsGrid from '../components/ItemsGrid';
-import SponsorCatalogLink from '../components/SponsorCatalogLink';
 import SponsorHomePageComponent from '../components/SponsorHomePageComponent';
 import DriverHomePageComponent from '../components/DriverHomePageComponent';
 import AdminHomePageComponent from '../components/AdminHomePageComponent';
 import axios from 'axios';
+
+import {
+  Link as LinkR,
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from 'react-router-dom';
+import Catalog from '../components/Catalog';
+import Landing from '../components/Landing';
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -75,19 +83,42 @@ export default function Home() {
   } else
     return (
       <Layout title="Home Page">
-        <h1 className="text-lg">Need help choosing a Sponsor company?</h1>
-        <h2>Learn more about them and view their catalogs!</h2>
-        <ItemsGrid>
-          {sponsors.map((val, key) => {
-            return (
-              <SponsorCatalogLink
-                key={key}
-                ID={val['id']}
-                name={val['SponsorCompany']}
-              />
-            );
-          })}
-        </ItemsGrid>
+        <Router>
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <Landing>
+                  <h1 className="text-lg">
+                    Need help choosing a Sponsor company?
+                  </h1>
+                  <h2>Learn more about them and view their catalogs!</h2>
+                  <ItemsGrid>
+                    {sponsors.map((val, key) => {
+                      return (
+                        <LinkR to={`/${val['id']}`}>
+                          <a className="bg-slate-100 p-6 rounded-lg hover:bg-slate-200">
+                            {val['SponsorCompany']}
+                          </a>
+                        </LinkR>
+                      );
+                    })}
+                  </ItemsGrid>
+                </Landing>
+              }
+            />
+            {sponsors.map((val, key) => {
+              return (
+                <Route
+                  exact
+                  path={`/${val['id']}`}
+                  element={<Catalog ID={val['id']} />}
+                />
+              );
+            })}
+          </Routes>
+        </Router>
       </Layout>
     );
 }
