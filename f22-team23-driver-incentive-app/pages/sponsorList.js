@@ -58,6 +58,7 @@ export default function userProfile() {
       axios.post('/api/sendDriverApplication', data).then((res) => {
         actions.setSubmitting(false);
       });
+      alert("Successfully applied to Sponsor " + data.sponsor + "!")
     },
   });
 
@@ -78,7 +79,8 @@ export default function userProfile() {
           <Select 
             options={options} 
             onChange={value=>formik.setFieldValue('sponsorToApply',value.label)}
-            value={formik.values.sponsorToApply}/>
+            value={formik.values.sponsorToApply}
+            label={formik.values.sponsorToApply}/>
         </FormSection>
 
         <FormSection>
