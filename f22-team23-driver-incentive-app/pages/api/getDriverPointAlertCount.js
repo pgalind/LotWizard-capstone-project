@@ -3,14 +3,11 @@ import excuteQuery from '../../lib/db'
 export default async (req, res) => {
 
     try {
-        console.log("about to run the sponsorAlterDriverPoints query")
+        console.log("about to run the getDriverPointHistory query")
         console.log(req.body)
 
         //interpolate the variables into the query
-
-        let queryString = `INSERT INTO sys.log_pointchange (SponsorUserID, SponsorID, DriverID, PointChange, Reason) 
-                            SELECT '1', '1', U.UserID, \"${req.body.pointChange}\", \"${req.body.reason}\"
-                            FROM Users U WHERE U.UserName = \"${req.body.driver}\";` 
+        let queryString = `SELECT COUNT(*) from sys.log_alerts A inner join sys.Users U on A.DriverID = U.UserID where Username = \"${req.body.userName}\" AND A.viewed = 0 AND alert_type = "PointChange"`
         //let queryString = `SELECT * FROM log_pointchange`
         console.log("Full query string : " + queryString)
         console.log("req.body: " + req.body)
@@ -20,10 +17,12 @@ export default async (req, res) => {
            values: [req.body],
        });
       
+
        console.log("Result: " + result.body)
+       console.log("Point Change: " + result[0])
        res.send(result)
+
   } catch ( error ) {
       console.log( error );
   }
-
-}
+  };
