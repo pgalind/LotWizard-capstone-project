@@ -28,17 +28,18 @@ export default function userProfile() {
       }
     },
     onSubmit: (values, actions) => {
-      //alert(JSON.stringify(values, null, 2)); // TODO: axios post to send application to sponsor
-      console.log('Cart Data: ' + values.cartData.toString);
-      console.log('length: ' + values.cartData.length)
-      let data = {
-        driver: user.name,
-        cartData: user.cart
-      };
-      console.log(data)
-      axios.post('/api/sendDriverApplication', data).then((res) => { // temp holder
-        actions.setSubmitting(false);
-      });
+      // for loop for each item in the cart
+      for (let i = 0; i < user.cart.item.length; i++) {
+        let data = {
+          driver: user.name,
+          item: user.cart.item[i],
+          cost: user.cart.cost[i],
+          id: user.cart.id[i]
+        };
+        console.log(data)
+        axios.post('/api/driverPurchaseItems', data)
+      }
+      actions.setSubmitting(false);
     },
   });
 
