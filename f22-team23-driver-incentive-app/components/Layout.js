@@ -12,11 +12,17 @@ import { Button } from '@mui/material';
 
 // Anything inside {} is a dynamic property.
 
-export default function Layout({ title, children }) {
+export default function Layout({ title, children, useNavigate }) {
   const router = useRouter();
   const [error, setError] = useState('');
   const [notificationCount, setNotificationCount] = useState(0);
   const [cartCount, setCartCount] = useState(0);
+
+  // ADDED BY EDWARD
+  if (typeof useNavigate == 'undefined') {
+    useNavigate = function () {};
+  }
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -40,10 +46,14 @@ export default function Layout({ title, children }) {
         setError('Could not retrieve point history for user');
         console.log(error);
       });
-  
+
     // check cart
     setCartCount(user.cart.item.length);
   }, []);
+
+  const navigatetoHomePage = () => {
+    navigate('/');
+  };
 
   // ADDED BY KALEB
   const log_SignInClicked = (event) => {
@@ -90,10 +100,18 @@ export default function Layout({ title, children }) {
       <div className="flex h-screen flex-col">
         <header>
           <nav className="flex h-14 bg-slate-50 justify-between shadow-xl items-center px-8">
-            <Link href="../">
-              <a className="text-lg font-bold">LotWizard</a>
-            </Link>
-
+            {title == 'Catalog' ? (
+              <a
+                className="text-lg font-bold cursor-pointer"
+                onClick={navigatetoHomePage}
+              >
+                LotWizard
+              </a>
+            ) : (
+              <Link href="../">
+                <a className="text-lg font-bold">LotWizard</a>
+              </Link>
+            )}
             <div>
               {!user.name ? (
                 <>
@@ -126,20 +144,21 @@ export default function Layout({ title, children }) {
                       </button>
                     </Link>
                   )}
-                  { //Cart business!
+                  {
+                    //Cart business!
                     cartCount == 0 ? (
-                    <Link href="../shoppingCart">
-                      <button className="p-2 ml-2 rounded-lg focus:outline-none">
-                        <ShoppingCartIcon color="action" />
-                      </button>
-                    </Link>
+                      <Link href="../shoppingCart">
+                        <button className="p-2 ml-2 rounded-lg focus:outline-none">
+                          <ShoppingCartIcon color="action" />
+                        </button>
+                      </Link>
                     ) : (
                       <Link href="../shoppingCart">
-                      <button className="p-2 ml-2 rounded-lg focus:outline-none">
-                        <ShoppingCartIcon color="primary" />
-                        {cartCount}
-                      </button>
-                    </Link>
+                        <button className="p-2 ml-2 rounded-lg focus:outline-none">
+                          <ShoppingCartIcon color="primary" />
+                          {cartCount}
+                        </button>
+                      </Link>
                     )
                   }
                   <Link href="../userPreferences">

@@ -6,7 +6,6 @@ import Cookie from 'js-cookie';
 import SearchIcon from '@mui/icons-material/Search';
 
 export default function Catalog(props) {
-  //const { data: session } = useSession();
   const [itemIDs, setItemIDs] = useState([]);
   const [searchIDs, setSearchIDs] = useState([]);
   const [token, setToken] = useState('');
@@ -18,6 +17,7 @@ export default function Catalog(props) {
   const [keyword, setKeyword] = useState('');
 
   const [sponsorID, setSponsorID] = useState(props.ID);
+  const navigate = props.useNavigate();
 
   // ACTION: OLD TOKEN IS INVALID
   function newToken(forceReload) {
@@ -28,8 +28,8 @@ export default function Catalog(props) {
       console.log('Bearer ' + response.data.access_token);
       if (forceReload == true) {
         console.log('Force reload attempted to resolve outdated cookie');
-        window.location.reload();
       }
+      navigate(-1);
     });
   }
 

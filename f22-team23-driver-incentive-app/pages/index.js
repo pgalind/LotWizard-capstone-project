@@ -12,6 +12,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  useNavigate,
 } from 'react-router-dom';
 import Catalog from '../components/Catalog';
 import Landing from '../components/Landing';
@@ -85,10 +86,12 @@ export default function Home() {
         </Layout>
       );
     }
-  } else
+  }
+  // ROUTER ADDED BY EDWARD
+  else
     return (
-      <Layout title="Home Page">
-        <Router>
+      <Router>
+        <Layout title="Catalog" useNavigate={useNavigate}>
           <Routes>
             <Route
               exact
@@ -118,12 +121,12 @@ export default function Home() {
                 <Route
                   exact
                   path={`/${val['id']}`}
-                  element={<Catalog ID={val['id']} />}
+                  element={<Catalog ID={val['id']} useNavigate={useNavigate} />}
                 />
               );
             })}
           </Routes>
-        </Router>
-      </Layout>
+        </Layout>
+      </Router>
     );
 }

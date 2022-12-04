@@ -172,7 +172,7 @@ export default function Catalog() {
     );
   } else if (view == 'driver') {
     return (
-      <Layout title="Catalog">
+      <Layout title="Old Catalog">
         <div className="flex justify-between items-center pb-4">
           <a className="catalog-title">Sponsor's Catalog</a>
 
@@ -209,7 +209,7 @@ export default function Catalog() {
     );
   } else {
     return (
-      <Layout title="Catalog">
+      <Layout title="Old Catalog">
         <div className="flex justify-between items-center pb-5">
           {isSearching ? (
             <button
