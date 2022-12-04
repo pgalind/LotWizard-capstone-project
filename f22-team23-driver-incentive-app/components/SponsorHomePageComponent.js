@@ -12,6 +12,7 @@ export default function SponsorHomePageComponent() {
         <ItemsLink href="/profileData">Edit Sponsor Info</ItemsLink>
         <ItemsLink href="/viewApplications">View Applications</ItemsLink>
         <ItemsLink href="/sponsorReportHub">View Reports</ItemsLink>
+        <ItemsLink href="/sponsorUpdateDriverPoints">Update Driver Points</ItemsLink>
       </ItemsGrid>
     </>
   );
